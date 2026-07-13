@@ -1,10 +1,45 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --color-brand-50: #ecfeff;
+  --color-brand-100: #cffafe;
+  --color-brand-400: #22d3ee;
+  --color-brand-500: #06b6d4;
+  --color-brand-600: #0891b2;
+  --color-brand-700: #0e7490;
+}
+
+:root {
+  font-family: var(--font-sans);
+  color: #0f172a;
+  background: #fafafa;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 80px;
 }
 
 body {
   margin: 0;
   min-width: 320px;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top right, rgb(207 250 254 / 35%), transparent 28rem),
+    #fafafa;
+}
+
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  color: #0f172a;
+  background: #a5f3fc;
 }
