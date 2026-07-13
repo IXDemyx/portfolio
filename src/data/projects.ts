@@ -15,13 +15,13 @@ const projects: Project[] = [
     github: "https://github.com/...",
   },
 
-  {
-    title: "Mastermind",
-    description:
-      "Das Logik-Brettspiel 'Mastermind' komplett in Python.",
-    technologies: ["Python"],
-    github: "https://github.com/IXDemyx/Mastermind",
-  },
+  // {
+  //   title: "Mastermind",
+  //   description:
+  //     "Das Logik-Brettspiel 'Mastermind' komplett in Python.",
+  //   technologies: ["Python"],
+  //   github: "https://github.com/IXDemyx/Mastermind",
+  // },
 
   {
     title: "Curve-Fever-Klon",

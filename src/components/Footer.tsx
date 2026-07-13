@@ -12,6 +12,15 @@ function Footer() {
 
         <div className="flex gap-5">
           <a
+            href={profile.linkedin}
+            target="_blank"
+            rel="noreferrer"
+            className="transition hover:text-cyan-600"
+          >
+            LinkedIn
+          </a>
+
+          <a
             href={profile.github}
             target="_blank"
             rel="noreferrer"

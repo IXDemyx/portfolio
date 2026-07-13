@@ -1,4 +1,5 @@
 import profile from "../data/profile";
+import Button from "../components/Button";
 
 function Hero() {
   return (
@@ -36,21 +37,17 @@ function Hero() {
           </div>
 
           <div className="flex flex-wrap gap-4">
-            <a
-              href="#projects"
-              className="rounded-lg bg-cyan-500 px-6 py-3 font-semibold text-slate-950 transition hover:bg-cyan-400"
-            >
+            <Button href="#projects">
               Projekte ansehen
-            </a>
+            </Button>
 
-            <a
+            <Button
               href={profile.github}
-              target="_blank"
-              rel="noreferrer"
-              className="rounded-lg border border-slate-300 px-6 py-3 font-semibold text-slate-700 transition hover:border-cyan-500 hover:text-cyan-600"
+              variant="secondary"
+              external
             >
               GitHub
-            </a>
+            </Button>
           </div>
         </div>
       </div>

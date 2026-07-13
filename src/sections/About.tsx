@@ -1,18 +1,14 @@
+import SectionHeading from "../components/SectionHeading";
+
 function About() {
   return (
-    <section
-      id="about"
-      className="px-6 py-20"
-    >
+    <section id="about" className="px-6 py-20">
       <div className="mx-auto max-w-6xl">
-        <div className="max-w-3xl">
-          <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-cyan-500">
-            Über mich
-          </p>
-
-          <h2 className="mb-6 text-3xl font-bold text-slate-950 sm:text-4xl">
-            Softwareentwicklung mit Interesse an modernen Technologien
-          </h2>
+        <div className="max-w-4xl">
+          <SectionHeading
+            subtitle="Über mich"
+            title="Softwareentwicklung mit Interesse an modernen Technologien"
+          />
 
           <div className="space-y-4 text-lg leading-8 text-slate-600">
             <p>

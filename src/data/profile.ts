@@ -8,10 +8,13 @@ const profile = {
     skills: [
         "React",
         "vue.js",
+        "Angular",
         "Python",
         "Java",
+        "C++",
         "Docker",
-        "SQL"
+        "SQL",
+        "Git"
     ],
 
     github: "https://github.com/IXDemyx",
