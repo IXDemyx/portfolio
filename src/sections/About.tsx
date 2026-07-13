@@ -2,7 +2,7 @@ function About() {
   return (
     <section
       id="about"
-      className="scroll-mt-20 px-6 py-16"
+      className="px-6 py-20"
     >
       <div className="mx-auto max-w-6xl">
         <div className="max-w-3xl">

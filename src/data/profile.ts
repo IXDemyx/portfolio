@@ -14,8 +14,8 @@ const profile = {
         "SQL"
     ],
 
-    github: "",
-    linkedin: "",
+    github: "https://github.com/IXDemyx",
+    linkedin: "https://www.linkedin.com/in/daniel-k-7090003b9/",
     email: "kellerdaniel@tutamail.com",
     location: "Deutschland"
 }
