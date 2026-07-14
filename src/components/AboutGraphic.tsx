@@ -8,7 +8,7 @@ function AboutGraphic() {
       <div className="relative">
         <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white p-1.5 shadow-2xl transition duration-300 hover:-translate-y-1 dark:border-slate-700 dark:bg-slate-900">
           <img
-            src="/public/profile.png"
+            src="/profile.png"
             alt="Daniel Keller"
             className="h-60 w-52 rounded-[20px] object-cover"
           />

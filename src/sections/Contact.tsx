@@ -9,8 +9,8 @@ function Contact() {
         <div className="rounded-2xl border border-slate-200 bg-slate-50 px-6 py-12 transition-colors sm:px-10 dark:border-slate-800 dark:bg-slate-900">
           <SectionHeading
             subtitle="Kontakt"
-            title="Lass uns miteinander sprechen"
-            description="Du möchtest dich über ein Projekt, eine mögliche Zusammenarbeit oder eine berufliche Gelegenheit austauschen? Schreib mir gerne eine Nachricht."
+            title="Lass mir gerne eine Nachricht da"
+            description="Du hast Fragen, eine Idee für ein Projekt oder möchtest einfach Kontakt aufnehmen? Schreib mir gerne – ich freue mich darauf, von dir zu hören."
           />
 
           <div className="flex flex-wrap gap-4">

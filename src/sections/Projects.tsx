@@ -8,7 +8,7 @@ function Projects() {
       <div className="mx-auto max-w-6xl">
         <SectionHeading
           subtitle="Projekte"
-          title="Eine Auswahl meiner Arbeiten"
+          title="Eine Auswahl meiner Projekte"
           description="Hier findest du einige Projekte, an denen ich gearbeitet habe."
         />
 
