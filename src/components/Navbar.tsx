@@ -1,21 +1,51 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaMoon, FaSun } from "react-icons/fa";
 import { useTheme } from "../hooks/useTheme";
 
 function Navbar() {
-  const [menuOpen, setMenuOpen] = useState(false);
+
+  const [activeSection, setActiveSection] = useState("home");
   const { theme, toggleTheme } = useTheme();
 
   const links = [
-    { label: "Home", href: "#home" },
-    { label: "Über mich", href: "#about" },
-    { label: "Skills", href: "#skills" },
-    { label: "Projekte", href: "#projects" },
-    { label: "Kontakt", href: "#contact" },
+    { label: "Home", href: "#home", id: "home" },
+    { label: "Über mich", href: "#about", id: "about" },
+    { label: "Skills", href: "#skills", id: "skills" },
+    { label: "Projekte", href: "#projects", id: "projects" },
+    { label: "Kontakt", href: "#contact", id: "contact" },
   ];
 
+  useEffect(() => {
+    const sections = links
+      .map((link) => document.getElementById(link.id))
+      .filter((section): section is HTMLElement => Boolean(section));
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleSection = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort(
+            (first, second) =>
+              second.intersectionRatio - first.intersectionRatio,
+          )[0];
+
+        if (visibleSection) {
+          setActiveSection(visibleSection.target.id);
+        }
+      },
+      {
+        rootMargin: "-25% 0px -60% 0px",
+        threshold: [0.1, 0.25, 0.5],
+      },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur transition-colors dark:border-slate-800 dark:bg-slate-950/85">
+    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur dark:border-slate-800 dark:bg-slate-950/90">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <a
           href="#home"
@@ -25,16 +55,30 @@ function Navbar() {
         </a>
 
         <div className="flex items-center gap-4">
-          <nav className="hidden gap-6 text-slate-700 md:flex dark:text-slate-300">
-            {links.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="transition hover:text-cyan-600 dark:hover:text-cyan-400"
-              >
-                {link.label}
-              </a>
-            ))}
+          <nav className="hidden items-center gap-6 md:flex">
+            {links.map((link) => {
+              const isActive = activeSection === link.id;
+
+              return (
+                <a
+                  key={link.id}
+                  href={link.href}
+                  className={`relative py-2 text-sm font-medium transition ${
+                    isActive
+                      ? "text-cyan-600 dark:text-cyan-400"
+                      : "text-slate-700 hover:text-cyan-600 dark:text-slate-300 dark:hover:text-cyan-400"
+                  }`}
+                >
+                  {link.label}
+
+                  <span
+                    className={`absolute inset-x-0 -bottom-0.5 h-0.5 origin-left rounded-full bg-cyan-500 transition-transform ${
+                      isActive ? "scale-x-100" : "scale-x-0"
+                    }`}
+                  />
+                </a>
+              );
+            })}
           </nav>
 
           <button
@@ -45,43 +89,12 @@ function Navbar() {
                 ? "Helles Design aktivieren"
                 : "Dunkles Design aktivieren"
             }
-            className="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:border-cyan-400 hover:text-cyan-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-cyan-400 dark:hover:text-cyan-400"
+            className="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-cyan-400 hover:text-cyan-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-cyan-400 dark:hover:text-cyan-400"
           >
-            {theme === "dark" ? (
-              <FaSun aria-hidden="true" />
-            ) : (
-              <FaMoon aria-hidden="true" />
-            )}
-          </button>
-
-          <button
-            type="button"
-            onClick={() => setMenuOpen((open) => !open)}
-            className="rounded-lg border border-slate-300 px-3 py-2 text-slate-700 md:hidden dark:border-slate-700 dark:text-slate-300"
-            aria-label="Navigation öffnen"
-            aria-expanded={menuOpen}
-          >
-            {menuOpen ? "✕" : "☰"}
+            {theme === "dark" ? <FaSun /> : <FaMoon />}
           </button>
         </div>
       </div>
-
-      {menuOpen && (
-        <nav className="border-t border-slate-200 bg-white px-6 py-4 md:hidden dark:border-slate-800 dark:bg-slate-950">
-          <div className="mx-auto flex max-w-6xl flex-col gap-4">
-            {links.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={() => setMenuOpen(false)}
-                className="text-slate-700 transition hover:text-cyan-600 dark:text-slate-300 dark:hover:text-cyan-400"
-              >
-                {link.label}
-              </a>
-            ))}
-          </div>
-        </nav>
-      )}
     </header>
   );
 }

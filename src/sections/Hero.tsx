@@ -1,12 +1,13 @@
 import profile from "../data/profile";
 import Button from "../components/Button";
 import CodeWindow from "../components/CodeWindow";
+import { FaGithub } from "react-icons/fa";
 
 function Hero() {
   return (
     <section
       id="home"
-      className="flex min-h-[calc(100vh-72px)] items-center px-6 py-16"
+      className="relative flex min-h-[calc(100vh-72px)] items-center px-6 py-16"
     >
       <div className="mx-auto grid w-full max-w-6xl gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
         <div className="max-w-xl">
@@ -30,17 +31,28 @@ function Hero() {
             <Button href="#projects">Projekte ansehen</Button>
 
             <Button href={profile.github} variant="secondary" external>
-              GitHub
+              <span className="flex items-center gap-2">
+                <FaGithub aria-hidden="true" />
+                GitHub
+              </span>
             </Button>
           </div>
         </div>
 
         <div className="relative hidden lg:block">
-          <div className="absolute inset-0 -z-10 scale-90 rounded-full bg-cyan-300/20 blur-3xl dark:bg-cyan-400/15" />
-
-          <CodeWindow />
+          <div className="animate-code">
+            <CodeWindow />
+          </div>
         </div>
       </div>
+
+      <a
+        href="#about"
+        className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-slate-500 transition hover:text-cyan-600 md:flex dark:text-slate-400 dark:hover:text-cyan-400"
+      >
+        <span>Scroll</span>
+        <span className="animate-bounce text-lg">↓</span>
+      </a>
     </section>
   );
 }

@@ -68,3 +68,19 @@ button {
   color: #0f172a;
   background: #a5f3fc;
 }
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-code {
+  animation: slideIn .8s ease forwards;
+}

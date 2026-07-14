@@ -1,3 +1,4 @@
+import { FaGithub } from "react-icons/fa";
 import type { Project } from "../data/projects";
 import Button from "./Button";
 
@@ -25,7 +26,6 @@ function ProjectCard({ project }: ProjectCardProps) {
       </div>
 
       <div className="flex flex-1 flex-col p-6">
-
         <h3 className="font-mono mt-3 text-xl font-bold tracking-tight text-slate-950 dark:text-slate-100">
           {project.title}
         </h3>
@@ -47,7 +47,10 @@ function ProjectCard({ project }: ProjectCardProps) {
 
         <div className="mt-6 flex flex-wrap gap-3">
           <Button href={project.github} size="small" external>
-            GitHub
+            <span className="flex items-center gap-2">
+              <FaGithub aria-hidden="true" />
+              GitHub
+            </span>
           </Button>
 
           {project.demo && (
