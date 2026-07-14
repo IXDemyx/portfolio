@@ -1,10 +1,11 @@
 import SectionHeading from "../components/SectionHeading";
+import AboutGraphic from "../components/AboutGraphic";
 
 function About() {
   return (
-    <section id="about" className="px-6 py-20">
-      <div className="mx-auto max-w-6xl">
-        <div className="max-w-4xl">
+    <section id="about" className="px-6 py-24">
+      <div className="mx-auto grid max-w-6xl gap-14 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
+        <div>
           <SectionHeading
             subtitle="Über mich"
             title="Softwareentwicklung mit Interesse an modernen Technologien"
@@ -29,6 +30,8 @@ function About() {
             </p>
           </div>
         </div>
+
+        <AboutGraphic />
       </div>
     </section>
   );

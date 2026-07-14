@@ -11,7 +11,7 @@ function Hero() {
       <div className="mx-auto grid w-full max-w-6xl gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
         <div className="max-w-xl">
           <p className="font-mono text-sm font-semibold uppercase tracking-[0.2em] text-cyan-700 dark:text-cyan-400">
-            Hallo, ich bin
+            Hey, ich bin
           </p>
 
           <h1 className="mt-5 text-5xl font-bold tracking-[-0.04em] text-slate-950 dark:text-white sm:text-6xl lg:text-7xl">
