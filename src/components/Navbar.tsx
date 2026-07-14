@@ -62,17 +62,21 @@ function Navbar({ language, setLanguage }: NavbarProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const switchLanguage = () => {
+    setLanguage(language === "de" ? "en" : "de");
+  };
+
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur dark:border-slate-800 dark:bg-slate-950/90">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <a
           href="#home"
-          className="font-mono text-lg font-bold text-cyan-600 dark:text-cyan-400"
+          className="font-mono text-lg font-bold text-cyan-600 transition hover:text-cyan-500 dark:text-cyan-400 dark:hover:text-cyan-300"
         >
           {"</DK>"}
         </a>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4">
           <nav className="hidden items-center gap-6 lg:flex">
             {links.map((link) => {
               const isActive = activeSection === link.id;
@@ -100,59 +104,48 @@ function Navbar({ language, setLanguage }: NavbarProps) {
           </nav>
 
           <div className="flex items-center gap-2">
-            {/* Sprach-Toggle */}
-            <div
-              className="flex h-10 items-center rounded-xl border border-slate-200 bg-white p-1 shadow-sm dark:border-slate-700 dark:bg-slate-900"
-              role="group"
-              aria-label="Sprache auswählen"
+            {/* Kompakter Sprachwechsel – nur Desktop */}
+            <button
+              type="button"
+              onClick={switchLanguage}
+              aria-label={
+                language === "de"
+                  ? "Switch to English"
+                  : "Auf Deutsch wechseln"
+              }
+              className="hidden h-10 min-w-10 items-center justify-center rounded-lg px-2 font-mono text-xs font-semibold text-slate-500 transition hover:text-cyan-600 lg:flex dark:text-slate-400 dark:hover:text-cyan-400"
             >
-              <button
-                type="button"
-                onClick={() => setLanguage("de")}
-                aria-pressed={language === "de"}
-                className={`h-8 rounded-lg px-3 font-mono text-xs font-semibold transition ${
-                  language === "de"
-                    ? "bg-cyan-500 text-slate-950 shadow-sm"
-                    : "text-slate-500 hover:text-cyan-600 dark:text-slate-400 dark:hover:text-cyan-400"
-                }`}
-              >
-                DE
-              </button>
+              {language === "de" ? "EN" : "DE"}
+            </button>
 
-              <button
-                type="button"
-                onClick={() => setLanguage("en")}
-                aria-pressed={language === "en"}
-                className={`h-8 rounded-lg px-3 font-mono text-xs font-semibold transition ${
-                  language === "en"
-                    ? "bg-cyan-500 text-slate-950 shadow-sm"
-                    : "text-slate-500 hover:text-cyan-600 dark:text-slate-400 dark:hover:text-cyan-400"
-                }`}
-              >
-                EN
-              </button>
-            </div>
-
-            {/* Theme-Button */}
             <button
               type="button"
               onClick={toggleTheme}
               aria-label={
                 theme === "dark"
-                  ? "Helles Design aktivieren"
-                  : "Dunkles Design aktivieren"
+                  ? language === "de"
+                    ? "Helles Design aktivieren"
+                    : "Enable light mode"
+                  : language === "de"
+                    ? "Dunkles Design aktivieren"
+                    : "Enable dark mode"
               }
               className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:border-cyan-400 hover:text-cyan-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-cyan-400 dark:hover:text-cyan-400"
             >
               {theme === "dark" ? <FaSun /> : <FaMoon />}
             </button>
 
-            {/* Mobile-Menü */}
             <button
               type="button"
               onClick={() => setMenuOpen((current) => !current)}
               aria-label={
-                menuOpen ? "Navigation schließen" : "Navigation öffnen"
+                menuOpen
+                  ? language === "de"
+                    ? "Navigation schließen"
+                    : "Close navigation"
+                  : language === "de"
+                    ? "Navigation öffnen"
+                    : "Open navigation"
               }
               aria-expanded={menuOpen}
               className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:border-cyan-400 hover:text-cyan-600 lg:hidden dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-cyan-400 dark:hover:text-cyan-400"
@@ -164,7 +157,7 @@ function Navbar({ language, setLanguage }: NavbarProps) {
       </div>
 
       {menuOpen && (
-        <nav className="border-t border-slate-200 bg-white px-6 py-4 md:hidden dark:border-slate-800 dark:bg-slate-950">
+        <nav className="border-t border-slate-200 bg-white px-6 py-4 lg:hidden dark:border-slate-800 dark:bg-slate-950">
           <div className="mx-auto flex max-w-6xl flex-col gap-2">
             {links.map((link) => {
               const isActive = activeSection === link.id;
@@ -184,6 +177,40 @@ function Navbar({ language, setLanguage }: NavbarProps) {
                 </a>
               );
             })}
+
+            <div className="mt-3 flex items-center justify-between border-t border-slate-200 pt-4 dark:border-slate-800">
+              <span className="text-sm text-slate-500 dark:text-slate-400">
+                {language === "de" ? "Sprache" : "Language"}
+              </span>
+
+              <div className="flex items-center gap-1 font-mono text-xs font-semibold">
+                <button
+                  type="button"
+                  onClick={() => setLanguage("de")}
+                  aria-pressed={language === "de"}
+                  className={`rounded-lg px-3 py-2 transition ${
+                    language === "de"
+                      ? "bg-cyan-500 text-slate-950"
+                      : "text-slate-500 hover:text-cyan-600 dark:text-slate-400 dark:hover:text-cyan-400"
+                  }`}
+                >
+                  DE
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setLanguage("en")}
+                  aria-pressed={language === "en"}
+                  className={`rounded-lg px-3 py-2 transition ${
+                    language === "en"
+                      ? "bg-cyan-500 text-slate-950"
+                      : "text-slate-500 hover:text-cyan-600 dark:text-slate-400 dark:hover:text-cyan-400"
+                  }`}
+                >
+                  EN
+                </button>
+              </div>
+            </div>
           </div>
         </nav>
       )}
