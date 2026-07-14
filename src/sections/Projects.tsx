@@ -1,20 +1,31 @@
 import projects from "../data/projects";
 import ProjectCard from "../components/ProjectCard";
 import SectionHeading from "../components/SectionHeading";
+import Reveal from "../components/Reveal";
 
 function Projects() {
   return (
-    <section id="projects" className="px-6 py-24">
+    <section
+      id="projects"
+      className="border-y border-slate-200/70 bg-slate-50/70 px-6 py-28 dark:border-slate-800/70 dark:bg-slate-900/35"
+    >
       <div className="mx-auto max-w-6xl">
-        <SectionHeading
-          subtitle="Projekte"
-          title="Eine Auswahl meiner Projekte"
-          description="Hier findest du einige Projekte, an denen ich gearbeitet habe."
-        />
+        <Reveal>
+          <SectionHeading
+            subtitle="Projekte"
+            title="Eine Auswahl meiner Projekte"
+            description="Hier findest du einige Projekte, an denen ich gearbeitet habe."
+          />
+        </Reveal>
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project) => (
-            <ProjectCard key={project.title} project={project} />
+          {projects.map((project, index) => (
+            <Reveal
+              key={project.title}
+              delay={Math.min(index * 0.06, 0.3)}
+            >
+              <ProjectCard key={project.title} project={project} />
+            </Reveal>
           ))}
         </div>
       </div>

@@ -1,24 +1,31 @@
 import profile from "../data/profile";
+import Reveal from "../components/Reveal";
 import SectionHeading from "../components/SectionHeading";
 import SkillCard from "../components/SkillCard";
 
 function Skills() {
   return (
-    <section id="skills" className="px-6 py-20">
+    <section id="skills" className="px-6 py-28">
       <div className="mx-auto max-w-6xl">
-        <SectionHeading
-          subtitle="Skills"
-          title="Technologien, mit denen ich arbeite"
-          description="Eine Auswahl der Technologien und Werkzeuge, die ich für meine Projekte verwende."
-        />
+        <Reveal>
+          <SectionHeading
+            subtitle="Skills"
+            title="Technologien, mit denen ich arbeite"
+            description="Eine Auswahl der Technologien und Werkzeuge, die ich für meine Projekte verwende."
+          />
+        </Reveal>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {profile.skills.map((skill) => (
-            <SkillCard
+          {profile.skills.map((skill, index) => (
+            <Reveal
               key={skill.name}
-              title={skill.name}
-              description={skill.description}
-            />
+              delay={Math.min(index * 0.06, 0.3)}
+            >
+              <SkillCard
+                title={skill.name}
+                description={skill.description}
+              />
+            </Reveal>
           ))}
         </div>
       </div>
