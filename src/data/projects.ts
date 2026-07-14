@@ -1,6 +1,16 @@
 export interface Project {
-  title: string;
-  description: string;
+  id: string;
+
+  title: {
+    de: string;
+    en: string;
+  };
+
+  description: {
+    de: string;
+    en: string;
+  };
+
   technologies: string[];
   github: string;
   demo?: string;
@@ -9,40 +19,63 @@ export interface Project {
 
 const projects: Project[] = [
   {
-    title: "Portfolio Website",
-    description:
-      "Meine persönliche Portfolio-Website, entwickelt mit React und Tailwind CSS.",
+    id: "portfolio",
+
+    title: {
+      de: "Portfolio Website",
+      en: "Portfolio Website",
+    },
+
+    description: {
+      de: "Meine persönliche Portfolio-Website, entwickelt mit React und Tailwind CSS.",
+      en: "My personal portfolio website, built with React and Tailwind CSS.",
+    },
+
     technologies: ["React", "TypeScript", "Tailwind CSS"],
+
     github: "https://github.com/IXDemyx/portfolio",
-    image: "/projects/portfolio.png"
 
+    image: "/projects/portfolio.png",
   },
 
-  // {
-  //   title: "Mastermind",
-  //   description:
-  //     "Das Logik-Brettspiel 'Mastermind' komplett in Python.",
-  //   technologies: ["Python"],
-  //   github: "https://github.com/IXDemyx/Mastermind",
-  // },
-
   {
-    title: "Curve-Fever-Klon",
-    description:
-      "Ein 2 Spieler Spiel in dem man nicht die Linie des Gegners berühren darf.",
+    id: "curve-fever",
+
+    title: {
+      de: "Curve-Fever-Klon",
+      en: "Curve Fever Clone",
+    },
+
+    description: {
+      de: "Ein Zwei-Spieler-Spiel, bei dem man die Linie des Gegners nicht berühren darf.",
+      en: "A two-player game where the goal is to avoid touching your opponent's trail.",
+    },
+
     technologies: ["Python"],
+
     github: "https://github.com/IXDemyx/Curve-Fever",
-    image: "/projects/curvefever.png"
+
+    image: "/projects/curvefever.png",
   },
 
   {
-    title: "Bonhoeffer Thoughts",
-    description:
-      "Socialmedia Webanwendung, wie eine art Twitter für meine damalige Schule.",
-    technologies: ["Python", "HTML", "CSS", "JavaScript"],
-    github: "https://github.com/IXDemyx/Socialmedia2",
-    image: "/projects/socialmedia.png"
+    id: "bonhoeffer-thoughts",
 
+    title: {
+      de: "Bonhoeffer Thoughts",
+      en: "Bonhoeffer Thoughts",
+    },
+
+    description: {
+      de: "Eine Social-Media-Webanwendung – ähnlich wie Twitter – für meine damalige Schule.",
+      en: "A social media web application similar to Twitter, created for my former school.",
+    },
+
+    technologies: ["Python", "HTML", "CSS", "JavaScript"],
+
+    github: "https://github.com/IXDemyx/Socialmedia2",
+
+    image: "/projects/socialmedia.png",
   },
 ];
 

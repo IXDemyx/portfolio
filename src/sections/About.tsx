@@ -1,8 +1,14 @@
 import AboutGraphic from "../components/AboutGraphic";
 import Reveal from "../components/Reveal";
 import SectionHeading from "../components/SectionHeading";
+import about from "../data/about";
+import type { Language } from "../App";
 
-function About() {
+interface AboutProps {
+  language: Language;
+}
+
+function About({ language }: AboutProps) {
   return (
     <section
       id="about"
@@ -12,27 +18,14 @@ function About() {
         <Reveal>
           <div>
             <SectionHeading
-              subtitle="Über mich"
-              title="Softwareentwicklung mit Interesse an modernen Technologien"
+              subtitle={about.subtitle[language]}
+              title={about.title[language]}
             />
 
             <div className="space-y-4 text-lg leading-8 text-slate-600 dark:text-slate-400">
-              <p>
-                Ich beschäftige mich mit Webentwicklung und
-                Softwareentwicklung und arbeite gerne mit modernen
-                Technologien.
-              </p>
-
-              <p>
-                Mir ist wichtig, Anwendungen verständlich, zuverlässig und
-                sauber aufzubauen. Dabei möchte ich mich kontinuierlich
-                weiterentwickeln und neue Technologien kennenlernen.
-              </p>
-
-              <p>
-                Dieses Portfolio dient dazu, meine Projekte, Fähigkeiten und
-                meine Entwicklung als Programmierer zu präsentieren.
-              </p>
+              {about.paragraphs[language].map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
             </div>
           </div>
         </Reveal>

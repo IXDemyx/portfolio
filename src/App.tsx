@@ -5,24 +5,30 @@ import Skills from "./sections/Skills";
 import Projects from "./sections/Projects";
 import Contact from "./sections/Contact";
 import Footer from "./components/Footer";
+import { useState } from "react";
+
+export type Language = "de" | "en";
 
 function App() {
+  const [language, setLanguage] = useState<Language>("de");
+
   return (
-    <>
     <div className="overflow-x-clip">
-      <Navbar />
+      <Navbar
+        language={language}
+        setLanguage={setLanguage}
+      />
 
       <main>
-        <Hero />
-        <About />
-        <Skills />
-        <Projects />
-        <Contact />
+        <Hero language={language} />
+        <About language={language} />
+        <Skills language={language} />
+        <Projects language={language} />
+        <Contact language={language} />
       </main>
 
-      <Footer />
-      </div>
-    </>
+      <Footer language={language}/>
+    </div>
   );
 }
 

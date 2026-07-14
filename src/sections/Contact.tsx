@@ -1,9 +1,15 @@
 import { FaEnvelope, FaGithub, FaLinkedin } from "react-icons/fa";
 import profile from "../data/profile";
+import contact from "../data/contact";
 import Button from "../components/Button";
 import Reveal from "../components/Reveal";
+import type { Language } from "../App";
 
-function Contact() {
+interface ContactProps {
+  language: Language;
+}
+
+function Contact({ language }: ContactProps) {
   return (
     <section id="contact" className="px-6 py-28">
       <div className="mx-auto max-w-6xl">
@@ -16,24 +22,22 @@ function Contact() {
 
             <div className="relative max-w-3xl">
               <p className="font-mono text-sm font-semibold uppercase tracking-[0.2em] text-cyan-700 dark:text-cyan-400">
-                Kontakt
+                {contact.subtitle[language]}
               </p>
 
               <h2 className="mt-4 text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl dark:text-white">
-                Lass mir gerne eine Nachricht da
+                {contact.title[language]}
               </h2>
 
               <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600 dark:text-slate-400">
-                Du hast Fragen, eine Idee für ein Projekt oder möchtest einfach
-                Kontakt aufnehmen? Schreib mir gerne – ich freue mich darauf,
-                von dir zu hören.
+                {contact.description[language]}
               </p>
 
               <div className="mt-8 flex flex-wrap gap-4">
                 <Button href={`mailto:${profile.email}`}>
                   <span className="flex items-center gap-2">
                     <FaEnvelope aria-hidden="true" />
-                    E-Mail schreiben
+                    {contact.emailButton[language]}
                   </span>
                 </Button>
 
@@ -44,7 +48,7 @@ function Contact() {
                 >
                   <span className="flex items-center gap-2">
                     <FaGithub aria-hidden="true" />
-                    GitHub
+                    {contact.githubButton[language]}
                   </span>
                 </Button>
 
@@ -56,14 +60,14 @@ function Contact() {
                   >
                     <span className="flex items-center gap-2">
                       <FaLinkedin aria-hidden="true" />
-                      LinkedIn
+                      {contact.linkedinButton[language]}
                     </span>
                   </Button>
                 )}
               </div>
 
-              <p className="mt-6 font-mono text-xs text-slate-500 dark:text-slate-500">
-                Ich antworte in der Regel innerhalb weniger Tage.
+              <p className="mt-6 font-mono text-xs text-slate-500">
+                {contact.responseTime[language]}
               </p>
             </div>
           </div>

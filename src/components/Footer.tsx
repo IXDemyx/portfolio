@@ -1,8 +1,14 @@
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import profile from "../data/profile";
+import type { Language } from "../App";
+import footer from "../data/footer";
 
-function Footer() {
+interface FooterProps {
+  language: Language;
+}
+
+function Footer({ language }: FooterProps) {
   const currentYear = new Date().getFullYear();
 
   return (
@@ -14,7 +20,7 @@ function Footer() {
           </p>
 
           <p className="mt-1 font-mono text-xs text-slate-500">
-            Entwickelt mit React, TypeScript und Tailwind CSS.
+            {footer.builtWith[language]}
           </p>
         </div>
 

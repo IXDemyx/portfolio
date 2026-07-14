@@ -2,19 +2,35 @@ import { useEffect, useState } from "react";
 import { FaBars, FaMoon, FaSun, FaTimes } from "react-icons/fa";
 import { useTheme } from "../hooks/useTheme";
 
-function Navbar() {
+import type { Language } from "../App";
+
+interface NavbarProps {
+  language: Language;
+  setLanguage: (language: Language) => void;
+}
+
+function Navbar({ language, setLanguage }: NavbarProps) {
   const [activeSection, setActiveSection] = useState("home");
   const [menuOpen, setMenuOpen] = useState(false);
 
   const { theme, toggleTheme } = useTheme();
 
-  const links = [
-    { label: "Home", href: "#home", id: "home" },
-    { label: "Über mich", href: "#about", id: "about" },
-    { label: "Skills", href: "#skills", id: "skills" },
-    { label: "Projekte", href: "#projects", id: "projects" },
-    { label: "Kontakt", href: "#contact", id: "contact" },
-  ];
+  const links =
+    language === "de"
+      ? [
+          { label: "Start", href: "#home", id: "home" },
+          { label: "Über mich", href: "#about", id: "about" },
+          { label: "Skills", href: "#skills", id: "skills" },
+          { label: "Projekte", href: "#projects", id: "projects" },
+          { label: "Kontakt", href: "#contact", id: "contact" },
+        ]
+      : [
+          { label: "Home", href: "#home", id: "home" },
+          { label: "About", href: "#about", id: "about" },
+          { label: "Skills", href: "#skills", id: "skills" },
+          { label: "Projects", href: "#projects", id: "projects" },
+          { label: "Contact", href: "#contact", id: "contact" },
+        ];
 
   useEffect(() => {
     const sections = links
@@ -43,7 +59,7 @@ function Navbar() {
     sections.forEach((section) => observer.observe(section));
 
     return () => observer.disconnect();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -56,8 +72,8 @@ function Navbar() {
           {"</DK>"}
         </a>
 
-        <div className="flex items-center gap-4">
-          <nav className="hidden items-center gap-6 md:flex">
+        <div className="flex items-center gap-3">
+          <nav className="hidden items-center gap-6 lg:flex">
             {links.map((link) => {
               const isActive = activeSection === link.id;
 
@@ -83,30 +99,67 @@ function Navbar() {
             })}
           </nav>
 
-          <button
-            type="button"
-            onClick={toggleTheme}
-            aria-label={
-              theme === "dark"
-                ? "Helles Design aktivieren"
-                : "Dunkles Design aktivieren"
-            }
-            className="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:border-cyan-400 hover:text-cyan-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-cyan-400 dark:hover:text-cyan-400"
-          >
-            {theme === "dark" ? <FaSun /> : <FaMoon />}
-          </button>
+          <div className="flex items-center gap-2">
+            {/* Sprach-Toggle */}
+            <div
+              className="flex h-10 items-center rounded-xl border border-slate-200 bg-white p-1 shadow-sm dark:border-slate-700 dark:bg-slate-900"
+              role="group"
+              aria-label="Sprache auswählen"
+            >
+              <button
+                type="button"
+                onClick={() => setLanguage("de")}
+                aria-pressed={language === "de"}
+                className={`h-8 rounded-lg px-3 font-mono text-xs font-semibold transition ${
+                  language === "de"
+                    ? "bg-cyan-500 text-slate-950 shadow-sm"
+                    : "text-slate-500 hover:text-cyan-600 dark:text-slate-400 dark:hover:text-cyan-400"
+                }`}
+              >
+                DE
+              </button>
 
-          <button
-            type="button"
-            onClick={() => setMenuOpen((current) => !current)}
-            aria-label={
-              menuOpen ? "Navigation schließen" : "Navigation öffnen"
-            }
-            aria-expanded={menuOpen}
-            className="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:border-cyan-400 hover:text-cyan-600 md:hidden dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-cyan-400 dark:hover:text-cyan-400"
-          >
-            {menuOpen ? <FaTimes /> : <FaBars />}
-          </button>
+              <button
+                type="button"
+                onClick={() => setLanguage("en")}
+                aria-pressed={language === "en"}
+                className={`h-8 rounded-lg px-3 font-mono text-xs font-semibold transition ${
+                  language === "en"
+                    ? "bg-cyan-500 text-slate-950 shadow-sm"
+                    : "text-slate-500 hover:text-cyan-600 dark:text-slate-400 dark:hover:text-cyan-400"
+                }`}
+              >
+                EN
+              </button>
+            </div>
+
+            {/* Theme-Button */}
+            <button
+              type="button"
+              onClick={toggleTheme}
+              aria-label={
+                theme === "dark"
+                  ? "Helles Design aktivieren"
+                  : "Dunkles Design aktivieren"
+              }
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:border-cyan-400 hover:text-cyan-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-cyan-400 dark:hover:text-cyan-400"
+            >
+              {theme === "dark" ? <FaSun /> : <FaMoon />}
+            </button>
+
+            {/* Mobile-Menü */}
+            <button
+              type="button"
+              onClick={() => setMenuOpen((current) => !current)}
+              aria-label={
+                menuOpen ? "Navigation schließen" : "Navigation öffnen"
+              }
+              aria-expanded={menuOpen}
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:border-cyan-400 hover:text-cyan-600 lg:hidden dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-cyan-400 dark:hover:text-cyan-400"
+            >
+              {menuOpen ? <FaTimes /> : <FaBars />}
+            </button>
+          </div>
         </div>
       </div>
 

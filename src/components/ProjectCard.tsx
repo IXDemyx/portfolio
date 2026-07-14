@@ -1,19 +1,25 @@
 import { FaGithub } from "react-icons/fa";
 import type { Project } from "../data/projects";
+import type { Language } from "../App";
+import projectsSection from "../data/projectsSection";
 import Button from "./Button";
 
 interface ProjectCardProps {
   project: Project;
+  language: Language;
 }
 
-function ProjectCard({ project }: ProjectCardProps) {
+function ProjectCard({
+  project,
+  language,
+}: ProjectCardProps) {
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:border-cyan-200 hover:shadow-xl dark:border-slate-800 dark:bg-slate-900 dark:hover:border-cyan-700">
+    <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:border-cyan-300 hover:shadow-xl dark:border-slate-800 dark:bg-slate-900 dark:hover:border-cyan-700">
       <div className="aspect-video overflow-hidden border-b border-slate-200 bg-slate-100 dark:border-slate-800 dark:bg-slate-800">
         {project.image ? (
           <img
             src={project.image}
-            alt={`Vorschau des Projekts ${project.title}`}
+            alt={`${project.title[language]} preview`}
             className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
           />
         ) : (
@@ -26,12 +32,16 @@ function ProjectCard({ project }: ProjectCardProps) {
       </div>
 
       <div className="flex flex-1 flex-col p-6">
-        <h3 className="font-mono mt-3 text-xl font-bold tracking-tight text-slate-950 dark:text-slate-100">
-          {project.title}
+        <p className="font-mono text-xs font-semibold uppercase tracking-[0.18em] text-cyan-700 dark:text-cyan-400">
+          {projectsSection.projectLabel[language]}
+        </p>
+
+        <h3 className="mt-3 text-xl font-bold tracking-tight text-slate-950 dark:text-slate-100">
+          {project.title[language]}
         </h3>
 
         <p className="mt-3 flex-1 leading-7 text-slate-600 dark:text-slate-400">
-          {project.description}
+          {project.description[language]}
         </p>
 
         <div className="mt-5 flex flex-wrap gap-2">
@@ -46,10 +56,14 @@ function ProjectCard({ project }: ProjectCardProps) {
         </div>
 
         <div className="mt-6 flex flex-wrap gap-3">
-          <Button href={project.github} size="small" external>
+          <Button
+            href={project.github}
+            size="small"
+            external
+          >
             <span className="flex items-center gap-2">
               <FaGithub aria-hidden="true" />
-              GitHub
+              {projectsSection.githubButton[language]}
             </span>
           </Button>
 
@@ -60,7 +74,7 @@ function ProjectCard({ project }: ProjectCardProps) {
               size="small"
               external
             >
-              Live-Demo
+              {projectsSection.demoButton[language]}
             </Button>
           )}
         </div>

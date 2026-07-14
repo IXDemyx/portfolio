@@ -1,28 +1,30 @@
 import { useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
 import profile from "../data/profile";
+import type { Language } from "../App";
 
 interface CodeLine {
   plainText: string;
   content: ReactNode;
 }
 
-function CodeWindow() {
+interface CodeWindowProps {
+  language: Language;
+}
+
+function CodeWindow({ language }: CodeWindowProps) {
+  const role = profile.title[language];
+  const location = profile.location[language];
+
   const lines = useMemo<CodeLine[]>(
     () => [
       {
         plainText: "const developer = {",
         content: (
           <>
-            <span className="text-purple-700 dark:text-purple-400">
-              const
-            </span>{" "}
-            <span className="text-blue-700 dark:text-cyan-300">
-              developer
-            </span>{" "}
-            <span className="text-slate-700 dark:text-slate-300">
-              = {"{"}
-            </span>
+            <span className="text-purple-700 dark:text-purple-400">const</span>{" "}
+            <span className="text-blue-700 dark:text-cyan-300">developer</span>{" "}
+            <span className="text-slate-700 dark:text-slate-300">= {"{"}</span>
           </>
         ),
       },
@@ -31,58 +33,40 @@ function CodeWindow() {
         content: (
           <>
             {"  "}
-            <span className="text-blue-600 dark:text-sky-300">
-              name
-            </span>
-            <span className="text-slate-700 dark:text-slate-300">
-              :{" "}
-            </span>
+            <span className="text-blue-600 dark:text-sky-300">name</span>
+            <span className="text-slate-700 dark:text-slate-300">: </span>
             <span className="text-green-700 dark:text-emerald-300">
               "{profile.name}"
             </span>
-            <span className="text-slate-700 dark:text-slate-300">
-              ,
-            </span>
+            <span className="text-slate-700 dark:text-slate-300">,</span>
           </>
         ),
       },
       {
-        plainText: `  role: "${profile.title}",`,
+        plainText: `  role: "${role}",`,
         content: (
           <>
             {"  "}
-            <span className="text-blue-600 dark:text-sky-300">
-              role
-            </span>
-            <span className="text-slate-700 dark:text-slate-300">
-              :{" "}
-            </span>
+            <span className="text-blue-600 dark:text-sky-300">role</span>
+            <span className="text-slate-700 dark:text-slate-300">: </span>
             <span className="text-green-700 dark:text-emerald-300">
-              "{profile.title}"
+              "{role}"
             </span>
-            <span className="text-slate-700 dark:text-slate-300">
-              ,
-            </span>
+            <span className="text-slate-700 dark:text-slate-300">,</span>
           </>
         ),
       },
       {
-        plainText: '  location: "Germany",',
+        plainText: `  location: "${location}",`,
         content: (
           <>
             {"  "}
-            <span className="text-blue-600 dark:text-sky-300">
-              location
-            </span>
-            <span className="text-slate-700 dark:text-slate-300">
-              :{" "}
-            </span>
+            <span className="text-blue-600 dark:text-sky-300">location</span>
+            <span className="text-slate-700 dark:text-slate-300">: </span>
             <span className="text-green-700 dark:text-emerald-300">
-              "Germany"
+              "{location}"
             </span>
-            <span className="text-slate-700 dark:text-slate-300">
-              ,
-            </span>
+            <span className="text-slate-700 dark:text-slate-300">,</span>
           </>
         ),
       },
@@ -91,69 +75,46 @@ function CodeWindow() {
         content: (
           <>
             {"  "}
-            <span className="text-blue-600 dark:text-sky-300">
-              stack
-            </span>
-            <span className="text-slate-700 dark:text-slate-300">
-              : [
-            </span>
+            <span className="text-blue-600 dark:text-sky-300">stack</span>
+            <span className="text-slate-700 dark:text-slate-300">: [</span>
             <span className="text-green-700 dark:text-emerald-300">
               "React"
             </span>
-            <span className="text-slate-700 dark:text-slate-300">
-              ,{" "}
-            </span>
+            <span className="text-slate-700 dark:text-slate-300">, </span>
             <span className="text-green-700 dark:text-emerald-300">
               "Vue.js"
             </span>
-            <span className="text-slate-700 dark:text-slate-300">
-              ,{" "}
-            </span>
+            <span className="text-slate-700 dark:text-slate-300">, </span>
             <span className="text-green-700 dark:text-emerald-300">
               "Python"
             </span>
-            <span className="text-slate-700 dark:text-slate-300">
-              ],
-            </span>
+            <span className="text-slate-700 dark:text-slate-300">],</span>
           </>
         ),
       },
       {
-        plainText:
-          '  hobbies: ["Gaming", "Fitness", "Movies", "Music"],',
+        plainText: '  hobbies: ["Gaming", "Fitness", "Movies", "Music"],',
         content: (
           <>
             {"  "}
-            <span className="text-blue-600 dark:text-sky-300">
-              hobbies
-            </span>
-            <span className="text-slate-700 dark:text-slate-300">
-              : [
-            </span>
+            <span className="text-blue-600 dark:text-sky-300">hobbies</span>
+            <span className="text-slate-700 dark:text-slate-300">: [</span>
             <span className="text-green-700 dark:text-emerald-300">
               "Gaming"
             </span>
-            <span className="text-slate-700 dark:text-slate-300">
-              ,{" "}
-            </span>
+            <span className="text-slate-700 dark:text-slate-300">, </span>
             <span className="text-green-700 dark:text-emerald-300">
               "Fitness"
             </span>
-            <span className="text-slate-700 dark:text-slate-300">
-              ,{" "}
-            </span>
+            <span className="text-slate-700 dark:text-slate-300">, </span>
             <span className="text-green-700 dark:text-emerald-300">
               "Movies"
             </span>
-            <span className="text-slate-700 dark:text-slate-300">
-              ,{" "}
-            </span>
+            <span className="text-slate-700 dark:text-slate-300">, </span>
             <span className="text-green-700 dark:text-emerald-300">
               "Music"
             </span>
-            <span className="text-slate-700 dark:text-slate-300">
-              ],
-            </span>
+            <span className="text-slate-700 dark:text-slate-300">],</span>
           </>
         ),
       },
@@ -162,24 +123,16 @@ function CodeWindow() {
         content: (
           <>
             {"  "}
-            <span className="text-blue-600 dark:text-sky-300">
-              openToWork
-            </span>
-            <span className="text-slate-700 dark:text-slate-300">
-              :{" "}
-            </span>
-            <span className="text-orange-600 dark:text-orange-300">
-              true
-            </span>
+            <span className="text-blue-600 dark:text-sky-300">openToWork</span>
+            <span className="text-slate-700 dark:text-slate-300">: </span>
+            <span className="text-orange-600 dark:text-orange-300">true</span>
           </>
         ),
       },
       {
         plainText: "};",
         content: (
-          <span className="text-slate-700 dark:text-slate-300">
-            {"};"}
-          </span>
+          <span className="text-slate-700 dark:text-slate-300">{"};"}</span>
         ),
       },
       {
@@ -189,32 +142,29 @@ function CodeWindow() {
             <span className="text-purple-700 dark:text-purple-400">
               export default
             </span>{" "}
-            <span className="text-blue-700 dark:text-cyan-300">
-              developer
-            </span>
-            <span className="text-slate-700 dark:text-slate-300">
-              ;
-            </span>
+            <span className="text-blue-700 dark:text-cyan-300">developer</span>
+            <span className="text-slate-700 dark:text-slate-300">;</span>
           </>
         ),
       },
     ],
-    [],
+    [role, location],
   );
 
-  const [visibleLines, setVisibleLines] = useState(0);
+  const prefersReducedMotion =
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const [visibleLines, setVisibleLines] = useState(() =>
+    prefersReducedMotion ? lines.length : 0,
+  );
+
   const [visibleCharacters, setVisibleCharacters] = useState(0);
-  const [finished, setFinished] = useState(false);
+
+  const [finished, setFinished] = useState(prefersReducedMotion);
 
   useEffect(() => {
-    const reduceMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-
-    if (reduceMotion) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setVisibleLines(lines.length);
-      setFinished(true);
+    if (prefersReducedMotion) {
       return;
     }
 
@@ -222,8 +172,11 @@ function CodeWindow() {
     const currentLine = lines[visibleLines];
 
     if (!currentLine) {
-      setFinished(true);
-      return;
+      const finishTimeout = setTimeout(() => {
+        setFinished(true);
+      }, 0);
+
+      return () => clearTimeout(finishTimeout);
     }
 
     if (visibleCharacters < currentLine.plainText.length) {
@@ -238,12 +191,12 @@ function CodeWindow() {
     }
 
     return () => clearTimeout(timeoutId);
-  }, [lines, visibleLines, visibleCharacters]);
+  }, [lines, prefersReducedMotion, visibleLines, visibleCharacters]);
 
   return (
     <div
       className="
-        h-[390px] overflow-hidden rounded-3xl border
+        h-97.5 overflow-hidden rounded-3xl border
         border-slate-200 bg-white
         shadow-[0_25px_80px_-30px_rgba(15,23,42,0.25)]
         transition-colors duration-300
@@ -268,7 +221,7 @@ function CodeWindow() {
         </span>
       </div>
 
-      <div className="h-[336px] overflow-hidden p-7 font-mono text-sm leading-8">
+      <div className="h-84 overflow-hidden p-7 font-mono text-sm leading-8">
         {lines.map((line, index) => {
           const isCompleted = index < visibleLines;
           const isCurrent = index === visibleLines;
@@ -289,10 +242,7 @@ function CodeWindow() {
 
                   <span
                     aria-hidden="true"
-                    className="
-                      ml-0.5 inline-block h-5 w-2 translate-y-1
-                      bg-cyan-600 dark:bg-cyan-400
-                    "
+                    className="ml-0.5 inline-block h-5 w-2 translate-y-1 bg-cyan-600 dark:bg-cyan-400"
                   />
                 </>
               )}
@@ -300,10 +250,7 @@ function CodeWindow() {
               {finished && isLastLine && (
                 <span
                   aria-hidden="true"
-                  className="
-                    ml-0.5 inline-block h-5 w-2 translate-y-1
-                    animate-pulse bg-cyan-600 dark:bg-cyan-400
-                  "
+                  className="ml-0.5 inline-block h-5 w-2 translate-y-1 animate-pulse bg-cyan-600 dark:bg-cyan-400"
                 />
               )}
             </div>
