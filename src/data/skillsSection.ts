@@ -1,6 +1,6 @@
 const skillsSection = {
   subtitle: {
-    de: "Skills",
+    de: "Kenntnisse",
     en: "Skills",
   },
 

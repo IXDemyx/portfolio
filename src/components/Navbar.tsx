@@ -104,16 +104,13 @@ function Navbar({ language, setLanguage }: NavbarProps) {
           </nav>
 
           <div className="flex items-center gap-2">
-            {/* Kompakter Sprachwechsel – nur Desktop */}
             <button
               type="button"
               onClick={switchLanguage}
               aria-label={
-                language === "de"
-                  ? "Switch to English"
-                  : "Auf Deutsch wechseln"
+                language === "de" ? "Switch to English" : "Auf Deutsch wechseln"
               }
-              className="hidden h-10 min-w-10 items-center justify-center rounded-lg px-2 font-mono text-xs font-semibold text-slate-500 transition hover:text-cyan-600 lg:flex dark:text-slate-400 dark:hover:text-cyan-400"
+              className="hidden h-10 min-w-10 cursor-pointer items-center justify-center rounded-lg px-2 font-mono text-xs font-semibold text-slate-500 transition hover:text-cyan-600 lg:flex dark:text-slate-400 dark:hover:text-cyan-400"
             >
               {language === "de" ? "EN" : "DE"}
             </button>
@@ -130,7 +127,7 @@ function Navbar({ language, setLanguage }: NavbarProps) {
                     ? "Dunkles Design aktivieren"
                     : "Enable dark mode"
               }
-              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:border-cyan-400 hover:text-cyan-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-cyan-400 dark:hover:text-cyan-400"
+              className="flex cursor-pointer h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:border-cyan-400 hover:text-cyan-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-cyan-400 dark:hover:text-cyan-400"
             >
               {theme === "dark" ? <FaSun /> : <FaMoon />}
             </button>

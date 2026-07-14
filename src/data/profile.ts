@@ -6,6 +6,11 @@ const profile = {
     en: "Software Developer",
   },
 
+  languages: {
+    de: ["Deutsch", "Englisch", "Russisch"],
+    en: ["German", "English", "Russian"]
+  },
+
   description: {
     de: "Ich entwickle moderne Webanwendungen und Softwarelösungen mit Fokus auf sauberen Code, gute Benutzerfreundlichkeit und zuverlässige Technik.",
     en: "I develop modern web applications and software solutions with a focus on clean code, great user experience and reliable technology.",

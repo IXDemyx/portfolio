@@ -15,6 +15,8 @@ interface CodeWindowProps {
 function CodeWindow({ language }: CodeWindowProps) {
   const role = profile.title[language];
   const location = profile.location[language];
+  const hobbies = profile.hobbies[language];
+  const languages = profile.languages[language]
 
   const lines = useMemo<CodeLine[]>(
     () => [
@@ -71,49 +73,49 @@ function CodeWindow({ language }: CodeWindowProps) {
         ),
       },
       {
-        plainText: '  stack: ["React", "Vue.js", "Python"],',
+        plainText: `  languages: [${languages.map((language) => `"${language}"`).join(", ")}],`,
         content: (
           <>
             {"  "}
-            <span className="text-blue-600 dark:text-sky-300">stack</span>
+            <span className="text-blue-600 dark:text-sky-300">languages</span>
             <span className="text-slate-700 dark:text-slate-300">: [</span>
-            <span className="text-green-700 dark:text-emerald-300">
-              "React"
-            </span>
-            <span className="text-slate-700 dark:text-slate-300">, </span>
-            <span className="text-green-700 dark:text-emerald-300">
-              "Vue.js"
-            </span>
-            <span className="text-slate-700 dark:text-slate-300">, </span>
-            <span className="text-green-700 dark:text-emerald-300">
-              "Python"
-            </span>
+
+            {languages.map((language, index) => (
+              <span key={language}>
+                <span className="text-green-700 dark:text-emerald-300">
+                  "{language}"
+                </span>
+
+                {index < languages.length - 1 && (
+                  <span className="text-slate-700 dark:text-slate-300">, </span>
+                )}
+              </span>
+            ))}
+
             <span className="text-slate-700 dark:text-slate-300">],</span>
           </>
         ),
       },
       {
-        plainText: '  hobbies: ["Gaming", "Fitness", "Movies", "Music"],',
+        plainText: `  interests: [${hobbies.map((hobby) => `"${hobby}"`).join(", ")}],`,
         content: (
           <>
             {"  "}
-            <span className="text-blue-600 dark:text-sky-300">hobbies</span>
+            <span className="text-blue-600 dark:text-sky-300">interests</span>
             <span className="text-slate-700 dark:text-slate-300">: [</span>
-            <span className="text-green-700 dark:text-emerald-300">
-              "Gaming"
-            </span>
-            <span className="text-slate-700 dark:text-slate-300">, </span>
-            <span className="text-green-700 dark:text-emerald-300">
-              "Fitness"
-            </span>
-            <span className="text-slate-700 dark:text-slate-300">, </span>
-            <span className="text-green-700 dark:text-emerald-300">
-              "Movies"
-            </span>
-            <span className="text-slate-700 dark:text-slate-300">, </span>
-            <span className="text-green-700 dark:text-emerald-300">
-              "Music"
-            </span>
+
+            {hobbies.map((hobby, index) => (
+              <span key={hobby}>
+                <span className="text-green-700 dark:text-emerald-300">
+                  "{hobby}"
+                </span>
+
+                {index < hobbies.length - 1 && (
+                  <span className="text-slate-700 dark:text-slate-300">, </span>
+                )}
+              </span>
+            ))}
+
             <span className="text-slate-700 dark:text-slate-300">],</span>
           </>
         ),
