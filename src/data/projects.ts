@@ -13,8 +13,8 @@ const projects: Project[] = [
     description:
       "Meine persönliche Portfolio-Website, entwickelt mit React und Tailwind CSS.",
     technologies: ["React", "TypeScript", "Tailwind CSS"],
-    github: "https://github.com/...",
-    image: "/projects/test.png"
+    github: "https://github.com/IXDemyx/portfolio",
+    image: "/projects/portfolio.png"
 
   },
 
@@ -32,7 +32,7 @@ const projects: Project[] = [
       "Ein 2 Spieler Spiel in dem man nicht die Linie des Gegners berühren darf.",
     technologies: ["Python"],
     github: "https://github.com/IXDemyx/Curve-Fever",
-    image: "/projects/test.png"
+    image: "/projects/curvefever.png"
   },
 
   {
@@ -40,8 +40,8 @@ const projects: Project[] = [
     description:
       "Socialmedia Webanwendung, wie eine art Twitter für meine damalige Schule.",
     technologies: ["Python", "HTML", "CSS", "JavaScript"],
-    github: "https://github.com/...",
-    image: "/projects/test.png"
+    github: "https://github.com/IXDemyx/Socialmedia2",
+    image: "/projects/socialmedia.png"
 
   },
 ];

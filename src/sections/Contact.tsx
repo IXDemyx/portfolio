@@ -11,7 +11,7 @@ function Contact() {
           <div className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white px-6 py-12 shadow-sm sm:px-10 lg:px-14 dark:border-slate-800 dark:bg-slate-900">
             <div
               aria-hidden="true"
-              className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-cyan-300/15 blur-3xl dark:bg-cyan-400/10"
+              className="absolute -right-20 -top-20 h-64 w-64 rounded-full"
             />
 
             <div className="relative max-w-3xl">

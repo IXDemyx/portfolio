@@ -3,7 +3,7 @@ import { FaCode, FaGamepad, FaDumbbell } from "react-icons/fa";
 function AboutGraphic() {
   return (
     <div className="relative mx-auto flex min-h-97.5 w-full max-w-md items-center justify-center">
-      <div className="absolute h-72 w-72 rounded-full bg-cyan-300/20 blur-3xl dark:bg-cyan-400/10" />
+      <div className="absolute h-72 w-72 rounded-full blur-3xl dark:bg-cyan-400/10" />
 
       <div className="relative">
         <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white p-1.5 shadow-2xl transition duration-300 hover:-translate-y-1 dark:border-slate-700 dark:bg-slate-900">

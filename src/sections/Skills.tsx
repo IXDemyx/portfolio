@@ -5,8 +5,11 @@ import SkillCard from "../components/SkillCard";
 
 function Skills() {
   return (
-    <section id="skills" className="px-6 py-28">
-      <div className="mx-auto max-w-6xl">
+    <section
+      id="skills"
+      className="relative border-y border-slate-800/40 px-6 py-28"
+    >
+      <div className="relative z-10 mx-auto max-w-6xl">
         <Reveal>
           <SectionHeading
             subtitle="Skills"
@@ -17,14 +20,8 @@ function Skills() {
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {profile.skills.map((skill, index) => (
-            <Reveal
-              key={skill.name}
-              delay={Math.min(index * 0.06, 0.3)}
-            >
-              <SkillCard
-                title={skill.name}
-                description={skill.description}
-              />
+            <Reveal key={skill.name} delay={Math.min(index * 0.06, 0.3)}>
+              <SkillCard title={skill.name} description={skill.description} />
             </Reveal>
           ))}
         </div>

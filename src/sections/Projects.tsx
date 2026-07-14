@@ -20,10 +20,7 @@ function Projects() {
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {projects.map((project, index) => (
-            <Reveal
-              key={project.title}
-              delay={Math.min(index * 0.06, 0.3)}
-            >
+            <Reveal key={project.title} delay={Math.min(index * 0.06, 0.3)}>
               <ProjectCard key={project.title} project={project} />
             </Reveal>
           ))}

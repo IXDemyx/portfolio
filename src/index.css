@@ -29,13 +29,7 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background:
-    radial-gradient(
-      circle at 80% 20%,
-      rgb(34 211 238 / 0.08),
-      transparent 28rem
-    ),
-    #fafafa;
+  background:#fafafa;
   transition:
     color 200ms ease,
     background-color 200ms ease;
@@ -48,15 +42,29 @@ html.dark {
 html.dark body {
   background:
     radial-gradient(
-      circle at 80% 20%,
-      rgb(34 211 238 / 0.1),
-      transparent 30rem
+      circle at 20% 14%,
+      rgb(34 211 238 / 0.10),
+      transparent 28rem
     ),
+
     radial-gradient(
-      circle at 15% 70%,
-      rgb(59 130 246 / 0.06),
+      circle at 15% 50%,
+      rgb(59 130 246 / 0.08),
+      transparent 28rem
+    ),
+
+    radial-gradient(
+      circle at 70% 70%,
+      rgb(34 211 238 / 0.12),
+      transparent 28rem
+    ),
+
+    radial-gradient(
+      circle at 70% 90%,
+      rgb(14 165 233 / 0.10),
       transparent 26rem
     ),
+
     #0f172a;
 }
 a,
