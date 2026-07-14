@@ -11,16 +11,16 @@ function SectionHeading({
 }: SectionHeadingProps) {
   return (
     <div className="mb-10 max-w-3xl">
-      <p className="mb-3 font-mono text-sm font-semibold uppercase tracking-[0.2em] text-cyan-700">
+      <p className="mb-3 font-mono text-sm font-semibold uppercase tracking-[0.2em] text-cyan-700 dark:text-cyan-400">
         {subtitle}
       </p>
 
-      <h2 className="text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
+      <h2 className="text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl dark:text-white">
         {title}
       </h2>
 
       {description && (
-        <p className="mt-4 text-lg leading-8 text-slate-600">
+        <p className="mt-4 text-lg leading-8 text-slate-600 dark:text-slate-400" >
           {description}
         </p>
       )}

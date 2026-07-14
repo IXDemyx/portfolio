@@ -10,7 +10,7 @@ function About() {
             title="Softwareentwicklung mit Interesse an modernen Technologien"
           />
 
-          <div className="space-y-4 text-lg leading-8 text-slate-600">
+          <div className="space-y-4 text-lg leading-8 text-slate-600 dark:text-slate-400">
             <p>
               Ich beschäftige mich mit Webentwicklung und Softwareentwicklung
               und arbeite gerne mit modernen Technologien wie React, Vue.js,

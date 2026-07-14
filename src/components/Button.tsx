@@ -22,11 +22,12 @@ function Button({
     "inline-flex items-center justify-center rounded-lg font-semibold shadow-sm transition duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 focus-visible:ring-offset-2";
 
   const variantClasses = {
-    primary:
-      "bg-slate-950 text-white hover:-translate-y-0.5 hover:bg-slate-800 hover:shadow-md",
-    secondary:
-      "border border-slate-300 bg-white text-slate-700 hover:-translate-y-0.5 hover:border-cyan-500 hover:text-cyan-700 hover:shadow-md",
-  };
+  primary:
+    "bg-slate-950 text-white hover:-translate-y-0.5 hover:bg-slate-800 hover:shadow-md dark:bg-cyan-400 dark:text-slate-950 dark:hover:bg-cyan-300",
+
+  secondary:
+    "border border-slate-300 bg-white text-slate-700 hover:-translate-y-0.5 hover:border-cyan-500 hover:text-cyan-700 hover:shadow-md dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-cyan-400 dark:hover:text-cyan-400",
+};
 
   const sizeClasses = {
     default: "px-6 py-3 text-sm",

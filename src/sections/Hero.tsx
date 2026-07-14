@@ -10,19 +10,19 @@ function Hero() {
     >
       <div className="mx-auto grid w-full max-w-6xl gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
         <div className="max-w-xl">
-          <p className="font-mono text-sm font-semibold uppercase tracking-[0.2em] text-cyan-700">
+          <p className="font-mono text-sm font-semibold uppercase tracking-[0.2em] text-cyan-700 dark:text-cyan-400">
             Hallo, ich bin
           </p>
 
-          <h1 className="mt-5 text-5xl font-bold tracking-[-0.04em] text-slate-950 sm:text-6xl lg:text-7xl">
+          <h1 className="mt-5 text-5xl font-bold tracking-[-0.04em] text-slate-950 dark:text-white sm:text-6xl lg:text-7xl">
             {profile.name}
           </h1>
 
-          <h2 className="mt-4 text-2xl font-semibold text-slate-700 sm:text-3xl">
+          <h2 className="mt-4 text-2xl font-semibold text-slate-700 dark:text-slate-200 sm:text-3xl">
             {profile.title}
           </h2>
 
-          <p className="mt-6 max-w-xl text-lg leading-8 text-slate-600">
+          <p className="mt-6 max-w-xl text-lg leading-8 text-slate-600 dark:text-slate-400">
             {profile.description}
           </p>
 
@@ -36,7 +36,7 @@ function Hero() {
         </div>
 
         <div className="relative hidden lg:block">
-          <div className="absolute inset-0 -z-10 scale-90 rounded-full bg-cyan-300/30 blur-3xl" />
+          <div className="absolute inset-0 -z-10 scale-90 rounded-full bg-cyan-300/20 blur-3xl dark:bg-cyan-400/15" />
 
           <CodeWindow />
         </div>

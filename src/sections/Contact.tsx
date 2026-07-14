@@ -6,7 +6,7 @@ function Contact() {
   return (
     <section id="contact" className="px-6 py-20">
       <div className="mx-auto max-w-6xl">
-        <div className="rounded-2xl border border-slate-200 bg-slate-50 px-6 py-12 sm:px-10">
+        <div className="rounded-2xl border border-slate-200 bg-slate-50 px-6 py-12 transition-colors sm:px-10 dark:border-slate-800 dark:bg-slate-900">
           <SectionHeading
             subtitle="Kontakt"
             title="Lass uns miteinander sprechen"

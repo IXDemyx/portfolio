@@ -79,15 +79,15 @@ function SkillCard({
   const Icon = skill?.icon;
 
   return (
-    <article className="group flex items-center gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-cyan-300 hover:shadow-lg">
-      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-slate-50 transition group-hover:scale-110">
+    <article className="group flex items-center gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-cyan-300 hover:shadow-lg dark:border-slate-800 dark:bg-slate-900 dark:hover:border-cyan-700">
+      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-slate-50 transition group-hover:scale-110 dark:bg-slate-800">
         {Icon && <Icon className={`text-3xl ${skill.color}`} />}
       </div>
 
       <div>
-        <h3 className="text-lg font-semibold text-slate-900">{title}</h3>
+        <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100">{title}</h3>
 
-        <p className="text-sm text-slate-500">{description}</p>
+        <p className="text-sm text-slate-500 dark:text-slate-400">{description}</p>
       </div>
     </article>
   );
