@@ -10,7 +10,7 @@ import { useState } from "react";
 export type Language = "de" | "en";
 
 function App() {
-  const [language, setLanguage] = useState<Language>("de");
+  const [language, setLanguage] = useState<Language>("en");
 
   return (
     <div className="overflow-x-clip">
