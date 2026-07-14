@@ -1,8 +1,8 @@
-# 🌐 Portfolio Website
+#  Portfolio Website
 
 Eine moderne Portfolio-Website, entwickelt mit **React**, **TypeScript** und **Tailwind CSS**. Das Ziel dieses Projekts ist es, meine Fähigkeiten, Projekte und meinen Werdegang als Softwareentwickler übersichtlich und professionell zu präsentieren.
 
-## ✨ Features
+##  Features
 
 - Modernes und responsives Design
 - Übersicht über meine Skills
@@ -12,14 +12,14 @@ Eine moderne Portfolio-Website, entwickelt mit **React**, **TypeScript** und **T
 - Komponentenbasierte Architektur
 - Datenverwaltung über zentrale Dateien (`profile.ts`, `projects.ts`)
 
-## 🛠️ Technologien
+##  Technologien
 
 - React
 - TypeScript
 - Vite
 - Tailwind CSS
 
-## 📂 Projektstruktur
+##  Projektstruktur
 
 ```text
 src/
@@ -41,7 +41,7 @@ src/
 └── main.tsx
 ```
 
-## 🚀 Installation
+##  Installation
 
 Repository klonen:
 
@@ -75,17 +75,6 @@ http://localhost:5173
 
 erreichbar.
 
-## 📅 Geplante Features
-
-- Dark Mode
-- Mehrsprachigkeit (Deutsch / Englisch)
-- GitHub API Integration
-- Projektbilder
-- Animationen mit Framer Motion
-- Download des Lebenslaufs
-- Kontaktformular
-- Responsive Mobile Navigation
-
-## 📄 Lizenz
+##  Lizenz
 
 Dieses Projekt dient als persönliches Portfolio und Referenzprojekt.
