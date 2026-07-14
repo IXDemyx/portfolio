@@ -5,17 +5,44 @@ const profile = {
     description:
         "Ich entwickle moderne Webanwendungen und Softwarelösungen mit Fokus auf sauberen Code, gute Benutzerfreundlichkeit und zuverlässige Technik.",
         
-    skills: [
-        "React",
-        "vue.js",
-        "Angular",
-        "Python",
-        "Java",
-        "C++",
-        "Docker",
-        "SQL",
-        "Git"
-    ],
+skills: [
+  {
+    name: "React",
+    description: "Frontend Library",
+  },
+  {
+    name: "Vue.js",
+    description: "Progressive Framework",
+  },
+  {
+    name: "Angular",
+    description: "Enterprise Framework",
+  },
+  {
+    name: "Python",
+    description: "Backend & Automation",
+  },
+  {
+    name: "Java",
+    description: "Backend Development",
+  },
+  {
+    name: "C++",
+    description: "System Programming",
+  },
+  {
+    name: "Docker",
+    description: "Containerization",
+  },
+  {
+    name: "SQL",
+    description: "Databases",
+  },
+  {
+    name: "Git",
+    description: "Version Control",
+  },
+],
 
     github: "https://github.com/IXDemyx",
     linkedin: "https://www.linkedin.com/in/daniel-k-7090003b9/",

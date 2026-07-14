@@ -4,7 +4,7 @@ import SectionHeading from "../components/SectionHeading";
 
 function Projects() {
   return (
-    <section id="projects" className="px-6 py-20">
+    <section id="projects" className="px-6 py-24">
       <div className="mx-auto max-w-6xl">
         <SectionHeading
           subtitle="Projekte"

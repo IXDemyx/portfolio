@@ -14,7 +14,11 @@ function Skills() {
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {profile.skills.map((skill) => (
-            <SkillCard key={skill} title={skill} />
+            <SkillCard
+              key={skill.name}
+              title={skill.name}
+              description={skill.description}
+            />
           ))}
         </div>
       </div>
