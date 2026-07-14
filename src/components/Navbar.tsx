@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { FaMoon, FaSun } from "react-icons/fa";
+import { FaBars, FaMoon, FaSun, FaTimes } from "react-icons/fa";
 import { useTheme } from "../hooks/useTheme";
 
 function Navbar() {
-
   const [activeSection, setActiveSection] = useState("home");
+  const [menuOpen, setMenuOpen] = useState(false);
+
   const { theme, toggleTheme } = useTheme();
 
   const links = [
@@ -42,6 +43,7 @@ function Navbar() {
     sections.forEach((section) => observer.observe(section));
 
     return () => observer.disconnect();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -89,12 +91,49 @@ function Navbar() {
                 ? "Helles Design aktivieren"
                 : "Dunkles Design aktivieren"
             }
-            className="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-cyan-400 hover:text-cyan-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-cyan-400 dark:hover:text-cyan-400"
+            className="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:border-cyan-400 hover:text-cyan-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-cyan-400 dark:hover:text-cyan-400"
           >
             {theme === "dark" ? <FaSun /> : <FaMoon />}
           </button>
+
+          <button
+            type="button"
+            onClick={() => setMenuOpen((current) => !current)}
+            aria-label={
+              menuOpen ? "Navigation schließen" : "Navigation öffnen"
+            }
+            aria-expanded={menuOpen}
+            className="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:border-cyan-400 hover:text-cyan-600 md:hidden dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-cyan-400 dark:hover:text-cyan-400"
+          >
+            {menuOpen ? <FaTimes /> : <FaBars />}
+          </button>
         </div>
       </div>
+
+      {menuOpen && (
+        <nav className="border-t border-slate-200 bg-white px-6 py-4 md:hidden dark:border-slate-800 dark:bg-slate-950">
+          <div className="mx-auto flex max-w-6xl flex-col gap-2">
+            {links.map((link) => {
+              const isActive = activeSection === link.id;
+
+              return (
+                <a
+                  key={link.id}
+                  href={link.href}
+                  onClick={() => setMenuOpen(false)}
+                  className={`rounded-lg px-3 py-3 text-sm font-medium transition ${
+                    isActive
+                      ? "bg-cyan-50 text-cyan-700 dark:bg-cyan-400/10 dark:text-cyan-400"
+                      : "text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-900"
+                  }`}
+                >
+                  {link.label}
+                </a>
+              );
+            })}
+          </div>
+        </nav>
+      )}
     </header>
   );
 }
