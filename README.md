@@ -1,80 +1,50 @@
-#  Portfolio Website
+# Portfolio Website
 
-Eine moderne Portfolio-Website, entwickelt mit **React**, **TypeScript** und **Tailwind CSS**. Das Ziel dieses Projekts ist es, meine Fähigkeiten, Projekte und meinen Werdegang als Softwareentwickler übersichtlich und professionell zu präsentieren.
+A modern and responsive portfolio website built with **React**, **TypeScript**, and **Tailwind CSS**.
 
-##  Features
+This project serves as my personal portfolio, showcasing my skills, selected projects, and experience as a software developer in a clean and professional way.
 
-- Modernes und responsives Design
-- Übersicht über meine Skills
-- Präsentation ausgewählter Projekte
-- Kontaktbereich
-- Smooth Scrolling Navigation
-- Komponentenbasierte Architektur
-- Datenverwaltung über zentrale Dateien (`profile.ts`, `projects.ts`)
+## Tech Stack
 
-##  Technologien
+* React
+* TypeScript
+* Vite
+* Tailwind CSS
 
-- React
-- TypeScript
-- Vite
-- Tailwind CSS
+## Getting Started
 
-##  Projektstruktur
+Follow the steps below to run the project locally.
 
-```text
-src/
-├── assets/
-├── components/
-│   ├── Footer.tsx
-│   └── Navbar.tsx
-├── data/
-│   ├── profile.ts
-│   └── projects.ts
-├── sections/
-│   ├── Hero.tsx
-│   ├── About.tsx
-│   ├── Skills.tsx
-│   ├── Projects.tsx
-│   └── Contact.tsx
-├── App.tsx
-├── index.css
-└── main.tsx
-```
-
-##  Installation
-
-Repository klonen:
+### 1. Clone the repository
 
 ```bash
 git clone <repository-url>
 ```
 
-In das Projekt wechseln:
+### 2. Navigate to the project directory
 
 ```bash
 cd portfolio
 ```
 
-Abhängigkeiten installieren:
+### 3. Install dependencies
 
 ```bash
 npm install
 ```
 
-Entwicklungsserver starten:
+### 4. Start the development server
 
 ```bash
 npm run dev
 ```
 
-Die Anwendung ist anschließend unter:
+The application will be available at:
 
 ```
 http://localhost:5173
 ```
 
-erreichbar.
+## License
 
-##  Lizenz
-
-Dieses Projekt dient als persönliches Portfolio und Referenzprojekt.
+This project was created as a personal portfolio and reference project. It is intended to showcase my work, skills, and experience as a software developer.
