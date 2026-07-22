@@ -5,6 +5,7 @@ import Skills from "./sections/Skills";
 import Projects from "./sections/Projects";
 import Contact from "./sections/Contact";
 import Footer from "./components/Footer";
+import Timeline from "./components/Timeline";
 import { useState } from "react";
 
 export type Language = "de" | "en";
@@ -22,6 +23,7 @@ function App() {
       <main>
         <Hero language={language} />
         <About language={language} />
+        <Timeline language={language} />
         <Skills language={language} />
         <Projects language={language} />
         <Contact language={language} />
