@@ -13,9 +13,9 @@ function Projects({ language }: ProjectsProps) {
   return (
     <section
       id="projects"
-      className="border-y border-slate-200/70 bg-transparent px-6 py-28 dark:border-(--accent-soft) "
+      className="border-y border-slate-200/70 bg-transparent px-6 py-24 dark:border-(--accent-soft)"
     >
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-7xl">
         <Reveal>
           <SectionHeading
             subtitle={projectsSection.subtitle[language]}
@@ -24,7 +24,7 @@ function Projects({ language }: ProjectsProps) {
           />
         </Reveal>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
           {projects.map((project, index) => (
             <Reveal
               key={project.id}

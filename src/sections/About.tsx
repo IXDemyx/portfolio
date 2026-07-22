@@ -27,9 +27,26 @@ function About({ language }: AboutProps) {
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
+
+            {/* Stats */}
+            <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
+              {about.stats.map((stat, index) => (
+                <div key={stat.label.en} className="h-full">
+                  <Reveal delay={index * 0.1}>
+                    <div className="group flex min-h-28 flex-col justify-between rounded-2xl border border-(--accent-border) bg-(--bg-secondary) p-4 transition duration-300 hover:-translate-y-1 hover:border-(--accent)">
+                      <p className="text-2xl font-bold text-(--accent)">
+                        {stat.value}
+                      </p>
+                      <p className="mt-2 text-sm leading-5 text-slate-600 dark:text-(--text-secondary)">
+                        {stat.label[language]}
+                      </p>
+                    </div>
+                  </Reveal>
+                </div>
+              ))}
+            </div>
           </div>
         </Reveal>
-
         <Reveal delay={0.15}>
           <AboutGraphic />
         </Reveal>

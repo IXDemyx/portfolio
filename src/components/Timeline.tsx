@@ -25,7 +25,7 @@ function Timeline({ language }: TimelineProps) {
 
       <div className="relative">
         {/* Linie */}
-        <div className="absolute top-2 left-2 h-full w-0.5 -translate-x-1/2 bg-slate-200 dark:bg-(--bg-card) md:left-1/2" />
+        <div className="absolute top-2 left-2 h-full w-0.5 -translate-x-1/2 bg-slate-200 dark:bg-(--accent-border) md:left-1/2" />
 
         <div className="space-y-14">
           {timeline.items.map((item, index) => (

@@ -22,6 +22,37 @@ const about = {
       "This portfolio showcases my projects, skills and progress as a software developer.",
     ],
   },
+
+  stats: [
+    {
+      value: "4+",
+      label: {
+        de: "Jahre Programmierung",
+        en: "Years Programming",
+      },
+    },
+    {
+      value: "10+",
+      label: {
+        de: "Eigene Projekte",
+        en: "Personal Projects",
+      },
+    },
+    {
+      value: "8+",
+      label: {
+        de: "Technologien",
+        en: "Technologies",
+      },
+    },
+    {
+      value: "Python",
+      label: {
+        de: "Hauptsprache",
+        en: "Primary Language",
+      },
+    },
+  ],
 } as const;
 
 export default about;

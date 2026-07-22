@@ -31,7 +31,7 @@ function ProjectCard({
         )}
       </div>
 
-      <div className="flex flex-1 flex-col p-6">
+      <div className="flex flex-1 flex-col p-7">
         <h3 className="mt-3 text-xl font-bold tracking-tight text-slate-950 dark:text-slate-100">
           {project.title[language]}
         </h3>
@@ -51,7 +51,7 @@ function ProjectCard({
           ))}
         </div>
 
-        <div className="mt-6 flex flex-wrap gap-3">
+        <div className="mt-7 flex flex-wrap gap-3">
           <Button
             href={project.github}
             size="small"
