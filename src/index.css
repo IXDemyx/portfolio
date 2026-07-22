@@ -42,9 +42,9 @@ html.dark {
 html.dark body {
   background:
     radial-gradient(
-      circle at 20% 14%,
-      rgb(34 211 238 / 0.10),
-      transparent 28rem
+      circle at 20% 8%,
+      rgb(34 211 238 / 0.08),
+      transparent 22rem
     ),
 
     radial-gradient(
@@ -54,15 +54,15 @@ html.dark body {
     ),
 
     radial-gradient(
-      circle at 70% 70%,
-      rgb(34 211 238 / 0.12),
-      transparent 28rem
+      circle at 70% 65%,
+      rgb(34 211 238 / 0.08),
+      transparent 24rem
     ),
 
     radial-gradient(
-      circle at 70% 90%,
-      rgb(14 165 233 / 0.10),
-      transparent 26rem
+      circle at 30% 91%,
+      rgb(14 165 233 / 0.08),
+      transparent 24rem
     ),
 
     #0f172a;

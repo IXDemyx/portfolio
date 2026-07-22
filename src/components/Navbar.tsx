@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { FaBars, FaMoon, FaSun, FaTimes } from "react-icons/fa";
 import { useTheme } from "../hooks/useTheme";
-
 import type { Language } from "../App";
 
 interface NavbarProps {
@@ -20,6 +19,7 @@ function Navbar({ language, setLanguage }: NavbarProps) {
       ? [
           { label: "Start", href: "#home", id: "home" },
           { label: "Über mich", href: "#about", id: "about" },
+          { label: "Werdegang", href: "#experience", id: "experience" },
           { label: "Skills", href: "#skills", id: "skills" },
           { label: "Projekte", href: "#projects", id: "projects" },
           { label: "Kontakt", href: "#contact", id: "contact" },
@@ -27,40 +27,48 @@ function Navbar({ language, setLanguage }: NavbarProps) {
       : [
           { label: "Home", href: "#home", id: "home" },
           { label: "About", href: "#about", id: "about" },
+          { label: "Experience", href: "#experience", id: "experience" },
           { label: "Skills", href: "#skills", id: "skills" },
           { label: "Projects", href: "#projects", id: "projects" },
           { label: "Contact", href: "#contact", id: "contact" },
         ];
 
-  useEffect(() => {
+useEffect(() => {
+  const handleScroll = () => {
     const sections = links
       .map((link) => document.getElementById(link.id))
       .filter((section): section is HTMLElement => Boolean(section));
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visibleSection = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort(
-            (first, second) =>
-              second.intersectionRatio - first.intersectionRatio,
-          )[0];
+    const scrollPosition = window.scrollY + 150;
 
-        if (visibleSection) {
-          setActiveSection(visibleSection.target.id);
-        }
-      },
-      {
-        rootMargin: "-25% 0px -60% 0px",
-        threshold: [0.1, 0.25, 0.5],
-      },
-    );
+    let currentSection = "home";
 
-    sections.forEach((section) => observer.observe(section));
+    for (const section of sections) {
+      if (section.offsetTop <= scrollPosition) {
+        currentSection = section.id;
+      }
+    }
 
-    return () => observer.disconnect();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    const isAtBottom =
+      window.innerHeight + window.scrollY >=
+      document.documentElement.scrollHeight - 10;
+
+    if (isAtBottom && sections.length > 0) {
+      currentSection = sections[sections.length - 1].id;
+    }
+
+    setActiveSection(currentSection);
+  };
+
+  window.addEventListener("scroll", handleScroll);
+
+  handleScroll();
+
+  return () => {
+    window.removeEventListener("scroll", handleScroll);
+  };
+// eslint-disable-next-line react-hooks/exhaustive-deps
+}, []);
 
   const switchLanguage = () => {
     setLanguage(language === "de" ? "en" : "de");
