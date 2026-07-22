@@ -33,53 +33,53 @@ function Navbar({ language, setLanguage }: NavbarProps) {
           { label: "Contact", href: "#contact", id: "contact" },
         ];
 
-useEffect(() => {
-  const handleScroll = () => {
-    const sections = links
-      .map((link) => document.getElementById(link.id))
-      .filter((section): section is HTMLElement => Boolean(section));
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = links
+        .map((link) => document.getElementById(link.id))
+        .filter((section): section is HTMLElement => Boolean(section));
 
-    const scrollPosition = window.scrollY + 150;
+      const scrollPosition = window.scrollY + 150;
 
-    let currentSection = "home";
+      let currentSection = "home";
 
-    for (const section of sections) {
-      if (section.offsetTop <= scrollPosition) {
-        currentSection = section.id;
+      for (const section of sections) {
+        if (section.offsetTop <= scrollPosition) {
+          currentSection = section.id;
+        }
       }
-    }
 
-    const isAtBottom =
-      window.innerHeight + window.scrollY >=
-      document.documentElement.scrollHeight - 10;
+      const isAtBottom =
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 10;
 
-    if (isAtBottom && sections.length > 0) {
-      currentSection = sections[sections.length - 1].id;
-    }
+      if (isAtBottom && sections.length > 0) {
+        currentSection = sections[sections.length - 1].id;
+      }
 
-    setActiveSection(currentSection);
-  };
+      setActiveSection(currentSection);
+    };
 
-  window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
-  handleScroll();
+    handleScroll();
 
-  return () => {
-    window.removeEventListener("scroll", handleScroll);
-  };
-// eslint-disable-next-line react-hooks/exhaustive-deps
-}, []);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const switchLanguage = () => {
     setLanguage(language === "de" ? "en" : "de");
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur dark:border-slate-800 dark:bg-slate-950/90">
+    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur dark:border-(--accent-border) dark:bg-(--bg-primary)/90">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <a
           href="#home"
-          className="font-mono text-lg font-bold text-cyan-600 transition hover:text-cyan-500 dark:text-cyan-400 dark:hover:text-cyan-300"
+          className="font-mono text-lg font-bold text-(--accent) transition hover:text-(--accent-hover)"
         >
           {"</DK>"}
         </a>
@@ -95,14 +95,14 @@ useEffect(() => {
                   href={link.href}
                   className={`relative py-2 text-sm font-medium transition ${
                     isActive
-                      ? "text-cyan-600 dark:text-cyan-400"
-                      : "text-slate-700 hover:text-cyan-600 dark:text-slate-300 dark:hover:text-cyan-400"
+                      ? "text-(--accent)"
+                      : "text-slate-700 hover:text-(--accent) dark:text-slate-300"
                   }`}
                 >
                   {link.label}
 
                   <span
-                    className={`absolute inset-x-0 -bottom-0.5 h-0.5 origin-left rounded-full bg-cyan-500 transition-transform ${
+                    className={`absolute inset-x-0 -bottom-0.5 h-0.5 origin-left rounded-full bg-(--accent) transition-transform ${
                       isActive ? "scale-x-100" : "scale-x-0"
                     }`}
                   />
@@ -116,9 +116,11 @@ useEffect(() => {
               type="button"
               onClick={switchLanguage}
               aria-label={
-                language === "de" ? "Switch to English" : "Auf Deutsch wechseln"
+                language === "de"
+                  ? "Switch to English"
+                  : "Auf Deutsch wechseln"
               }
-              className="hidden h-10 min-w-10 cursor-pointer items-center justify-center rounded-lg px-2 font-mono text-xs font-semibold text-slate-500 transition hover:text-cyan-600 lg:flex dark:text-slate-400 dark:hover:text-cyan-400"
+              className="hidden h-10 min-w-10 cursor-pointer items-center justify-center rounded-lg px-2 font-mono text-xs font-semibold text-slate-500 transition hover:text-(--accent) lg:flex dark:text-(--text-secondary)"
             >
               {language === "de" ? "EN" : "DE"}
             </button>
@@ -135,7 +137,7 @@ useEffect(() => {
                     ? "Dunkles Design aktivieren"
                     : "Enable dark mode"
               }
-              className="flex cursor-pointer h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:border-cyan-400 hover:text-cyan-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-cyan-400 dark:hover:text-cyan-400"
+              className="flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:border-(--accent) hover:text-(--accent) dark:border-(--accent-border) dark:bg-(--bg-secondary) dark:text-slate-300 dark:hover:border-(--accent)"
             >
               {theme === "dark" ? <FaSun /> : <FaMoon />}
             </button>
@@ -153,7 +155,7 @@ useEffect(() => {
                     : "Open navigation"
               }
               aria-expanded={menuOpen}
-              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:border-cyan-400 hover:text-cyan-600 lg:hidden dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-cyan-400 dark:hover:text-cyan-400"
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:border-(--accent) hover:text-(--accent-hover) lg:hidden dark:border-slate-700 dark:bg-(--bg-secondary) dark:text-slate-300 dark:hover:border-(--accent)"
             >
               {menuOpen ? <FaTimes /> : <FaBars />}
             </button>
@@ -162,7 +164,7 @@ useEffect(() => {
       </div>
 
       {menuOpen && (
-        <nav className="border-t border-slate-200 bg-white px-6 py-4 lg:hidden dark:border-slate-800 dark:bg-slate-950">
+        <nav className="border-t border-slate-200 bg-white px-6 py-4 lg:hidden dark:border-slate-800 dark:bg-(--bg-primary)">
           <div className="mx-auto flex max-w-6xl flex-col gap-2">
             {links.map((link) => {
               const isActive = activeSection === link.id;
@@ -174,8 +176,8 @@ useEffect(() => {
                   onClick={() => setMenuOpen(false)}
                   className={`rounded-lg px-3 py-3 text-sm font-medium transition ${
                     isActive
-                      ? "bg-cyan-50 text-cyan-700 dark:bg-cyan-400/10 dark:text-cyan-400"
-                      : "text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-900"
+                      ? "bg-(--accent-soft) text-(--accent)"
+                      : "text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-(--bg-secondary)"
                   }`}
                 >
                   {link.label}
@@ -184,7 +186,7 @@ useEffect(() => {
             })}
 
             <div className="mt-3 flex items-center justify-between border-t border-slate-200 pt-4 dark:border-slate-800">
-              <span className="text-sm text-slate-500 dark:text-slate-400">
+              <span className="text-sm text-slate-500 dark:text-(--text-secondary)">
                 {language === "de" ? "Sprache" : "Language"}
               </span>
 
@@ -195,8 +197,8 @@ useEffect(() => {
                   aria-pressed={language === "de"}
                   className={`rounded-lg px-3 py-2 transition ${
                     language === "de"
-                      ? "bg-cyan-500 text-slate-950"
-                      : "text-slate-500 hover:text-cyan-600 dark:text-slate-400 dark:hover:text-cyan-400"
+                      ? "bg-(--accent) text-slate-950"
+                      : "text-slate-500 hover:text-(--accent) dark:text-(--text-secondary)"
                   }`}
                 >
                   DE
@@ -208,8 +210,8 @@ useEffect(() => {
                   aria-pressed={language === "en"}
                   className={`rounded-lg px-3 py-2 transition ${
                     language === "en"
-                      ? "bg-cyan-500 text-slate-950"
-                      : "text-slate-500 hover:text-cyan-600 dark:text-slate-400 dark:hover:text-cyan-400"
+                      ? "bg-(--accent) text-slate-950"
+                      : "text-slate-500 hover:text-(--accent) dark:text-(--text-secondary)"
                   }`}
                 >
                   EN

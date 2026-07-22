@@ -13,7 +13,7 @@ function Skills({ language }: SkillsProps) {
   return (
     <section
       id="skills"
-      className="relative border-y border-slate-800/40 px-6 py-28"
+      className="relative border-y border-slate-200 px-6 py-28 dark:border-(--accent-soft)"
     >
       <div className="relative z-10 mx-auto max-w-6xl">
         <Reveal>

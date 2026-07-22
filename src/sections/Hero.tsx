@@ -17,11 +17,11 @@ function Hero({ language }: HeroProps) {
     >
       <div className="mx-auto grid w-full max-w-6xl gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
         <div className="max-w-xl">
-          <p className="font-mono text-sm font-semibold uppercase tracking-[0.2em] text-cyan-700 dark:text-cyan-400">
+          <p className="font-mono text-sm font-semibold uppercase tracking-[0.2em] text-(--accent)">
             {hero.greeting[language]}
           </p>
 
-          <h1 className="mt-5 text-5xl font-bold tracking-[-0.04em] text-slate-950 dark:text-white sm:text-6xl lg:text-7xl">
+          <h1 className="mt-5 text-5xl font-bold tracking-[-0.04em] text-slate-950 dark:text-(--text-primary) sm:text-6xl lg:text-7xl">
             {profile.name}
           </h1>
 
@@ -29,14 +29,20 @@ function Hero({ language }: HeroProps) {
             {profile.title[language]}
           </h2>
 
-          <p className="mt-6 max-w-xl text-lg leading-8 text-slate-600 dark:text-slate-400">
+          <p className="mt-6 max-w-xl text-lg leading-8 text-slate-600 dark:text-(--text-secondary)">
             {profile.description[language]}
           </p>
 
           <div className="mt-8 flex flex-wrap gap-4">
-            <Button href="#projects">{hero.projectsButton[language]}</Button>
+            <Button href="#projects">
+              {hero.projectsButton[language]}
+            </Button>
 
-            <Button href={profile.github} variant="secondary" external>
+            <Button
+              href={profile.github}
+              variant="secondary"
+              external
+            >
               <span className="flex items-center gap-2">
                 <FaGithub aria-hidden="true" />
                 GitHub
@@ -47,14 +53,17 @@ function Hero({ language }: HeroProps) {
 
         <div className="relative hidden lg:block">
           <div className="animate-code">
-            <CodeWindow key={language} language={language} />
+            <CodeWindow
+              key={language}
+              language={language}
+            />
           </div>
         </div>
       </div>
 
       <a
         href="#about"
-        className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-slate-500 transition hover:text-cyan-600 md:flex dark:text-slate-400 dark:hover:text-cyan-400"
+        className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-slate-500 transition hover:text-(--accent-hover) md:flex dark:text-(--text-secondary)"
       >
         <span>Scroll</span>
         <span className="animate-bounce text-lg">↓</span>

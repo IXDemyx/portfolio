@@ -1,34 +1,24 @@
 @import "tailwindcss";
+@import "./styles/theme-orange";
 @custom-variant dark (&:where(.dark, .dark *));
 @theme {
   --font-sans: "Inter", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
-
-  --color-brand-50: #ecfeff;
-  --color-brand-100: #cffafe;
-  --color-brand-400: #22d3ee;
-  --color-brand-500: #06b6d4;
-  --color-brand-600: #0891b2;
-  --color-brand-700: #0e7490;
+}
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  transition:
+    color 200ms ease,
+    background-color 200ms ease;
 }
 
-:root {
-  font-family: var(--font-sans);
-  color: #0f172a;
-  background: #fafafa;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  --accent: #06b6d4;
-  --accent-hover: #22d3ee;
-  --accent-soft: #ecfeff;
-  --accent-border: #a5f3fc;
-}
-
-.dark {
-  --accent: #22d3ee;
-  --accent-hover: #67e8f9;
-  --accent-soft: rgba(8, 145, 178, 0.15);
-  --accent-border: #164e63;
+::selection {
+  color: #ffffff;
+  background: var(--accent);
 }
 
 html {
@@ -36,57 +26,14 @@ html {
   scroll-padding-top: 80px;
 }
 
-body {
-  margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
-  background:#fafafa;
-  transition:
-    color 200ms ease,
-    background-color 200ms ease;
-}
-
 html.dark {
   color-scheme: dark;
-}
-
-html.dark body {
-  background:
-    radial-gradient(
-      circle at 20% 8%,
-      rgb(34 211 238 / 0.08),
-      transparent 22rem
-    ),
-
-    radial-gradient(
-      circle at 15% 50%,
-      rgb(59 130 246 / 0.08),
-      transparent 28rem
-    ),
-
-    radial-gradient(
-      circle at 70% 65%,
-      rgb(34 211 238 / 0.08),
-      transparent 24rem
-    ),
-
-    radial-gradient(
-      circle at 30% 91%,
-      rgb(14 165 233 / 0.08),
-      transparent 24rem
-    ),
-
-    #0f172a;
 }
 a,
 button {
   -webkit-tap-highlight-color: transparent;
 }
 
-::selection {
-  color: #0f172a;
-  background: #a5f3fc;
-}
 
 @keyframes slideIn {
   from {

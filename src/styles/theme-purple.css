@@ -1,0 +1,36 @@
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-card: #ffffff;
+
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+
+  --accent: #7c3aed;
+  --accent-hover: #8b5cf6;
+  --accent-soft: #f5f3ff;
+  --accent-border: #ddd6fe;
+}
+
+.dark {
+  --bg-primary: #0f0a19;
+  --bg-secondary: #181127;
+  --bg-card: #211735;
+
+  --text-primary: #ffffff;
+  --text-secondary: #bcb3d6;
+
+  --accent: #8b5cf6;
+  --accent-hover: #a78bfa;
+  --accent-soft: rgba(139, 92, 246, 0.15);
+  --accent-border: #4c1d95;
+}
+
+html.dark body {
+  background:
+    radial-gradient(circle at 20% 8%, rgb(139 92 246 / 0.08), transparent 22rem),
+    radial-gradient(circle at 15% 50%, rgb(124 58 237 / 0.08), transparent 28rem),
+    radial-gradient(circle at 70% 65%, rgb(167 139 250 / 0.06), transparent 24rem),
+    radial-gradient(circle at 30% 91%, rgb(109 40 217 / 0.08), transparent 24rem),
+    var(--bg-primary);
+}

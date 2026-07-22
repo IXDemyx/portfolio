@@ -13,7 +13,7 @@ function Projects({ language }: ProjectsProps) {
   return (
     <section
       id="projects"
-      className="border-y border-slate-200/70 bg-slate-50/70 px-6 py-28 dark:border-slate-800/70 dark:bg-slate-900/35"
+      className="border-y border-slate-200/70 bg-transparent px-6 py-28 dark:border-(--accent-soft) "
     >
       <div className="mx-auto max-w-6xl">
         <Reveal>

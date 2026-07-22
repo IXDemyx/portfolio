@@ -10,22 +10,22 @@ function Timeline({ language }: TimelineProps) {
   return (
     <section id="experience" className="mx-auto max-w-5xl px-6 py-24">
       <Reveal className="mb-16 text-center">
-        <p className="font-mono text-sm font-semibold uppercase tracking-[0.2em] text-cyan-700 dark:text-cyan-400">
+        <p className="font-mono text-sm font-semibold uppercase tracking-[0.2em] text-(--accent)">
           {timeline.label[language]}
         </p>
 
-        <h2 className="mt-4 text-3xl font-bold tracking-tight text-slate-950 dark:text-white sm:text-4xl">
+        <h2 className="mt-4 text-3xl font-bold tracking-tight text-slate-950 dark:text-(--text-primary) sm:text-4xl">
           {timeline.title[language]}
         </h2>
 
-        <p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-slate-600 dark:text-slate-400">
+        <p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-slate-600 dark:text-(--text-secondary)">
           {timeline.subtitle[language]}
         </p>
       </Reveal>
 
       <div className="relative">
         {/* Linie */}
-        <div className="absolute left-2 top-2 h-full w-0.5 -translate-x-1/2 bg-slate-200 dark:bg-slate-800 md:left-1/2" />
+        <div className="absolute top-2 left-2 h-full w-0.5 -translate-x-1/2 bg-slate-200 dark:bg-(--bg-card) md:left-1/2" />
 
         <div className="space-y-14">
           {timeline.items.map((item, index) => (
@@ -38,30 +38,27 @@ function Timeline({ language }: TimelineProps) {
             >
               {/* Punkt */}
               <div
-                className={`absolute top-2 z-10 h-4 w-4 rounded-full border-4 border-white bg-cyan-600 shadow-sm dark:border-slate-950 dark:bg-cyan-400
-                    left-2 -translate-x-1/2
-                    ${
-                      index % 2 === 0
-                        ? "md:left-auto md:right-0 md:translate-x-1/2"
-                        : "md:left-0 md:-translate-x-1/2"
-                    }
-                  `}
+                className={`absolute top-2 left-2 z-10 h-4 w-4 -translate-x-1/2 rounded-full border-4 border-white bg-(--accent) shadow-sm dark:border-(--bg-primary) ${
+                  index % 2 === 0
+                    ? "md:left-auto md:right-0 md:translate-x-1/2"
+                    : "md:left-0 md:-translate-x-1/2"
+                }`}
               />
 
               <div className="ml-10 md:ml-0">
-                <span className="font-mono text-sm font-semibold text-cyan-700 dark:text-cyan-400">
+                <span className="font-mono text-sm font-semibold text-(--accent)">
                   {item.date}
                 </span>
 
-                <h3 className="mt-2 text-xl font-bold text-slate-950 dark:text-white">
+                <h3 className="mt-2 text-xl font-bold text-slate-950 dark:text-(--text-primary)">
                   {item.title[language]}
                 </h3>
 
-                <p className="mt-1 font-medium text-slate-500 dark:text-slate-400">
+                <p className="mt-1 font-medium text-slate-500 dark:text-(--text-secondary)">
                   {item.company}
                 </p>
 
-                <p className="mt-4 leading-7 text-slate-600 dark:text-slate-400">
+                <p className="mt-4 leading-7 text-slate-600 dark:text-(--text-secondary)">
                   {item.description[language]}
                 </p>
 
@@ -69,7 +66,7 @@ function Timeline({ language }: TimelineProps) {
                   {item.technologies.map((technology) => (
                     <span
                       key={technology}
-                      className="rounded-full border border-cyan-200 bg-cyan-50 px-3 py-1 font-mono text-xs font-medium text-cyan-700 dark:border-cyan-900 dark:bg-cyan-950/40 dark:text-cyan-300"
+                      className="rounded-full border border-(--accent-border) bg-(--accent-soft) px-3 py-1 font-mono text-xs font-medium text-(--accent)"
                     >
                       {technology}
                     </span>

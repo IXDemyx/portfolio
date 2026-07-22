@@ -1,15 +1,14 @@
 import {
-    FaReact,
-    FaVuejs,
-    FaAngular,
-    FaPython,
-    FaJava,
-    FaDocker,
-    FaGitAlt,
+  FaReact,
+  FaVuejs,
+  FaAngular,
+  FaPython,
+  FaJava,
+  FaDocker,
+  FaGitAlt,
 } from "react-icons/fa";
 
 import { SiMysql, SiCplusplus } from "react-icons/si";
-
 import type { IconType } from "react-icons";
 
 interface SkillCardProps {
@@ -61,7 +60,7 @@ const skillIcons: Record<
 
   SQL: {
     icon: SiMysql,
-    color: "text-cyan-600",
+    color: "text-(--accent)",
   },
 
   Git: {
@@ -75,19 +74,22 @@ function SkillCard({
   description,
 }: SkillCardProps) {
   const skill = skillIcons[title];
-
   const Icon = skill?.icon;
 
   return (
-    <article className="group flex items-center gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-cyan-300 hover:shadow-lg dark:border-slate-800 dark:bg-slate-900 dark:hover:border-cyan-700">
-      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-slate-50 transition group-hover:scale-110 dark:bg-slate-800">
+    <article className="group flex items-center gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-(--accent-border) hover:shadow-lg dark:border-(--accent-border) dark:bg-(--bg-secondary) dark:hover:border-(--accent)">
+      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-slate-50 transition group-hover:scale-110 dark:bg-(--bg-card)">
         {Icon && <Icon className={`text-3xl ${skill.color}`} />}
       </div>
 
       <div>
-        <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100">{title}</h3>
+        <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100">
+          {title}
+        </h3>
 
-        <p className="text-sm text-slate-500 dark:text-slate-400">{description}</p>
+        <p className="text-sm text-slate-500 dark:text-(--text-secondary)">
+          {description}
+        </p>
       </div>
     </article>
   );

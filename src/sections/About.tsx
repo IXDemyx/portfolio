@@ -12,7 +12,7 @@ function About({ language }: AboutProps) {
   return (
     <section
       id="about"
-      className="border-y border-slate-200/70 bg-slate-50/70 px-6 py-28 dark:border-slate-800/70 dark:bg-slate-900/35"
+      className="border-y border-slate-200/70 bg-transparent px-6 py-28 dark:border-(--accent-soft)"
     >
       <div className="mx-auto grid max-w-6xl gap-14 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
         <Reveal>
@@ -22,7 +22,7 @@ function About({ language }: AboutProps) {
               title={about.title[language]}
             />
 
-            <div className="space-y-4 text-lg leading-8 text-slate-600 dark:text-slate-400">
+            <div className="space-y-4 text-lg leading-8 text-slate-600 dark:text-(--text-secondary)">
               {about.paragraphs[language].map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}

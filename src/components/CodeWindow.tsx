@@ -16,7 +16,7 @@ function CodeWindow({ language }: CodeWindowProps) {
   const role = profile.title[language];
   const location = profile.location[language];
   const hobbies = profile.hobbies[language];
-  const languages = profile.languages[language]
+  const languages = profile.languages[language];
 
   const lines = useMemo<CodeLine[]>(
     () => [
@@ -73,7 +73,9 @@ function CodeWindow({ language }: CodeWindowProps) {
         ),
       },
       {
-        plainText: `  languages: [${languages.map((language) => `"${language}"`).join(", ")}],`,
+        plainText: `  languages: [${languages
+          .map((language) => `"${language}"`)
+          .join(", ")}],`,
         content: (
           <>
             {"  "}
@@ -97,7 +99,9 @@ function CodeWindow({ language }: CodeWindowProps) {
         ),
       },
       {
-        plainText: `  interests: [${hobbies.map((hobby) => `"${hobby}"`).join(", ")}],`,
+        plainText: `  interests: [${hobbies
+          .map((hobby) => `"${hobby}"`)
+          .join(", ")}],`,
         content: (
           <>
             {"  "}
@@ -150,7 +154,7 @@ function CodeWindow({ language }: CodeWindowProps) {
         ),
       },
     ],
-    [role, location],
+    [role, location, languages, hobbies],
   );
 
   const prefersReducedMotion =
@@ -162,7 +166,6 @@ function CodeWindow({ language }: CodeWindowProps) {
   );
 
   const [visibleCharacters, setVisibleCharacters] = useState(0);
-
   const [finished, setFinished] = useState(prefersReducedMotion);
 
   useEffect(() => {
@@ -200,10 +203,10 @@ function CodeWindow({ language }: CodeWindowProps) {
       className="
         h-97.5 overflow-hidden rounded-3xl border
         border-slate-200 bg-white
-        shadow-[0_25px_80px_-30px_rgba(15,23,42,0.25)]
+        shadow-[0_30px_80px_-20px_rgba(15,23,42,0.25)]
         transition-colors duration-300
-        dark:border-slate-700 dark:bg-slate-950
-        dark:shadow-[0_25px_80px_-30px_rgba(34,211,238,0.25)]
+        dark:border-(--accent-border) dark:bg-(--bg-primary)
+        dark:shadow
       "
     >
       <div
@@ -211,14 +214,14 @@ function CodeWindow({ language }: CodeWindowProps) {
           flex h-14 items-center gap-2 border-b
           border-slate-200 bg-slate-50 px-5
           transition-colors duration-300
-          dark:border-slate-800 dark:bg-slate-900/50
+          dark:border-(--accent-border) dark:bg-(--bg-secondary)/50
         "
       >
         <span className="h-3 w-3 rounded-full bg-red-400" />
         <span className="h-3 w-3 rounded-full bg-amber-400" />
         <span className="h-3 w-3 rounded-full bg-emerald-400" />
 
-        <span className="ml-3 font-mono text-xs text-slate-500 dark:text-slate-400">
+        <span className="ml-3 font-mono text-xs text-slate-500 dark:text-(--text-secondary)">
           developer.ts
         </span>
       </div>
@@ -244,7 +247,7 @@ function CodeWindow({ language }: CodeWindowProps) {
 
                   <span
                     aria-hidden="true"
-                    className="ml-0.5 inline-block h-5 w-2 translate-y-1 bg-cyan-600 dark:bg-cyan-400"
+                    className="ml-0.5 inline-block h-5 w-2 translate-y-1 bg-(--accent)"
                   />
                 </>
               )}
@@ -252,7 +255,7 @@ function CodeWindow({ language }: CodeWindowProps) {
               {finished && isLastLine && (
                 <span
                   aria-hidden="true"
-                  className="ml-0.5 inline-block h-5 w-2 translate-y-1 animate-pulse bg-cyan-600 dark:bg-cyan-400"
+                  className="ml-0.5 inline-block h-5 w-2 translate-y-1 animate-pulse bg-(--accent)"
                 />
               )}
             </div>
