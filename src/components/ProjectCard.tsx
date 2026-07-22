@@ -32,10 +32,6 @@ function ProjectCard({
       </div>
 
       <div className="flex flex-1 flex-col p-6">
-        <p className="font-mono text-xs font-semibold uppercase tracking-[0.18em] text-(--accent)">
-          {projectsSection.projectLabel[language]}
-        </p>
-
         <h3 className="mt-3 text-xl font-bold tracking-tight text-slate-950 dark:text-slate-100">
           {project.title[language]}
         </h3>

@@ -24,9 +24,15 @@ function CodeWindow({ language }: CodeWindowProps) {
         plainText: "const developer = {",
         content: (
           <>
-            <span className="text-purple-700 dark:text-purple-400">const</span>{" "}
-            <span className="text-blue-700 dark:text-cyan-300">developer</span>{" "}
-            <span className="text-slate-700 dark:text-slate-300">= {"{"}</span>
+            <span className="text-violet-700 dark:text-violet-300">
+              const
+            </span>{" "}
+            <span className="text-amber-700 dark:text-amber-300">
+              developer
+            </span>{" "}
+            <span className="text-stone-700 dark:text-stone-300">
+              = {"{"}
+            </span>
           </>
         ),
       },
@@ -35,12 +41,14 @@ function CodeWindow({ language }: CodeWindowProps) {
         content: (
           <>
             {"  "}
-            <span className="text-blue-600 dark:text-sky-300">name</span>
-            <span className="text-slate-700 dark:text-slate-300">: </span>
-            <span className="text-green-700 dark:text-emerald-300">
+            <span className="text-orange-700 dark:text-orange-300">
+              name
+            </span>
+            <span className="text-stone-700 dark:text-stone-300">: </span>
+            <span className="text-green-700 dark:text-green-300">
               "{profile.name}"
             </span>
-            <span className="text-slate-700 dark:text-slate-300">,</span>
+            <span className="text-stone-700 dark:text-stone-300">,</span>
           </>
         ),
       },
@@ -49,12 +57,14 @@ function CodeWindow({ language }: CodeWindowProps) {
         content: (
           <>
             {"  "}
-            <span className="text-blue-600 dark:text-sky-300">role</span>
-            <span className="text-slate-700 dark:text-slate-300">: </span>
-            <span className="text-green-700 dark:text-emerald-300">
+            <span className="text-orange-700 dark:text-orange-300">
+              role
+            </span>
+            <span className="text-stone-700 dark:text-stone-300">: </span>
+            <span className="text-green-700 dark:text-green-300">
               "{role}"
             </span>
-            <span className="text-slate-700 dark:text-slate-300">,</span>
+            <span className="text-stone-700 dark:text-stone-300">,</span>
           </>
         ),
       },
@@ -63,12 +73,14 @@ function CodeWindow({ language }: CodeWindowProps) {
         content: (
           <>
             {"  "}
-            <span className="text-blue-600 dark:text-sky-300">location</span>
-            <span className="text-slate-700 dark:text-slate-300">: </span>
-            <span className="text-green-700 dark:text-emerald-300">
+            <span className="text-orange-700 dark:text-orange-300">
+              location
+            </span>
+            <span className="text-stone-700 dark:text-stone-300">: </span>
+            <span className="text-green-700 dark:text-green-300">
               "{location}"
             </span>
-            <span className="text-slate-700 dark:text-slate-300">,</span>
+            <span className="text-stone-700 dark:text-stone-300">,</span>
           </>
         ),
       },
@@ -79,22 +91,26 @@ function CodeWindow({ language }: CodeWindowProps) {
         content: (
           <>
             {"  "}
-            <span className="text-blue-600 dark:text-sky-300">languages</span>
-            <span className="text-slate-700 dark:text-slate-300">: [</span>
+            <span className="text-orange-700 dark:text-orange-300">
+              languages
+            </span>
+            <span className="text-stone-700 dark:text-stone-300">: [</span>
 
             {languages.map((language, index) => (
               <span key={language}>
-                <span className="text-green-700 dark:text-emerald-300">
+                <span className="text-green-700 dark:text-green-300">
                   "{language}"
                 </span>
 
                 {index < languages.length - 1 && (
-                  <span className="text-slate-700 dark:text-slate-300">, </span>
+                  <span className="text-stone-700 dark:text-stone-300">
+                    ,{" "}
+                  </span>
                 )}
               </span>
             ))}
 
-            <span className="text-slate-700 dark:text-slate-300">],</span>
+            <span className="text-stone-700 dark:text-stone-300">],</span>
           </>
         ),
       },
@@ -105,22 +121,26 @@ function CodeWindow({ language }: CodeWindowProps) {
         content: (
           <>
             {"  "}
-            <span className="text-blue-600 dark:text-sky-300">interests</span>
-            <span className="text-slate-700 dark:text-slate-300">: [</span>
+            <span className="text-orange-700 dark:text-orange-300">
+              interests
+            </span>
+            <span className="text-stone-700 dark:text-stone-300">: [</span>
 
             {hobbies.map((hobby, index) => (
               <span key={hobby}>
-                <span className="text-green-700 dark:text-emerald-300">
+                <span className="text-green-700 dark:text-green-300">
                   "{hobby}"
                 </span>
 
                 {index < hobbies.length - 1 && (
-                  <span className="text-slate-700 dark:text-slate-300">, </span>
+                  <span className="text-stone-700 dark:text-stone-300">
+                    ,{" "}
+                  </span>
                 )}
               </span>
             ))}
 
-            <span className="text-slate-700 dark:text-slate-300">],</span>
+            <span className="text-stone-700 dark:text-stone-300">],</span>
           </>
         ),
       },
@@ -129,27 +149,33 @@ function CodeWindow({ language }: CodeWindowProps) {
         content: (
           <>
             {"  "}
-            <span className="text-blue-600 dark:text-sky-300">openToWork</span>
-            <span className="text-slate-700 dark:text-slate-300">: </span>
-            <span className="text-orange-600 dark:text-orange-300">true</span>
+            <span className="text-orange-700 dark:text-orange-300">
+              openToWork
+            </span>
+            <span className="text-stone-700 dark:text-stone-300">: </span>
+            <span className="text-amber-700 dark:text-amber-300">
+              true
+            </span>
           </>
         ),
       },
       {
         plainText: "};",
         content: (
-          <span className="text-slate-700 dark:text-slate-300">{"};"}</span>
+          <span className="text-stone-700 dark:text-stone-300">{"};"}</span>
         ),
       },
       {
         plainText: "export default developer;",
         content: (
           <>
-            <span className="text-purple-700 dark:text-purple-400">
+            <span className="text-violet-700 dark:text-violet-300">
               export default
             </span>{" "}
-            <span className="text-blue-700 dark:text-cyan-300">developer</span>
-            <span className="text-slate-700 dark:text-slate-300">;</span>
+            <span className="text-amber-700 dark:text-amber-300">
+              developer
+            </span>
+            <span className="text-stone-700 dark:text-stone-300">;</span>
           </>
         ),
       },
@@ -214,7 +240,7 @@ function CodeWindow({ language }: CodeWindowProps) {
           flex h-14 items-center gap-2 border-b
           border-slate-200 bg-slate-50 px-5
           transition-colors duration-300
-          dark:border-(--accent-border) dark:bg-(--bg-secondary)/50
+          dark:border-(--accent-border) dark:bg-(--bg-card)
         "
       >
         <span className="h-3 w-3 rounded-full bg-red-400" />
@@ -241,7 +267,7 @@ function CodeWindow({ language }: CodeWindowProps) {
 
               {isCurrent && (
                 <>
-                  <span className="text-slate-700 dark:text-slate-300">
+                  <span className="text-stone-700 dark:text-stone-300">
                     {line.plainText.slice(0, visibleCharacters)}
                   </span>
 
