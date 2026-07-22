@@ -10,7 +10,7 @@ function AboutGraphic() {
           <img
             src="/profile.png"
             alt="Daniel Keller"
-            className="h-60 w-52 rounded-[20px] object-cover"
+            className="h-68 w-56 rounded-[20px] object-cover"
           />
         </div>
 

@@ -25,21 +25,24 @@ const about = {
 
   stats: [
     {
-      value: "4+",
+      value: 4,
+      suffix: "+",
       label: {
         de: "Jahre Programmierung",
         en: "Years Programming",
       },
     },
     {
-      value: "10+",
+      value: 10,
+      suffix: "+",
       label: {
         de: "Eigene Projekte",
         en: "Personal Projects",
       },
     },
     {
-      value: "8+",
+      value: 8,
+      suffix: "+",
       label: {
         de: "Technologien",
         en: "Technologies",
