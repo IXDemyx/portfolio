@@ -18,6 +18,17 @@
   background: #fafafa;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
+  --accent: #06b6d4;
+  --accent-hover: #22d3ee;
+  --accent-soft: #ecfeff;
+  --accent-border: #a5f3fc;
+}
+
+.dark {
+  --accent: #22d3ee;
+  --accent-hover: #67e8f9;
+  --accent-soft: rgba(8, 145, 178, 0.15);
+  --accent-border: #164e63;
 }
 
 html {
