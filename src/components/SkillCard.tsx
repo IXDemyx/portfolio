@@ -78,7 +78,7 @@ function SkillCard({
 
   return (
     <article className="group flex items-center gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-(--accent-border) hover:shadow-lg dark:border-(--accent-border) dark:bg-(--bg-secondary) dark:hover:border-(--accent)">
-      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-slate-50 transition group-hover:scale-110 dark:bg-(--bg-card)">
+      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-slate-50 transition group-hover:scale-110 dark:bg-(--bg-secondary)">
         {Icon && <Icon className={`text-3xl ${skill.color}`} />}
       </div>
 

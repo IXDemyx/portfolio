@@ -15,7 +15,7 @@ function Footer({ language }: FooterProps) {
     "flex h-10 w-10 items-center justify-center rounded-xl border " +
     "border-slate-200 text-slate-600 transition " +
     "hover:-translate-y-0.5 hover:border-(--accent) hover:text-(--accent) " +
-    "dark:border-slate-800 dark:text-(--text-secondary) " +
+    "dark:border-(--accent-border) dark:text-(--text-secondary) " +
     "dark:hover:border-(--accent) dark:hover:text-(--accent)";
 
   return (

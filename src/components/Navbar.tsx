@@ -137,7 +137,7 @@ function Navbar({ language, setLanguage }: NavbarProps) {
                     ? "Dunkles Design aktivieren"
                     : "Enable dark mode"
               }
-              className="flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:border-(--accent) hover:text-(--accent) dark:border-(--accent-border) dark:bg-(--bg-secondary) dark:text-slate-300 dark:hover:border-(--accent)"
+              className="flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:border-(--accent) hover:text-(--accent) dark:border-(--accent-border) dark:bg-(--bg-secondary) dark:text-(--text-secondary) dark:hover:border-(--accent)"
             >
               {theme === "dark" ? <FaSun /> : <FaMoon />}
             </button>
