@@ -40,8 +40,30 @@ function App() {
           }
         />
 
-        <Route path="/imprint" element={<Imprint language={language} />} />
-        <Route path="/privacy" element={<Privacy language={language} />} />
+        <Route
+          path="/imprint"
+          element={
+            <>
+              <main>
+                <Imprint language={language} />
+              </main>
+
+              <Footer language={language} />
+            </>
+          }
+        />
+        <Route
+          path="/privacy"
+          element={
+            <>
+              <main>
+                <Privacy language={language} />
+              </main>
+
+              <Footer language={language} />
+            </>
+          }
+        />
       </Routes>
     </div>
   );
