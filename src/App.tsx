@@ -11,6 +11,7 @@ import Privacy from "./pages/Privacy";
 
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
+import ScrollToTop from "./components/ScrollToTop";
 
 export type Language = "de" | "en";
 
@@ -19,6 +20,7 @@ function App() {
 
   return (
     <div className="overflow-x-clip">
+      <ScrollToTop />
       <Navbar language={language} setLanguage={setLanguage} />
 
       <Routes>
