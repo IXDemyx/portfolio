@@ -23,7 +23,7 @@ const timeline = {
         en: "Product Support & Software Development",
       },
 
-      company: "Weidmüller Interface",
+      company: "Weidmüller Interface GmbH & Co. KG",
 
       description: {
         de: "Entwicklung interner Anwendungen und Automatisierungen zur Optimierung wiederkehrender Prozesse im Produktsupport.",
@@ -41,7 +41,7 @@ const timeline = {
         en: "Apprenticeship – IT Specialist for Application Development",
       },
 
-      company: "Weidmüller Interface",
+      company: "Weidmüller Interface GmbH & Co. KG",
 
       description: {
         de: "Ausbildung zum Fachinformatiker für Anwendungsentwicklung mit Schwerpunkt auf moderner Softwareentwicklung und praxisnahen Projekten. Inhalte umfassten unter anderem die Entwicklung mit Python, Angular, Flask und SQL, Versionsverwaltung und Zusammenarbeit mit Git und Azure DevOps sowie Qualitätssicherung durch Pull Requests. Darüber hinaus sammelte ich praktische Erfahrungen in IoT-Projekten mit MQTT, Node-RED, Arduino und Raspberry Pi sowie in der Programmierung von Mikrocontrollern.",
@@ -69,7 +69,7 @@ const timeline = {
         en: "Internship as Developer",
       },
 
-      company: "Weidmüller Interface",
+      company: "Weidmüller Interface GmbH & Co. KG",
 
       description: {
         de: "Automatisierungen von internen Problemen und einen Einblick wichtiger internen Prozesse.",

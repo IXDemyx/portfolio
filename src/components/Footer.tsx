@@ -1,5 +1,6 @@
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
+import { Link } from "react-router-dom";
 import profile from "../data/profile";
 import type { Language } from "../App";
 import footer from "../data/footer";
@@ -23,12 +24,28 @@ function Footer({ language }: FooterProps) {
       <div className="mx-auto flex max-w-6xl flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="text-sm text-slate-600 dark:text-(--text-secondary)">
-            © {currentYear} {profile.name}
+            © {currentYear} {profile.name} | {profile.email}
           </p>
 
           <p className="mt-1 font-mono text-xs text-slate-500 dark:text-(--text-secondary)">
             {footer.builtWith[language]}
           </p>
+
+          <div className="mt-2 flex gap-3">
+            <Link
+              to="/imprint"
+              className="text-xs text-slate-500 transition hover:text-(--accent) dark:text-(--text-secondary) dark:hover:text-(--accent)"
+            >
+              {language === "de" ? "Impressum" : "Legal Notice"}
+            </Link>
+
+            <Link
+              to="/privacy"
+              className="text-xs text-slate-500 transition hover:text-(--accent) dark:text-(--text-secondary) dark:hover:text-(--accent)"
+            >
+              {language === "de" ? "Datenschutz" : "Privacy Policy"}
+            </Link>
+          </div>
         </div>
 
         <nav
