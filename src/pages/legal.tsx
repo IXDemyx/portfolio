@@ -1,47 +1,49 @@
 import type { Language } from "../App";
 import profile from "../data/profile";
-import privacy from "../data/privacy";
+import impressum from "../data/legal";
 
-interface PrivacyProps {
+interface ImpressumProps {
   language: Language;
 }
 
-function Privacy({ language }: PrivacyProps) {
+function Legal({ language }: ImpressumProps) {
   const sections = [
-    privacy.sections.general,
-    privacy.sections.vercel,
-    privacy.sections.googleFonts,
-    privacy.sections.email,
-    privacy.sections.externalLinks,
-    privacy.sections.cookies,
-    privacy.sections.rights,
-    privacy.sections.changes,
+    impressum.sections.liabilityContent,
+    impressum.sections.liabilityLinks,
+    impressum.sections.copyright,
   ];
 
   return (
     <main className="min-h-screen px-6 py-24">
       <div className="mx-auto max-w-3xl">
         <h1 className="mb-10 text-4xl font-bold text-slate-950 dark:text-(--text-primary)">
-          {privacy.title[language]}
+          {impressum.title[language]}
         </h1>
 
-        <div className="space-y-10 text-base leading-7 text-slate-600 dark:text-(--text-secondary)">
+        <div className="space-y-8 text-base leading-7 text-slate-600 dark:text-(--text-secondary)">
           <section>
             <h2 className="mb-3 text-xl font-semibold text-slate-950 dark:text-(--text-primary)">
-              {privacy.sections.controller.title[language]}
+              {impressum.sections.information.title[language]}
             </h2>
 
             <p>
-              Daniel Keller
+              {profile.name}
               <br />
               {profile.street}
               <br />
               {profile.area}
               <br />
               {profile.location[language]}
-              <br />
-              <br />
-              E-Mail:{" "}
+            </p>
+          </section>
+
+          <section>
+            <h2 className="mb-3 text-xl font-semibold text-slate-950 dark:text-(--text-primary)">
+              {impressum.sections.contact.title[language]}
+            </h2>
+
+            <p>
+              {impressum.sections.contact.emailLabel[language]}:{" "}
               <a
                 href={`mailto:${profile.email}`}
                 className="text-(--accent) transition hover:text-(--accent-hover)"
@@ -70,4 +72,4 @@ function Privacy({ language }: PrivacyProps) {
   );
 }
 
-export default Privacy;
+export default Legal;

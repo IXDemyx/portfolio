@@ -1,22 +1,46 @@
 const footer = {
   builtWith: {
-    de: "Entwickelt mit React, TypeScript und Tailwind CSS.",
-    en: "Built with React, TypeScript and Tailwind CSS.",
+    de: "Entwickelt mit React, TypeScript & Tailwind CSS.",
+    en: "Built with React, TypeScript & Tailwind CSS.",
   },
 
-  githubAria: {
-    de: "GitHub öffnen",
-    en: "Open GitHub",
+  legal: {
+    navigationLabel: {
+      de: "Rechtliche Informationen",
+      en: "Legal information",
+    },
+
+    impressum: {
+      de: "Impressum",
+      en: "Legal Notice",
+    },
+
+    privacy: {
+      de: "Datenschutz",
+      en: "Privacy Policy",
+    },
   },
 
-  linkedinAria: {
-    de: "LinkedIn öffnen",
-    en: "Open LinkedIn",
-  },
+  social: {
+    navigationLabel: {
+      de: "Social-Media-Links",
+      en: "Social media links",
+    },
 
-  emailAria: {
-    de: "E-Mail schreiben",
-    en: "Send email",
+    github: {
+      de: "GitHub öffnen",
+      en: "Open GitHub",
+    },
+
+    linkedin: {
+      de: "LinkedIn öffnen",
+      en: "Open LinkedIn",
+    },
+
+    email: {
+      de: "E-Mail schreiben",
+      en: "Send email",
+    },
   },
 } as const;
 

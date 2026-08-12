@@ -24,28 +24,25 @@ function Footer({ language }: FooterProps) {
     "dark:text-(--text-secondary) dark:hover:text-(--accent)";
 
   return (
-    <footer className="border-t border-slate-200 px-6 py-8 dark:border-(--accent-soft)">
+    <footer className="border-t border-slate-200 px-6 py-8 dark:border-(--accent-border)">
       <div className="mx-auto max-w-6xl">
-
         {/* Top */}
         <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="text-sm font-medium text-slate-700 dark:text-(--text-secondary)">
               © {currentYear} {profile.name}
             </p>
-
-
           </div>
 
           <nav
-            aria-label="Social-Media-Links"
+            aria-label={footer.social.navigationLabel[language]}
             className="flex items-center gap-2"
           >
             <a
               href={profile.github}
               target="_blank"
               rel="noreferrer"
-              aria-label="GitHub öffnen"
+              aria-label={footer.social.github[language]}
               className={socialLinkClasses}
             >
               <FaGithub aria-hidden="true" />
@@ -56,7 +53,7 @@ function Footer({ language }: FooterProps) {
                 href={profile.linkedin}
                 target="_blank"
                 rel="noreferrer"
-                aria-label="LinkedIn öffnen"
+                aria-label={footer.social.linkedin[language]}
                 className={socialLinkClasses}
               >
                 <FaLinkedin aria-hidden="true" />
@@ -65,7 +62,7 @@ function Footer({ language }: FooterProps) {
 
             <a
               href={`mailto:${profile.email}`}
-              aria-label="E-Mail schreiben"
+              aria-label={footer.social.email[language]}
               className={socialLinkClasses}
             >
               <MdEmail aria-hidden="true" />
@@ -74,7 +71,7 @@ function Footer({ language }: FooterProps) {
         </div>
 
         {/* Divider */}
-        <div className="my-6 border-t border-slate-200 dark:border-(--accent-border)" />
+        <div className="my-6 border-t border-slate-200 dark:border-(--accent-soft)" />
 
         {/* Bottom */}
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -83,18 +80,14 @@ function Footer({ language }: FooterProps) {
           </p>
 
           <nav
-            aria-label={
-              language === "de"
-                ? "Rechtliche Informationen"
-                : "Legal information"
-            }
+            aria-label={footer.legal.navigationLabel[language]}
             className="flex items-center gap-4"
           >
             <Link
-              to="/imprint"
+              to="/legal"
               className={legalLinkClasses}
             >
-              {language === "de" ? "Impressum" : "Legal Notice"}
+              {footer.legal.impressum[language]}
             </Link>
 
             <span
@@ -108,7 +101,7 @@ function Footer({ language }: FooterProps) {
               to="/privacy"
               className={legalLinkClasses}
             >
-              {language === "de" ? "Datenschutz" : "Privacy Policy"}
+              {footer.legal.privacy[language]}
             </Link>
           </nav>
         </div>

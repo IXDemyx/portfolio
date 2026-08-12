@@ -90,6 +90,9 @@ const profile = {
     de: "Deutschland",
     en: "Germany",
   },
+  area: "32657 Lemgo",
+  street: "Liebigstraße 24",
+  
   hobbies: {
     de: ["Gaming", "Fitness", "Filme", "Musik"],
     en: ["Gaming", "Fitness", "Movies", "Music"]

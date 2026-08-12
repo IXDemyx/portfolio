@@ -6,7 +6,7 @@ import Projects from "./sections/Projects";
 import Contact from "./sections/Contact";
 import Footer from "./components/Footer";
 import Timeline from "./components/Timeline";
-import Imprint from "./pages/Imprint";
+import Legal from "./pages/legal";
 import Privacy from "./pages/Privacy";
 
 import { useState } from "react";
@@ -43,11 +43,11 @@ function App() {
         />
 
         <Route
-          path="/imprint"
+          path="/legal"
           element={
             <>
               <main>
-                <Imprint language={language} />
+                <Legal language={language} />
               </main>
 
               <Footer language={language} />
