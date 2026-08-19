@@ -6,7 +6,7 @@ import Projects from "./sections/Projects";
 import Contact from "./sections/Contact";
 import Footer from "./components/Footer";
 import Timeline from "./components/Timeline";
-import Legal from "./pages/legal";
+import Legal from "./pages/Legal";
 import Privacy from "./pages/Privacy";
 
 import { useState } from "react";
