@@ -108,7 +108,7 @@ export function useGuessTheSong() {
 
         const response =
           await fetch(
-            `http://localhost:8000/lobby/create?name=${encodeURIComponent(
+            `http://192.168.178.200:8000/lobby/create?name=${encodeURIComponent(
               name.trim()
             )}`,
             {
@@ -172,7 +172,7 @@ export function useGuessTheSong() {
 
         const response =
           await fetch(
-            `http://localhost:8000/lobby/join?code=${encodeURIComponent(
+            `http://192.168.178.200:8000/lobby/join?code=${encodeURIComponent(
               lobbyCode.trim()
             )}&name=${encodeURIComponent(
               name.trim()
@@ -242,7 +242,7 @@ export function useGuessTheSong() {
 
     const websocket =
       new WebSocket(
-        `ws://localhost:8000/ws/${lobby}/${playerId}`
+        `ws://192.168.178.200:8000/ws/${lobby}/${playerId}`
       );
 
     websocketRef.current =
