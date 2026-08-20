@@ -1,4 +1,7 @@
-export type Mode = "menu" | "create" | "join";
+export type Mode =
+  | "menu"
+  | "create"
+  | "join";
 
 export type GameState =
   | "lobby"
@@ -35,6 +38,7 @@ export type GuessTheSongGame = {
   playerId: string | null;
 
   players: Player[];
+
   isHost: boolean;
 
   error: string;
@@ -58,4 +62,8 @@ export type GuessTheSongGame = {
   pointsWon: number | null;
 
   guessResult: GuessResult;
+
+  hint: string;
+
+  revealedCount: number;
 };

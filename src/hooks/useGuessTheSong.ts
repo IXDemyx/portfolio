@@ -1,472 +1,921 @@
-import { useEffect, useRef, useState } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
-import type { GameState, Mode, Player, Song } from "../types/guessTheSong";
+import type {
+  Mode,
+  GameState,
+  Player,
+  Song,
+  GuessResult,
+} from "../types/guessTheSong";
+
 
 export function useGuessTheSong() {
-  // ============================================================
-  // MENU / LOBBY
-  // ============================================================
 
-  const [mode, setMode] = useState<Mode>("menu");
+  const [mode, setMode] =
+    useState<Mode>("menu");
 
-  const [name, setName] = useState("");
+  const [name, setName] =
+    useState("");
 
-  const [lobbyCode, setLobbyCode] = useState("");
+  const [lobbyCode, setLobbyCode] =
+    useState("");
 
-  const [lobby, setLobby] = useState<string | null>(null);
+  const [lobby, setLobby] =
+    useState<string | null>(null);
 
-  const [playerId, setPlayerId] = useState<string | null>(null);
+  const [playerId, setPlayerId] =
+    useState<string | null>(null);
 
-  const [players, setPlayers] = useState<Player[]>([]);
+  const [players, setPlayers] =
+    useState<Player[]>([]);
 
-  const [isHost, setIsHost] = useState(false);
+  const [isHost, setIsHost] =
+    useState(false);
 
-  const [error, setError] = useState("");
+  const [error, setError] =
+    useState("");
 
-  // ============================================================
-  // GAME
-  // ============================================================
+  const [gameState, setGameState] =
+    useState<GameState>("lobby");
 
-  const [gameState, setGameState] = useState<GameState>("lobby");
+  const [round, setRound] =
+    useState(0);
 
-  const [round, setRound] = useState(0);
+  const [totalRounds, setTotalRounds] =
+    useState(5);
 
-  const [totalRounds, setTotalRounds] = useState(5);
+  const [previewUrl, setPreviewUrl] =
+    useState<string | null>(null);
 
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [artwork, setArtwork] =
+    useState<string | null>(null);
 
-  const [artwork, setArtwork] = useState<string | null>(null);
+  const [timeLeft, setTimeLeft] =
+    useState(25);
 
-  const [timeLeft, setTimeLeft] = useState(15);
+  const [guess, setGuess] =
+    useState("");
 
-  const [guess, setGuess] = useState("");
+  const [roundSong, setRoundSong] =
+    useState<Song | null>(null);
 
-  const [roundSong, setRoundSong] = useState<Song | null>(null);
+  const [winner, setWinner] =
+    useState<Player | null>(null);
 
-  const [winner, setWinner] = useState<Player | null>(null);
+  const [pointsWon, setPointsWon] =
+    useState<number | null>(null);
 
-  const [pointsWon, setPointsWon] = useState<number | null>(null);
+  const [guessResult, setGuessResult] =
+    useState<GuessResult>(null);
 
-  const [guessResult, setGuessResult] = useState<"correct" | "wrong" | null>(
-    null,
-  );
+  const [hint, setHint] =
+    useState("");
 
-  // ============================================================
-  // REFS
-  // ============================================================
+  const [revealedCount, setRevealedCount] =
+    useState(0);
 
-  const websocketRef = useRef<WebSocket | null>(null);
 
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const websocketRef =
+    useRef<WebSocket | null>(null);
 
-  const timerRef = useRef<number | null>(null);
+  const audioRef =
+    useRef<HTMLAudioElement | null>(
+      null
+    );
+
+  const timerRef =
+    useRef<number | null>(null);
+
 
   // ============================================================
   // CREATE LOBBY
   // ============================================================
 
-  const handleCreateLobby = async () => {
-    if (!name.trim()) {
-      return;
-    }
+  const handleCreateLobby =
+    async () => {
 
-    setError("");
-
-    try {
-      const response = await fetch(
-        `http://localhost:8000/lobby/create?name=${encodeURIComponent(
-          name.trim(),
-        )}`,
-        {
-          method: "POST",
-        },
-      );
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error();
+      if (!name.trim()) {
+        return;
       }
 
-      setLobby(data.lobby_code);
-      setPlayerId(data.player_id);
-      setIsHost(true);
-      setPlayers([data.player]);
-      setGameState("lobby");
-    } catch (error) {
-      console.error(error);
-      setError("Could not create lobby.");
-    }
-  };
+      setError("");
+
+      try {
+
+        const response =
+          await fetch(
+            `http://localhost:8000/lobby/create?name=${encodeURIComponent(
+              name.trim()
+            )}`,
+            {
+              method: "POST",
+            }
+          );
+
+        const data =
+          await response.json();
+
+        if (!response.ok) {
+          throw new Error();
+        }
+
+        setLobby(
+          data.lobby_code
+        );
+
+        setPlayerId(
+          data.player_id
+        );
+
+        setIsHost(true);
+
+        setPlayers([
+          data.player,
+        ]);
+
+        setGameState("lobby");
+
+      } catch (error) {
+
+        console.error(error);
+
+        setError(
+          "Could not create lobby."
+        );
+
+      }
+
+    };
+
 
   // ============================================================
   // JOIN LOBBY
   // ============================================================
 
-  const handleJoinLobby = async () => {
-    if (!name.trim() || !lobbyCode.trim()) {
-      return;
-    }
+  const handleJoinLobby =
+    async () => {
 
-    setError("");
-
-    try {
-      const response = await fetch(
-        `http://localhost:8000/lobby/join?code=${encodeURIComponent(
-          lobbyCode.trim(),
-        )}&name=${encodeURIComponent(name.trim())}`,
-        {
-          method: "POST",
-        },
-      );
-
-      const data = await response.json();
-
-      if (!response.ok || !data.success) {
-        setError(data.error || "Could not join lobby.");
-
+      if (
+        !name.trim()
+        || !lobbyCode.trim()
+      ) {
         return;
       }
 
-      setLobby(data.lobby_code);
-      setPlayerId(data.player_id);
-      setIsHost(false);
-      setPlayers([data.player]);
-      setGameState("lobby");
-    } catch (error) {
-      console.error(error);
-      setError("Could not join lobby.");
-    }
-  };
+      setError("");
+
+      try {
+
+        const response =
+          await fetch(
+            `http://localhost:8000/lobby/join?code=${encodeURIComponent(
+              lobbyCode.trim()
+            )}&name=${encodeURIComponent(
+              name.trim()
+            )}`,
+            {
+              method: "POST",
+            }
+          );
+
+        const data =
+          await response.json();
+
+        if (
+          !response.ok
+          || !data.success
+        ) {
+
+          setError(
+            data.error
+            || "Could not join lobby."
+          );
+
+          return;
+        }
+
+        setLobby(
+          data.lobby_code
+        );
+
+        setPlayerId(
+          data.player_id
+        );
+
+        setIsHost(false);
+
+        setPlayers([
+          data.player,
+        ]);
+
+        setGameState("lobby");
+
+      } catch (error) {
+
+        console.error(error);
+
+        setError(
+          "Could not join lobby."
+        );
+
+      }
+
+    };
+
 
   // ============================================================
   // WEBSOCKET
   // ============================================================
 
   useEffect(() => {
-    if (!lobby || !playerId) {
+
+    if (
+      !lobby
+      || !playerId
+    ) {
       return;
     }
 
-    const websocket = new WebSocket(
-      `ws://localhost:8000/ws/${lobby}/${playerId}`,
-    );
+    const websocket =
+      new WebSocket(
+        `ws://localhost:8000/ws/${lobby}/${playerId}`
+      );
 
-    websocketRef.current = websocket;
+    websocketRef.current =
+      websocket;
+
 
     websocket.onopen = () => {
-      console.log("Guess The Song WebSocket connected");
+
+      console.log(
+        "Guess The Song WebSocket connected"
+      );
+
     };
 
-    websocket.onmessage = (event) => {
-      try {
-        const data = JSON.parse(event.data);
 
-        // ======================================================
-        // LOBBY UPDATE
-        // ======================================================
+    websocket.onmessage =
+      (event) => {
 
-        if (data.type === "lobby_update") {
-          setPlayers(data.players);
+        try {
 
-          setIsHost(data.host_id === playerId);
+          const data =
+            JSON.parse(
+              event.data
+            );
 
-          return;
-        }
 
-        // ======================================================
-        // GAME STARTED
-        // ======================================================
+          // ====================================================
+          // LOBBY UPDATE
+          // ====================================================
 
-        if (data.type === "game_started") {
-          setGameState("starting");
+          if (
+            data.type
+            === "lobby_update"
+          ) {
 
-          setTotalRounds(data.total_rounds);
+            setPlayers(
+              data.players
+            );
 
-          setRound(0);
+            setIsHost(
+              data.host_id
+              === playerId
+            );
 
-          return;
-        }
+            return;
+          }
 
-        if (data.type === "player_guessed") {
-          setPlayers(data.players);
-          return;
-        }
 
-        // ======================================================
-        // ROUND STARTED
-        // ======================================================
+          // ====================================================
+          // GAME STARTED
+          // ====================================================
 
-        if (data.type === "round_started") {
-          setGameState("playing");
+          if (
+            data.type
+            === "game_started"
+          ) {
 
-          setRound(data.round);
+            setGameState(
+              "starting"
+            );
 
-          setTotalRounds(data.total_rounds);
+            setTotalRounds(
+              data.total_rounds
+            );
 
-          setPreviewUrl(data.preview_url);
+            setRound(0);
 
-          setArtwork(data.artwork);
+            return;
+          }
 
-          setTimeLeft(data.duration);
 
-          setGuess("");
+          // ====================================================
+          // ROUND STARTED
+          // ====================================================
 
-          setGuessResult(null);
+          if (
+            data.type
+            === "round_started"
+          ) {
 
-          setRoundSong(null);
+            setGameState(
+              "playing"
+            );
 
-          setWinner(null);
+            setRound(
+              data.round
+            );
 
-          setPointsWon(null);
+            setTotalRounds(
+              data.total_rounds
+            );
 
-          setTimeout(() => {
-            if (audioRef.current) {
-              audioRef.current.currentTime = 0;
+            setPreviewUrl(
+              data.preview_url
+            );
 
-              audioRef.current.play().catch((error) => {
-                console.log("Autoplay blocked:", error);
-              });
-            }
-          }, 150);
+            setArtwork(
+              data.artwork
+            );
 
-          return;
-        }
+            setTimeLeft(
+              data.duration
+            );
 
-        // ======================================================
-        // GUESS RESULT
-        // ======================================================
+            setGuess("");
 
-        if (data.type === "guess_result") {
-          if (data.correct) {
-            setGuessResult("correct");
+            setGuessResult(
+              null
+            );
 
-            setPointsWon(data.points);
-          } else {
-            setGuessResult("wrong");
+            setRoundSong(
+              null
+            );
 
+            setWinner(
+              null
+            );
+
+            setPointsWon(
+              null
+            );
+
+            setHint(
+              data.hint || ""
+            );
+
+            setRevealedCount(
+              data.revealed_count || 0
+            );
+
+
+            // Start audio
             setTimeout(() => {
-              setGuessResult(null);
-            }, 1000);
+
+              if (
+                audioRef.current
+              ) {
+
+                audioRef.current.currentTime =
+                  0;
+
+                audioRef.current
+                  .play()
+                  .catch(
+                    (error) => {
+
+                      console.log(
+                        "Autoplay blocked:",
+                        error
+                      );
+
+                    }
+                  );
+
+              }
+
+            }, 150);
+
+            return;
           }
 
-          return;
-        }
 
-        // ======================================================
-        // ROUND FINISHED
-        // ======================================================
+          // ====================================================
+          // HINT UPDATE
+          // ====================================================
 
-        if (data.type === "round_finished") {
-          setGameState("finished");
+          if (
+            data.type
+            === "hint_update"
+          ) {
 
-          setRoundSong(data.song);
+            setHint(
+              data.hint || ""
+            );
 
-          setPlayers(data.players);
+            setRevealedCount(
+              data.revealed_count || 0
+            );
 
-          if (data.winner) {
-            setWinner(data.winner);
-          } else {
-            setWinner(null);
+            return;
           }
 
-          setGuessResult(null);
 
-          if (audioRef.current) {
-            audioRef.current.pause();
+          // ====================================================
+          // GUESS RESULT
+          // ====================================================
+
+          if (
+            data.type
+            === "guess_result"
+          ) {
+
+            if (data.correct) {
+
+              setGuessResult(
+                "correct"
+              );
+
+              setPointsWon(
+                data.points
+              );
+
+              // Update own score immediately
+              if (
+                typeof data.total_score
+                === "number"
+              ) {
+
+                setPlayers(
+                  previous =>
+                    previous.map(
+                      player =>
+                        player.id
+                        === playerId
+                          ? {
+                              ...player,
+                              score:
+                                data.total_score,
+                            }
+                          : player
+                    )
+                );
+
+              }
+
+            } else {
+
+              setGuessResult(
+                "wrong"
+              );
+
+              setTimeout(() => {
+
+                setGuessResult(
+                  current =>
+                    current === "wrong"
+                      ? null
+                      : current
+                );
+
+              }, 1000);
+
+            }
+
+            return;
           }
 
-          return;
-        }
 
-        // ======================================================
-        // GAME FINISHED
-        // ======================================================
+          // ====================================================
+          // ROUND FINISHED
+          // ====================================================
 
-        if (data.type === "game_finished") {
-          setGameState("game_finished");
+          if (
+            data.type
+            === "round_finished"
+          ) {
 
-          setPlayers(data.players);
+            setGameState(
+              "finished"
+            );
 
-          setWinner(null);
+            setRoundSong(
+              data.song
+            );
 
-          setGuessResult(null);
+            setPlayers(
+              data.players
+            );
 
-          if (audioRef.current) {
-            audioRef.current.pause();
+            if (data.winner) {
+
+              setWinner(
+                data.winner
+              );
+
+            } else {
+
+              setWinner(null);
+
+            }
+
+            setGuessResult(
+              null
+            );
+
+            setHint("");
+
+            setRevealedCount(
+              0
+            );
+
+            if (
+              audioRef.current
+            ) {
+
+              audioRef.current.pause();
+
+            }
+
+            return;
           }
 
-          return;
+
+          // ====================================================
+          // GAME FINISHED
+          // ====================================================
+
+          if (
+            data.type
+            === "game_finished"
+          ) {
+
+            setGameState(
+              "game_finished"
+            );
+
+            setPlayers(
+              data.players
+            );
+
+            setWinner(
+              data.winner || null
+            );
+
+            setGuessResult(
+              null
+            );
+
+            if (
+              audioRef.current
+            ) {
+
+              audioRef.current.pause();
+
+            }
+
+            return;
+          }
+
+
+          // ====================================================
+          // ERROR
+          // ====================================================
+
+          if (
+            data.type
+            === "error"
+          ) {
+
+            setError(
+              data.message
+            );
+
+            return;
+          }
+
+        } catch (error) {
+
+          console.error(
+            "Failed to parse WebSocket message:",
+            error
+          );
+
         }
 
-        // ======================================================
-        // BACKEND ERROR
-        // ======================================================
+      };
 
-        if (data.type === "error") {
-          setError(data.message);
 
-          return;
-        }
-      } catch (error) {
-        console.error("Failed to parse WebSocket message:", error);
-      }
+    websocket.onerror = (
+      error
+    ) => {
+
+      console.error(
+        "WebSocket error:",
+        error
+      );
+
     };
 
-    websocket.onerror = (error) => {
-      console.error("WebSocket error:", error);
-    };
 
     websocket.onclose = () => {
-      console.log("Guess The Song WebSocket disconnected");
+
+      console.log(
+        "Guess The Song WebSocket disconnected"
+      );
+
     };
+
 
     return () => {
+
       websocket.close();
 
-      websocketRef.current = null;
+      websocketRef.current =
+        null;
+
     };
-  }, [lobby, playerId]);
+
+  }, [
+    lobby,
+    playerId,
+  ]);
+
 
   // ============================================================
   // TIMER
   // ============================================================
 
   useEffect(() => {
-    if (gameState !== "playing") {
+
+    if (
+      gameState !== "playing"
+    ) {
       return;
     }
 
-    timerRef.current = window.setInterval(() => {
-      setTimeLeft((previous) => Math.max(0, previous - 1));
-    }, 1000);
+    timerRef.current =
+      window.setInterval(() => {
+
+        setTimeLeft(
+          previous =>
+            Math.max(
+              0,
+              previous - 1
+            )
+        );
+
+      }, 1000);
+
 
     return () => {
-      if (timerRef.current !== null) {
-        clearInterval(timerRef.current);
 
-        timerRef.current = null;
+      if (
+        timerRef.current
+        !== null
+      ) {
+
+        clearInterval(
+          timerRef.current
+        );
+
+        timerRef.current =
+          null;
+
       }
+
     };
-  }, [gameState, round]);
+
+  }, [
+    gameState,
+    round,
+  ]);
+
 
   // ============================================================
   // START GAME
   // ============================================================
 
-  const handleStartGame = () => {
-    if (
-      !websocketRef.current ||
-      websocketRef.current.readyState !== WebSocket.OPEN
-    ) {
-      return;
-    }
+  const handleStartGame =
+    () => {
 
-    websocketRef.current.send(
-      JSON.stringify({
-        type: "start_game",
-      }),
-    );
-  };
+      if (
+        !websocketRef.current
+        || websocketRef.current.readyState
+          !== WebSocket.OPEN
+      ) {
+        return;
+      }
 
-  // ============================================================
-  // SUBMIT GUESS
-  // ============================================================
+      websocketRef.current.send(
+        JSON.stringify({
+          type:
+            "start_game",
+        })
+      );
 
-  const handleGuess = () => {
-    if (!guess.trim() || gameState !== "playing" || guessResult === "correct") {
-      return;
-    }
+    };
 
-    if (
-      !websocketRef.current ||
-      websocketRef.current.readyState !== WebSocket.OPEN
-    ) {
-      return;
-    }
-
-    websocketRef.current.send(
-      JSON.stringify({
-        type: "guess",
-        guess: guess.trim(),
-      }),
-    );
-  };
 
   // ============================================================
-  // LEAVE LOBBY
+  // GUESS
   // ============================================================
 
-  const handleLeave = () => {
-    if (websocketRef.current) {
-      websocketRef.current.close();
-    }
+  const handleGuess =
+    () => {
 
-    if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current.currentTime = 0;
-    }
+      if (
+        !guess.trim()
+        || gameState
+          !== "playing"
+        || guessResult
+          === "correct"
+      ) {
+        return;
+      }
 
-    if (timerRef.current !== null) {
-      clearInterval(timerRef.current);
+      if (
+        !websocketRef.current
+        || websocketRef.current.readyState
+          !== WebSocket.OPEN
+      ) {
+        return;
+      }
 
-      timerRef.current = null;
-    }
+      websocketRef.current.send(
+        JSON.stringify({
+          type: "guess",
 
-    setLobby(null);
-    setPlayerId(null);
-    setPlayers([]);
-    setIsHost(false);
+          guess:
+            guess.trim(),
+        })
+      );
 
-    setGameState("lobby");
+    };
 
-    setMode("menu");
-
-    setGuess("");
-    setRound(0);
-    setPreviewUrl(null);
-    setArtwork(null);
-    setRoundSong(null);
-    setWinner(null);
-    setPointsWon(null);
-    setGuessResult(null);
-    setError("");
-  };
 
   // ============================================================
-  // RETURN TO MENU
+  // LEAVE
   // ============================================================
 
-  const handleReturnToLobby = () => {
-    if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current.currentTime = 0;
-    }
+  const handleLeave =
+    () => {
 
-    if (timerRef.current !== null) {
-      clearInterval(timerRef.current);
-      timerRef.current = null;
-    }
+      if (
+        websocketRef.current
+      ) {
 
-    setGameState("lobby");
+        websocketRef.current.close();
 
-    setRound(0);
-    setPreviewUrl(null);
-    setArtwork(null);
-    setRoundSong(null);
-    setWinner(null);
-    setPointsWon(null);
-    setGuessResult(null);
-    setGuess("");
-    setError("");
-  };
+      }
+
+      if (
+        audioRef.current
+      ) {
+
+        audioRef.current.pause();
+
+        audioRef.current.currentTime =
+          0;
+
+      }
+
+      if (
+        timerRef.current
+        !== null
+      ) {
+
+        clearInterval(
+          timerRef.current
+        );
+
+        timerRef.current =
+          null;
+
+      }
+
+      setLobby(null);
+
+      setPlayerId(null);
+
+      setPlayers([]);
+
+      setIsHost(false);
+
+      setGameState(
+        "lobby"
+      );
+
+      setMode(
+        "menu"
+      );
+
+      setGuess("");
+
+      setRound(0);
+
+      setPreviewUrl(null);
+
+      setArtwork(null);
+
+      setRoundSong(null);
+
+      setWinner(null);
+
+      setPointsWon(null);
+
+      setGuessResult(null);
+
+      setHint("");
+
+      setRevealedCount(0);
+
+      setError("");
+
+    };
+
 
   // ============================================================
-  // RETURN
+  // RETURN TO LOBBY
   // ============================================================
+
+  const handleReturnToLobby =
+    () => {
+
+      if (
+        websocketRef.current
+      ) {
+
+        websocketRef.current.close();
+
+      }
+
+      if (
+        audioRef.current
+      ) {
+
+        audioRef.current.pause();
+
+        audioRef.current.currentTime =
+          0;
+
+      }
+
+      if (
+        timerRef.current
+        !== null
+      ) {
+
+        clearInterval(
+          timerRef.current
+        );
+
+        timerRef.current =
+          null;
+
+      }
+
+      setGameState(
+        "lobby"
+      );
+
+      setGuess("");
+
+      setRound(0);
+
+      setPreviewUrl(null);
+
+      setArtwork(null);
+
+      setRoundSong(null);
+
+      setWinner(null);
+
+      setPointsWon(null);
+
+      setGuessResult(null);
+
+      setHint("");
+
+      setRevealedCount(0);
+
+      setError("");
+
+      // IMPORTANT:
+      // We do NOT remove lobby/playerId.
+      // Therefore the player stays in
+      // the same lobby.
+
+    };
+
 
   return {
-    // menu
+
     mode,
     setMode,
 
@@ -476,37 +925,50 @@ export function useGuessTheSong() {
     lobbyCode,
     setLobbyCode,
 
-    error,
-
-    // lobby
     lobby,
     playerId,
+
     players,
+
     isHost,
 
-    // game
+    error,
+
     gameState,
+
     round,
     totalRounds,
+
     previewUrl,
     artwork,
+
     timeLeft,
+
     guess,
     setGuess,
+
     roundSong,
+
     winner,
+
     pointsWon,
+
     guessResult,
 
-    // refs
+    hint,
+    revealedCount,
+
     audioRef,
 
-    // actions
     handleCreateLobby,
     handleJoinLobby,
+
     handleStartGame,
+
     handleGuess,
+
     handleLeave,
+
     handleReturnToLobby,
   };
 }

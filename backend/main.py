@@ -1,4 +1,9 @@
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+from fastapi import (
+    FastAPI,
+    WebSocket,
+    WebSocketDisconnect,
+)
+
 from fastapi.middleware.cors import CORSMiddleware
 
 import asyncio
@@ -7,8 +12,6 @@ import string
 import time
 from difflib import SequenceMatcher
 
-
-ROUND_DURATION = 25
 from songs import (
     get_random_song,
     normalize_song_title,
@@ -17,6 +20,20 @@ from songs import (
 
 app = FastAPI()
 
+
+# ============================================================
+# CONFIG
+# ============================================================
+
+ROUND_DURATION = 25
+HINT_INTERVAL = 5
+
+TOTAL_ROUNDS = 5
+
+
+# ============================================================
+# CORS
+# ============================================================
 
 app.add_middleware(
     CORSMiddleware,
@@ -34,6 +51,7 @@ app.add_middleware(
 # ============================================================
 
 class Player:
+
     def __init__(
         self,
         player_id: str,
@@ -49,56 +67,84 @@ class Player:
 # ============================================================
 
 class Lobby:
+
     def __init__(
         self,
         code: str,
         host_id: str,
     ):
+
         self.code = code
         self.host_id = host_id
 
-        self.players: dict[str, Player] = {}
-        self.connections: dict[str, WebSocket] = {}
+        self.players: dict[
+            str,
+            Player,
+        ] = {}
+
+        self.connections: dict[
+            str,
+            WebSocket,
+        ] = {}
 
         # Game state
         self.game_started = False
+
         self.current_round = 0
-        self.total_rounds = 5
+        self.total_rounds = TOTAL_ROUNDS
 
         self.current_song = None
+
         self.round_started_at = None
 
         self.round_task = None
+        self.hint_task = None
+
         self.round_finished = False
 
-        # Spieler, die in der aktuellen Runde
-        # bereits richtig geraten haben.
-        self.correct_guesses: set[str] = set()
+        # Players who already guessed correctly
+        self.correct_players: set[
+            str
+        ] = set()
+
+        # Revealed character indexes
+        self.revealed_indices: set[
+            int
+        ] = set()
 
 
-lobbies: dict[str, Lobby] = {}
+lobbies: dict[
+    str,
+    Lobby,
+] = {}
 
 
 # ============================================================
 # HELPERS
 # ============================================================
 
-def generate_id(length: int = 16) -> str:
+def generate_id(
+    length: int = 16,
+) -> str:
+
     return "".join(
         random.choices(
-            string.ascii_letters + string.digits,
+            string.ascii_letters
+            + string.digits,
             k=length,
         )
     )
 
 
 def generate_lobby_code() -> str:
+
     characters = (
         string.ascii_uppercase
         + string.digits
     )
 
     while True:
+
         code = "".join(
             random.choices(
                 characters,
@@ -110,14 +156,28 @@ def generate_lobby_code() -> str:
             return code
 
 
+# ============================================================
+# GUESS NORMALIZATION
+# ============================================================
+
+def normalize_guess(
+    text: str,
+) -> str:
+
+    return normalize_song_title(
+        text
+    )
+
+
 def similarity(
     a: str,
     b: str,
 ) -> float:
+
     return SequenceMatcher(
         None,
-        normalize_song_title(a),
-        normalize_song_title(b),
+        normalize_guess(a),
+        normalize_guess(b),
     ).ratio()
 
 
@@ -127,92 +187,69 @@ def is_correct_guess(
     artist: str,
 ) -> bool:
 
-    guess_normalized = normalize_song_title(
+    guess_normalized = normalize_guess(
         guess
-    )
-
-    title_normalized = normalize_song_title(
-        title
-    )
-
-    artist_normalized = normalize_song_title(
-        artist
     )
 
     if not guess_normalized:
         return False
 
-    if not title_normalized:
-        return False
+    title_normalized = normalize_guess(
+        title
+    )
 
-    # ========================================================
-    # EXACT TITLE
-    # ========================================================
+    artist_normalized = normalize_guess(
+        artist
+    )
 
-    if guess_normalized == title_normalized:
+    # --------------------------------------------------------
+    # Exact title
+    # --------------------------------------------------------
+
+    if (
+        guess_normalized
+        == title_normalized
+    ):
         return True
 
-    # ========================================================
-    # ARTIST + TITLE
-    # ========================================================
+    # --------------------------------------------------------
+    # Artist + title
+    # --------------------------------------------------------
 
     combined = (
         f"{artist_normalized} "
         f"{title_normalized}"
     )
 
-    if guess_normalized == combined:
+    if (
+        guess_normalized
+        == combined
+    ):
         return True
 
-    # ========================================================
-    # TITLE + ARTIST
-    # ========================================================
-
-    combined_reverse = (
-        f"{title_normalized} "
-        f"{artist_normalized}"
-    )
-
-    if guess_normalized == combined_reverse:
-        return True
-
-    # ========================================================
-    # FUZZY TITLE
-    # ========================================================
+    # --------------------------------------------------------
+    # Similarity
+    # --------------------------------------------------------
 
     title_score = similarity(
         guess,
         title,
     )
 
+    combined_score = similarity(
+        guess,
+        combined,
+    )
+
     if title_score >= 0.78:
         return True
-
-    # ========================================================
-    # FUZZY ARTIST + TITLE
-    # ========================================================
-
-    combined_score = SequenceMatcher(
-        None,
-        guess_normalized,
-        combined,
-    ).ratio()
 
     if combined_score >= 0.75:
         return True
 
-    combined_reverse_score = SequenceMatcher(
-        None,
-        guess_normalized,
-        combined_reverse,
-    ).ratio()
-
-    if combined_reverse_score >= 0.75:
-        return True
-
-    # ========================================================
-    # TOKEN MATCHING
-    # ========================================================
+    # --------------------------------------------------------
+    # Token overlap
+    # --------------------------------------------------------
 
     guess_words = set(
         guess_normalized.split()
@@ -236,9 +273,14 @@ def is_correct_guess(
     return False
 
 
+# ============================================================
+# PLAYERS
+# ============================================================
+
 def serialize_players(
     lobby: Lobby,
 ):
+
     return [
         {
             "id": player.id,
@@ -249,14 +291,26 @@ def serialize_players(
     ]
 
 
+def get_leaderboard(
+    lobby: Lobby,
+):
+
+    return sorted(
+        serialize_players(lobby),
+        key=lambda player: player["score"],
+        reverse=True,
+    )
+
+
 # ============================================================
-# WEBSOCKET BROADCAST
+# WEBSOCKET
 # ============================================================
 
 async def broadcast(
     lobby: Lobby,
     message: dict,
 ):
+
     disconnected = []
 
     for (
@@ -265,17 +319,21 @@ async def broadcast(
     ) in list(
         lobby.connections.items()
     ):
+
         try:
+
             await websocket.send_json(
                 message
             )
 
         except Exception:
+
             disconnected.append(
                 player_id
             )
 
     for player_id in disconnected:
+
         lobby.connections.pop(
             player_id,
             None,
@@ -285,12 +343,16 @@ async def broadcast(
 async def broadcast_lobby(
     lobby: Lobby,
 ):
+
     await broadcast(
         lobby,
         {
             "type": "lobby_update",
+
             "lobby_code": lobby.code,
+
             "host_id": lobby.host_id,
+
             "players": serialize_players(
                 lobby
             ),
@@ -299,16 +361,164 @@ async def broadcast_lobby(
 
 
 # ============================================================
+# HINT SYSTEM
+# ============================================================
+
+def get_hint_indices(
+    title: str,
+    count: int,
+):
+
+    normalized_title = normalize_guess(
+        title
+    )
+
+    available_indices = [
+        index
+        for index, char
+        in enumerate(normalized_title)
+        if char.isalnum()
+        and index
+        not in set()
+    ]
+
+    random.shuffle(
+        available_indices
+    )
+
+    return available_indices[:count]
+
+
+def build_hint(
+    title: str,
+    revealed_indices: set[int],
+):
+
+    normalized_title = normalize_guess(
+        title
+    )
+
+    result = []
+
+    for index, char in enumerate(
+        normalized_title
+    ):
+
+        if char == " ":
+
+            result.append(
+                " "
+            )
+
+        elif index in revealed_indices:
+
+            result.append(
+                char
+            )
+
+        else:
+
+            result.append(
+                "_"
+            )
+
+    return "".join(result)
+
+
+async def send_hint(
+    lobby: Lobby,
+):
+
+    if (
+        lobby.round_finished
+        or not lobby.current_song
+    ):
+        return
+
+    title = lobby.current_song[
+        "title"
+    ]
+
+    normalized_title = normalize_guess(
+        title
+    )
+
+    available_indices = [
+        index
+        for index, char
+        in enumerate(normalized_title)
+        if char.isalnum()
+        and index
+        not in lobby.revealed_indices
+    ]
+
+    if not available_indices:
+        return
+
+    new_index = random.choice(
+        available_indices
+    )
+
+    lobby.revealed_indices.add(
+        new_index
+    )
+
+    await broadcast(
+        lobby,
+        {
+            "type": "hint_update",
+
+            "hint": build_hint(
+                title,
+                lobby.revealed_indices,
+            ),
+
+            "revealed_count": len(
+                lobby.revealed_indices
+            ),
+        },
+    )
+
+
+async def hint_loop(
+    lobby: Lobby,
+):
+
+    try:
+
+        # First hint after 5 seconds
+        await asyncio.sleep(
+            HINT_INTERVAL
+        )
+
+        while (
+            lobby.game_started
+            and not lobby.round_finished
+        ):
+
+            await send_hint(
+                lobby
+            )
+
+            await asyncio.sleep(
+                HINT_INTERVAL
+            )
+
+    except asyncio.CancelledError:
+
+        pass
+
+
+# ============================================================
 # ROOT
 # ============================================================
 
 @app.get("/")
 async def root():
+
     return {
-        "message": (
-            "Guess The Song "
-            "backend is running"
-        )
+        "message":
+        "Guess The Song backend is running"
     }
 
 
@@ -335,14 +545,21 @@ async def create_lobby(
         name=name.strip(),
     )
 
-    lobby.players[player_id] = player
+    lobby.players[
+        player_id
+    ] = player
 
-    lobbies[code] = lobby
+    lobbies[
+        code
+    ] = lobby
 
     return {
         "lobby_code": code,
+
         "player_id": player_id,
+
         "host": True,
+
         "player": {
             "id": player.id,
             "name": player.name,
@@ -362,21 +579,29 @@ async def get_lobby(
 
     code = code.upper()
 
-    lobby = lobbies.get(code)
+    lobby = lobbies.get(
+        code
+    )
 
     if not lobby:
+
         return {
             "exists": False
         }
 
     return {
         "exists": True,
+
         "lobby_code": lobby.code,
+
         "host_id": lobby.host_id,
+
         "players": serialize_players(
             lobby
         ),
-        "game_started": lobby.game_started,
+
+        "game_started":
+            lobby.game_started,
     }
 
 
@@ -392,18 +617,24 @@ async def join_lobby(
 
     code = code.upper()
 
-    lobby = lobbies.get(code)
+    lobby = lobbies.get(
+        code
+    )
 
     if not lobby:
+
         return {
             "success": False,
-            "error": "Lobby not found",
+            "error":
+                "Lobby not found",
         }
 
     if lobby.game_started:
+
         return {
             "success": False,
-            "error": "Game already started",
+            "error":
+                "Game already started",
         }
 
     player_id = generate_id()
@@ -413,15 +644,23 @@ async def join_lobby(
         name=name.strip(),
     )
 
-    lobby.players[player_id] = player
+    lobby.players[
+        player_id
+    ] = player
 
-    await broadcast_lobby(lobby)
+    await broadcast_lobby(
+        lobby
+    )
 
     return {
         "success": True,
+
         "lobby_code": lobby.code,
+
         "player_id": player_id,
+
         "host": False,
+
         "player": {
             "id": player.id,
             "name": player.name,
@@ -442,9 +681,10 @@ async def start_game(
         return
 
     lobby.game_started = True
+
     lobby.current_round = 0
 
-    # Reset scores when a new game starts
+    # Reset scores
     for player in lobby.players.values():
         player.score = 0
 
@@ -452,15 +692,19 @@ async def start_game(
         lobby,
         {
             "type": "game_started",
-            "total_rounds": (
-                lobby.total_rounds
-            ),
+
+            "total_rounds":
+                lobby.total_rounds,
         },
     )
 
-    await asyncio.sleep(2)
+    await asyncio.sleep(
+        2
+    )
 
-    await start_next_round(lobby)
+    await start_next_round(
+        lobby
+    )
 
 
 # ============================================================
@@ -471,48 +715,18 @@ async def start_next_round(
     lobby: Lobby,
 ):
 
-    # ========================================================
-    # GAME FINISHED
-    # ========================================================
-
     if (
         lobby.current_round
         >= lobby.total_rounds
     ):
 
-        lobby.game_started = False
-
-        leaderboard = sorted(
-            serialize_players(lobby),
-            key=lambda player: player[
-                "score"
-            ],
-            reverse=True,
-        )
-
-        await broadcast(
-            lobby,
-            {
-                "type": "game_finished",
-                "players": leaderboard,
-                "winner": (
-                    leaderboard[0]
-                    if leaderboard
-                    else None
-                ),
-            },
+        await finish_game(
+            lobby
         )
 
         return
 
-    # ========================================================
-    # NEW ROUND
-    # ========================================================
-
     lobby.current_round += 1
-
-    # Reset correct guesses
-    lobby.correct_guesses.clear()
 
     song = get_random_song()
 
@@ -522,10 +736,9 @@ async def start_next_round(
             lobby,
             {
                 "type": "error",
-                "message": (
-                    "Could not find "
-                    "a song."
-                ),
+
+                "message":
+                    "Could not find a song.",
             },
         )
 
@@ -534,30 +747,74 @@ async def start_next_round(
         return
 
     lobby.current_song = song
+
     lobby.round_finished = False
-    lobby.round_started_at = time.time()
+
+    lobby.round_started_at = (
+        time.time()
+    )
+
+    # Players who have guessed correctly
+    lobby.correct_players.clear()
+
+    # Reset hints
+    lobby.revealed_indices.clear()
+
+    # Cancel old hint task
+    if lobby.hint_task:
+
+        lobby.hint_task.cancel()
+
+        lobby.hint_task = None
+
+    # Cancel old round task
+    if lobby.round_task:
+
+        lobby.round_task.cancel()
+
+        lobby.round_task = None
 
     await broadcast(
         lobby,
         {
             "type": "round_started",
-            "round": lobby.current_round,
-            "total_rounds": (
-                lobby.total_rounds
-            ),
-            "preview_url": (
-                song["preview_url"]
-            ),
-            "artwork": song["artwork"],
-            "duration": ROUND_DURATION,
+
+            "round":
+                lobby.current_round,
+
+            "total_rounds":
+                lobby.total_rounds,
+
+            "preview_url":
+                song["preview_url"],
+
+            "artwork":
+                song["artwork"],
+
+            "duration":
+                ROUND_DURATION,
+
+            "hint":
+                build_hint(
+                    song["title"],
+                    set(),
+                ),
+
+            "revealed_count": 0,
         },
     )
 
-    lobby.round_task = (
-        asyncio.create_task(
-            finish_round_after_timeout(
-                lobby
-            )
+    # Start timer
+    lobby.round_task = asyncio.create_task(
+        finish_round_after_timeout(
+            lobby
+        )
+    )
+
+    # Start hints
+    lobby.hint_task = asyncio.create_task(
+        hint_loop(
+            lobby
         )
     )
 
@@ -572,17 +829,19 @@ async def finish_round_after_timeout(
 
     try:
 
-        await asyncio.sleep(ROUND_DURATION)
+        await asyncio.sleep(
+            ROUND_DURATION
+        )
 
         if lobby.round_finished:
             return
 
         await finish_round(
-            lobby,
-            winner_id=None,
+            lobby
         )
 
     except asyncio.CancelledError:
+
         pass
 
 
@@ -592,7 +851,6 @@ async def finish_round_after_timeout(
 
 async def finish_round(
     lobby: Lobby,
-    winner_id: str | None,
 ):
 
     if lobby.round_finished:
@@ -600,7 +858,7 @@ async def finish_round(
 
     lobby.round_finished = True
 
-    # Cancel timeout task
+    # Cancel round timer
     if lobby.round_task:
 
         current_task = (
@@ -611,108 +869,169 @@ async def finish_round(
             lobby.round_task
             != current_task
         ):
+
             lobby.round_task.cancel()
 
         lobby.round_task = None
+
+    # Cancel hints
+    if lobby.hint_task:
+
+        current_task = (
+            asyncio.current_task()
+        )
+
+        if (
+            lobby.hint_task
+            != current_task
+        ):
+
+            lobby.hint_task.cancel()
+
+        lobby.hint_task = None
 
     song = lobby.current_song
 
     if not song:
         return
 
-    winner = None
+    # --------------------------------------------------------
+    # ROUND WINNERS
+    # --------------------------------------------------------
 
-    if winner_id:
-        winner = lobby.players.get(
-            winner_id
+    winners = []
+
+    for player_id in lobby.correct_players:
+
+        player = lobby.players.get(
+            player_id
         )
+
+        if player:
+
+            winners.append(
+                {
+                    "id": player.id,
+                    "name": player.name,
+                    "score": player.score,
+                }
+            )
+
+    # --------------------------------------------------------
+    # BROADCAST ROUND RESULT
+    # --------------------------------------------------------
 
     await broadcast(
         lobby,
         {
             "type": "round_finished",
 
-            "winner": (
-                {
-                    "id": winner.id,
-                    "name": winner.name,
-                    "score": winner.score,
-                }
-                if winner
-                else None
-            ),
+            # First correct player for
+            # backwards compatibility
+            "winner":
+                winners[0]
+                if winners
+                else None,
+
+            # All correct players
+            "winners":
+                winners,
 
             "song": {
-                "title": song["title"],
-                "artist": song["artist"],
-                "album": song["album"],
-                "artwork": song["artwork"],
+                "title":
+                    song["title"],
+
+                "artist":
+                    song["artist"],
+
+                "album":
+                    song["album"],
+
+                "artwork":
+                    song["artwork"],
             },
 
-            "players": serialize_players(
-                lobby
-            ),
+            "players":
+                serialize_players(
+                    lobby
+                ),
 
-            "round": lobby.current_round,
+            "round":
+                lobby.current_round,
 
-            "total_rounds": (
-                lobby.total_rounds
-            ),
+            "total_rounds":
+                lobby.total_rounds,
 
-            "is_last_round": (
+            "is_last_round":
                 lobby.current_round
-                >= lobby.total_rounds
-            ),
+                >= lobby.total_rounds,
         },
     )
 
-    # Let players see the answer
-    await asyncio.sleep(4)
+    # Let everyone see the result
+    await asyncio.sleep(
+        4
+    )
 
-    # ========================================================
+    # --------------------------------------------------------
     # GAME OVER
-    # ========================================================
+    # --------------------------------------------------------
 
     if (
         lobby.current_round
         >= lobby.total_rounds
     ):
 
-        lobby.game_started = False
-
-        leaderboard = sorted(
-            serialize_players(lobby),
-            key=lambda player: player[
-                "score"
-            ],
-            reverse=True,
-        )
-
-        overall_winner = (
-            leaderboard[0]
-            if leaderboard
-            else None
-        )
-
-        await broadcast(
-            lobby,
-            {
-                "type": "game_finished",
-                "players": leaderboard,
-                "winner": overall_winner,
-            },
+        await finish_game(
+            lobby
         )
 
         return
 
-    # ========================================================
+    # --------------------------------------------------------
     # NEXT ROUND
-    # ========================================================
+    # --------------------------------------------------------
 
     if lobby.game_started:
+
         await start_next_round(
             lobby
         )
+
+
+# ============================================================
+# FINISH GAME
+# ============================================================
+
+async def finish_game(
+    lobby: Lobby,
+):
+
+    lobby.game_started = False
+
+    leaderboard = get_leaderboard(
+        lobby
+    )
+
+    overall_winner = (
+        leaderboard[0]
+        if leaderboard
+        else None
+    )
+
+    await broadcast(
+        lobby,
+        {
+            "type":
+                "game_finished",
+
+            "players":
+                leaderboard,
+
+            "winner":
+                overall_winner,
+        },
+    )
 
 
 # ============================================================
@@ -741,27 +1060,15 @@ async def handle_guess(
     if not lobby.current_song:
         return
 
+    # Empty guess
     if not guess.strip():
         return
 
-    # ========================================================
-    # ALREADY GUESSED CORRECTLY
-    # ========================================================
-
-    if player_id in lobby.correct_guesses:
-
-        websocket = lobby.connections.get(
-            player_id
-        )
-
-        if websocket:
-            await websocket.send_json(
-                {
-                    "type": "guess_result",
-                    "correct": True,
-                    "already_guessed": True,
-                }
-            )
+    # Player already guessed correctly
+    if (
+        player_id
+        in lobby.correct_players
+    ):
 
         return
 
@@ -773,9 +1080,9 @@ async def handle_guess(
         song["artist"],
     )
 
-    # ========================================================
-    # WRONG GUESS
-    # ========================================================
+    # --------------------------------------------------------
+    # WRONG
+    # --------------------------------------------------------
 
     if not correct:
 
@@ -784,18 +1091,22 @@ async def handle_guess(
         )
 
         if websocket:
+
             await websocket.send_json(
                 {
-                    "type": "guess_result",
-                    "correct": False,
+                    "type":
+                        "guess_result",
+
+                    "correct":
+                        False,
                 }
             )
 
         return
 
-    # ========================================================
-    # CORRECT GUESS
-    # ========================================================
+    # --------------------------------------------------------
+    # CORRECT
+    # --------------------------------------------------------
 
     elapsed = (
         time.time()
@@ -812,14 +1123,17 @@ async def handle_guess(
         100,
         int(
             100
-            + (remaining / ROUND_DURATION) * 900
+            + (
+                remaining
+                / ROUND_DURATION
+            )
+            * 900
         ),
     )
 
     player.score += points
 
-    # Mark player as having guessed
-    lobby.correct_guesses.add(
+    lobby.correct_players.add(
         player_id
     )
 
@@ -827,40 +1141,30 @@ async def handle_guess(
         player_id
     )
 
-    # Tell the player they were correct
     if websocket:
+
         await websocket.send_json(
             {
-                "type": "guess_result",
-                "correct": True,
-                "points": points,
+                "type":
+                    "guess_result",
+
+                "correct":
+                    True,
+
+                "points":
+                    points,
+
+                "total_score":
+                    player.score,
             }
         )
 
-    # Update everyone else's scoreboard
-    await broadcast(
-        lobby,
-        {
-            "type": "player_guessed",
-            "player": {
-                "id": player.id,
-                "name": player.name,
-                "score": player.score,
-            },
-            "players": serialize_players(
-                lobby
-            ),
-        },
-    )
-
-    # ========================================================
     # IMPORTANT:
     #
-    # DO NOT finish the round here.
+    # We DO NOT finish the round here.
     #
-    # The round continues until the
-    # 15 second timer expires.
-    # ========================================================
+    # Other players can continue guessing
+    # until the 25 seconds are over.
 
 
 # ============================================================
@@ -878,27 +1182,35 @@ async def websocket_endpoint(
 
     code = code.upper()
 
-    lobby = lobbies.get(code)
+    lobby = lobbies.get(
+        code
+    )
 
     if not lobby:
+
         await websocket.close(
             code=4004
         )
+
         return
 
     if player_id not in lobby.players:
+
         await websocket.close(
             code=4003
         )
+
         return
 
     await websocket.accept()
 
-    lobby.connections[player_id] = (
-        websocket
-    )
+    lobby.connections[
+        player_id
+    ] = websocket
 
-    await broadcast_lobby(lobby)
+    await broadcast_lobby(
+        lobby
+    )
 
     try:
 
@@ -912,28 +1224,38 @@ async def websocket_endpoint(
                 "type"
             )
 
-            # =================================================
-            # HOST START GAME
-            # =================================================
+            # ------------------------------------------------
+            # START GAME
+            # ------------------------------------------------
 
-            if message_type == "start_game":
+            if (
+                message_type
+                == "start_game"
+            ):
 
                 if (
                     player_id
                     != lobby.host_id
                 ):
+
                     continue
 
                 if lobby.game_started:
+
                     continue
 
-                await start_game(lobby)
+                await start_game(
+                    lobby
+                )
 
-            # =================================================
+            # ------------------------------------------------
             # GUESS
-            # =================================================
+            # ------------------------------------------------
 
-            elif message_type == "guess":
+            elif (
+                message_type
+                == "guess"
+            ):
 
                 guess = str(
                     data.get(
@@ -955,7 +1277,9 @@ async def websocket_endpoint(
             None,
         )
 
-        await broadcast_lobby(lobby)
+        await broadcast_lobby(
+            lobby
+        )
 
     except Exception as error:
 
@@ -970,4 +1294,6 @@ async def websocket_endpoint(
             None,
         )
 
-        await broadcast_lobby(lobby)
+        await broadcast_lobby(
+            lobby
+        )

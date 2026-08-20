@@ -19,12 +19,8 @@ function GuessTheSong() {
     if (game.mode === "menu") {
       return (
         <Menu
-          onCreate={() =>
-            game.setMode("create")
-          }
-          onJoin={() =>
-            game.setMode("join")
-          }
+          onCreate={() => game.setMode("create")}
+          onJoin={() => game.setMode("join")}
         />
       );
     }
@@ -35,12 +31,8 @@ function GuessTheSong() {
           name={game.name}
           setName={game.setName}
           error={game.error}
-          onBack={() =>
-            game.setMode("menu")
-          }
-          onCreate={
-            game.handleCreateLobby
-          }
+          onBack={() => game.setMode("menu")}
+          onCreate={game.handleCreateLobby}
         />
       );
     }
@@ -50,16 +42,10 @@ function GuessTheSong() {
         name={game.name}
         setName={game.setName}
         lobbyCode={game.lobbyCode}
-        setLobbyCode={
-          game.setLobbyCode
-        }
+        setLobbyCode={game.setLobbyCode}
         error={game.error}
-        onBack={() =>
-          game.setMode("menu")
-        }
-        onJoin={
-          game.handleJoinLobby
-        }
+        onBack={() => game.setMode("menu")}
+        onJoin={game.handleJoinLobby}
       />
     );
   }
@@ -76,12 +62,8 @@ function GuessTheSong() {
           playerId={game.playerId}
           players={game.players}
           isHost={game.isHost}
-          onStartGame={
-            game.handleStartGame
-          }
-          onLeave={
-            game.handleLeave
-          }
+          onStartGame={game.handleStartGame}
+          onLeave={game.handleLeave}
         />
       );
 
@@ -95,23 +77,17 @@ function GuessTheSong() {
           previewUrl={game.previewUrl}
           artwork={game.artwork}
           round={game.round}
-          totalRounds={
-            game.totalRounds
-          }
+          totalRounds={game.totalRounds}
           timeLeft={game.timeLeft}
           guess={game.guess}
           setGuess={game.setGuess}
-          guessResult={
-            game.guessResult
-          }
-          pointsWon={
-            game.pointsWon
-          }
+          guessResult={game.guessResult}
+          pointsWon={game.pointsWon}
           players={game.players}
           playerId={game.playerId}
-          onGuess={
-            game.handleGuess
-          }
+          hint={game.hint}
+          revealedCount={game.revealedCount}
+          onGuess={game.handleGuess}
         />
       );
 
@@ -119,12 +95,8 @@ function GuessTheSong() {
       return (
         <RoundFinished
           round={game.round}
-          totalRounds={
-            game.totalRounds
-          }
-          roundSong={
-            game.roundSong
-          }
+          totalRounds={game.totalRounds}
+          roundSong={game.roundSong}
           winner={game.winner}
           players={game.players}
         />
@@ -135,9 +107,7 @@ function GuessTheSong() {
         <GameFinished
           players={game.players}
           playerId={game.playerId}
-          onReturnToLobby={
-            game.handleReturnToLobby
-          }
+          onReturnToLobby={game.handleReturnToLobby}
         />
       );
 
