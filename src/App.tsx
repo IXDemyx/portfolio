@@ -8,6 +8,7 @@ import Footer from "./components/Footer";
 import Timeline from "./components/Timeline";
 import Legal from "./pages/Legal";
 import Privacy from "./pages/Privacy";
+import GuessTheSong from "./pages/GuessTheSong";
 
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
@@ -60,6 +61,18 @@ function App() {
             <>
               <main>
                 <Privacy language={language} />
+              </main>
+
+              <Footer language={language} />
+            </>
+          }
+        />
+        <Route
+          path="/guess-the-song"
+          element={
+            <>
+              <main>
+                <GuessTheSong />
               </main>
 
               <Footer language={language} />
