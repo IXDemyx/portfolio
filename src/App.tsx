@@ -10,7 +10,7 @@ import Legal from "./pages/Legal";
 import Privacy from "./pages/Privacy";
 
 import { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
 
 export type Language = "de" | "en";
@@ -66,6 +66,7 @@ function App() {
             </>
           }
         />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </div>
   );
