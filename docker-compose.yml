@@ -1,0 +1,13 @@
+# Startet Portfolio und Games zusammen: docker compose up --build
+services:
+  portfolio:
+    build: .
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+
+  games:
+    build: ./games
+    ports:
+      - "3001:3001"
+    restart: unless-stopped
