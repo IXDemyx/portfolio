@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from "react";
-import { FiCalendar, FiMusic, FiPenTool } from "react-icons/fi";
+import { FaDiceFive } from "react-icons/fa";
+import { FiCalendar, FiClock, FiMusic, FiPenTool } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import type { Ack, Game } from "../../../shared/types";
 import Button from "../components/Button";
@@ -16,8 +17,10 @@ function Home() {
   const [busy, setBusy] = useState(false);
 
   const games = [
-    { id: "song" as Game, icon: FiMusic, title: "Guess the Song", text: t.home.songText },
-    { id: "year" as Game, icon: FiCalendar, title: "Guess the Year", text: t.home.yearText },
+    { id: "song" as Game, icon: FiMusic, title: "Guess the Song", meta: t.home.meta, text: t.home.songText },
+    { id: "year" as Game, icon: FiCalendar, title: "Guess the Year", meta: t.home.meta, text: t.home.yearText },
+    { id: "timeline" as Game, icon: FiClock, title: "Song Timeline", meta: t.home.meta, text: t.home.timelineText },
+    { id: "kniffel" as Game, icon: FaDiceFive, title: t.home.kniffelTitle, meta: t.home.kniffelMeta, text: t.home.kniffelText },
   ];
   const validName = name.trim().length > 0;
 
@@ -92,8 +95,8 @@ function Home() {
         )}
       </section>
 
-      <div className="grid gap-6 md:grid-cols-3">
-        {games.map(({ id, icon: Icon, title, text }) => (
+      <div className="grid gap-6 md:grid-cols-2">
+        {games.map(({ id, icon: Icon, title, meta, text }) => (
           <article key={id} className={`${card} flex flex-col p-6`}>
             <div className="flex items-center gap-3">
               <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-(--accent) text-xl text-slate-950">
@@ -101,7 +104,7 @@ function Home() {
               </span>
               <div>
                 <h2 className="text-lg font-bold tracking-tight">{title}</h2>
-                <p className="text-xs text-(--text-secondary)">{t.home.meta}</p>
+                <p className="text-xs text-(--text-secondary)">{meta}</p>
               </div>
             </div>
             <p className="mt-4 flex-1 text-sm text-(--text-secondary)">{text}</p>
