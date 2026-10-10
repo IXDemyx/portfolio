@@ -25,6 +25,20 @@ const profile = {
       },
     },
     {
+      name: "TypeScript",
+      description: {
+        de: "Typsicheres JavaScript",
+        en: "Typed JavaScript",
+      },
+    },
+    {
+      name: "Node.js",
+      description: {
+        de: "Server & Echtzeit",
+        en: "Server & Real-time",
+      },
+    },
+    {
       name: "Vue.js",
       description: {
         de: "Progressives Framework",
@@ -74,6 +88,13 @@ const profile = {
       },
     },
     {
+      name: "Tailwind CSS",
+      description: {
+        de: "Styling",
+        en: "Styling",
+      },
+    },
+    {
       name: "Git",
       description: {
         de: "Versionsverwaltung",
@@ -99,4 +120,4 @@ const profile = {
   }
 };
 
-export default profile;
+export default profile;

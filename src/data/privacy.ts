@@ -28,56 +28,33 @@ const privacy = {
       },
     },
 
-    vercel: {
+    hosting: {
       title: {
-        de: "3. Hosting mit Vercel",
-        en: "3. Hosting with Vercel",
+        de: "3. Hosting und Cloudflare",
+        en: "3. Hosting and Cloudflare",
       },
 
       paragraphs: {
         de: [
-          "Diese Website wird über Vercel bereitgestellt. Anbieter ist die Vercel Inc., 440 N Barranca Avenue #4133, Covina, CA 91723, USA.",
-          "Beim Aufruf dieser Website können technische Daten verarbeitet werden, die für die Auslieferung und Sicherheit der Website erforderlich sind. Dazu können insbesondere die IP-Adresse, Logdaten, Informationen zum verwendeten Browser und Betriebssystem sowie Zeitpunkt und Art des Seitenaufrufs gehören.",
+          "Diese Website läuft auf einem eigenen Server. Die Verbindung dorthin wird über Cloudflare bereitgestellt. Anbieter ist die Cloudflare, Inc., 101 Townsend St., San Francisco, CA 94107, USA.",
+          "Cloudflare leitet die Anfragen weiter, schützt die Website vor Angriffen und verarbeitet dabei technische Daten, die für die Auslieferung und Sicherheit der Website erforderlich sind. Dazu gehören insbesondere die IP-Adresse, Datum und Uhrzeit des Zugriffs sowie Informationen zu Browser und Betriebssystem.",
           "Die Verarbeitung erfolgt auf Grundlage meines berechtigten Interesses an einer sicheren, zuverlässigen und effizienten Bereitstellung dieser Website gemäß Art. 6 Abs. 1 lit. f DSGVO.",
-          "Da Vercel ein Unternehmen mit Sitz in den USA ist, kann eine Verarbeitung personenbezogener Daten auch außerhalb der Europäischen Union stattfinden.",
+          "Da Cloudflare ein Unternehmen mit Sitz in den USA ist, kann eine Verarbeitung personenbezogener Daten auch außerhalb der Europäischen Union stattfinden. Cloudflare ist nach dem EU-US Data Privacy Framework zertifiziert.",
         ],
 
         en: [
-          "This website is hosted using Vercel. The provider is Vercel Inc., 440 N Barranca Avenue #4133, Covina, CA 91723, USA.",
-          "When this website is accessed, technical data required to deliver and secure the website may be processed. This may include your IP address, log data, information about your browser and operating system, as well as the time and type of the request.",
+          "This website runs on my own server. The connection to it is provided via Cloudflare. The provider is Cloudflare, Inc., 101 Townsend St., San Francisco, CA 94107, USA.",
+          "Cloudflare forwards requests, protects the website against attacks and processes technical data required to deliver and secure the website. This includes in particular your IP address, the date and time of access and information about your browser and operating system.",
           "Processing is based on my legitimate interest in providing this website securely, reliably and efficiently pursuant to Art. 6(1)(f) GDPR.",
-          "As Vercel is a company based in the United States, personal data may also be processed outside the European Union.",
-        ],
-      },
-    },
-
-    googleFonts: {
-      title: {
-        de: "4. Google Fonts",
-        en: "4. Google Fonts",
-      },
-
-      paragraphs: {
-        de: [
-          "Diese Website verwendet Google Fonts zur einheitlichen Darstellung von Schriftarten. Anbieter ist Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland.",
-          "Beim Aufruf einer Seite lädt Ihr Browser die benötigten Schriftarten direkt von Servern von Google. Dabei wird eine Verbindung zu Google hergestellt. Google erhält dabei unter anderem Ihre IP-Adresse, die angeforderte URL sowie Informationen über Ihren Browser, Ihr Betriebssystem und die zuvor aufgerufene beziehungsweise einbindende Seite.",
-          "Google gibt an, dass die Google Fonts Web API keine Cookies setzt und die über Google Fonts erhobenen Informationen nicht zur Erstellung von Nutzerprofilen oder für zielgerichtete Werbung verwendet werden.",
-          "Die Verwendung erfolgt zur einheitlichen und ansprechenden Darstellung dieser Website. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Mein berechtigtes Interesse liegt in einer konsistenten Darstellung der Website.",
-        ],
-
-        en: [
-          "This website uses Google Fonts to provide a consistent display of fonts. The provider is Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland.",
-          "When a page is accessed, your browser loads the required fonts directly from Google's servers. This establishes a connection to Google. Google may receive information including your IP address, the requested URL, information about your browser and operating system, and the referring page.",
-          "Google states that the Google Fonts Web API does not set cookies and that information collected through Google Fonts is not used to create user profiles or for targeted advertising.",
-          "Google Fonts are used to provide a consistent and visually appealing presentation of this website. Processing is based on Art. 6(1)(f) GDPR. My legitimate interest is the consistent presentation of the website.",
+          "As Cloudflare is a company based in the United States, personal data may also be processed outside the European Union. Cloudflare is certified under the EU-US Data Privacy Framework.",
         ],
       },
     },
 
     email: {
       title: {
-        de: "5. Kontaktaufnahme per E-Mail",
-        en: "5. Contact by Email",
+        de: "4. Kontaktaufnahme per E-Mail",
+        en: "4. Contact by Email",
       },
 
       paragraphs: {
@@ -95,8 +72,8 @@ const privacy = {
 
     externalLinks: {
       title: {
-        de: "6. Externe Links",
-        en: "6. External Links",
+        de: "5. Externe Links",
+        en: "5. External Links",
       },
 
       paragraphs: {
@@ -112,8 +89,8 @@ const privacy = {
 
     cookies: {
       title: {
-        de: "7. Cookies und Tracking",
-        en: "7. Cookies and Tracking",
+        de: "6. Cookies und Tracking",
+        en: "6. Cookies and Tracking",
       },
 
       paragraphs: {
@@ -129,8 +106,8 @@ const privacy = {
 
     rights: {
       title: {
-        de: "8. Ihre Rechte",
-        en: "8. Your Rights",
+        de: "7. Ihre Rechte",
+        en: "7. Your Rights",
       },
 
       paragraphs: {
@@ -150,8 +127,8 @@ const privacy = {
 
     changes: {
       title: {
-        de: "9. Änderung dieser Datenschutzerklärung",
-        en: "9. Changes to this Privacy Policy",
+        de: "8. Änderung dieser Datenschutzerklärung",
+        en: "8. Changes to this Privacy Policy",
       },
 
       paragraphs: {

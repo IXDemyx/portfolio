@@ -6,9 +6,10 @@ import {
   FaJava,
   FaDocker,
   FaGitAlt,
+  FaNodeJs,
 } from "react-icons/fa";
 
-import { SiMysql, SiCplusplus } from "react-icons/si";
+import { SiMysql, SiCplusplus, SiTailwindcss, SiTypescript } from "react-icons/si";
 import type { IconType } from "react-icons";
 
 interface SkillCardProps {
@@ -26,6 +27,21 @@ const skillIcons: Record<
   React: {
     icon: FaReact,
     color: "text-sky-400",
+  },
+
+  TypeScript: {
+    icon: SiTypescript,
+    color: "text-blue-500",
+  },
+
+  "Node.js": {
+    icon: FaNodeJs,
+    color: "text-green-600",
+  },
+
+  "Tailwind CSS": {
+    icon: SiTailwindcss,
+    color: "text-cyan-400",
   },
 
   "Vue.js": {

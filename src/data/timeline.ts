@@ -16,6 +16,27 @@ const timeline = {
 
   items: [
     {
+      date: {
+        de: "Seit 2026",
+        en: "Since 2026",
+      },
+
+      title: {
+        de: "Anwendungsentwickler",
+        en: "Application Developer",
+      },
+
+      company: "Personalhaus Gruppe",
+
+      description: {
+        de: "Entwicklung und Betreuung von Webseiten sowie interner Lösungen und Automatisierungen.",
+        en: "Development and maintenance of websites as well as internal solutions and automations.",
+      },
+
+      technologies: ["WordPress", "Python", "TypeScript"],
+    },
+
+    {
       date: "2025 – 2026",
 
       title: {

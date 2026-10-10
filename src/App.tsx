@@ -9,14 +9,35 @@ import Timeline from "./components/Timeline";
 import Legal from "./pages/Legal";
 import Privacy from "./pages/Privacy";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
 
 export type Language = "de" | "en";
 
+/** Gespeicherte Sprache, sonst die des Browsers (Deutsch für alle „de-…“, sonst Englisch). */
+function getInitialLanguage(): Language {
+  try {
+    const saved = localStorage.getItem("language");
+    if (saved === "de" || saved === "en") return saved;
+  } catch {
+    // Ohne Speicher einfach nach dem Browser gehen.
+  }
+  return navigator.language.toLowerCase().startsWith("de") ? "de" : "en";
+}
+
 function App() {
-  const [language, setLanguage] = useState<Language>("en");
+  const [language, setLanguage] = useState<Language>(getInitialLanguage);
+
+  // Wahl merken und dem Browser, Google und Screenreadern die Sprache mitteilen.
+  useEffect(() => {
+    document.documentElement.lang = language;
+    try {
+      localStorage.setItem("language", language);
+    } catch {
+      // Ohne Speicher gilt die Wahl nur bis zum Neuladen.
+    }
+  }, [language]);
 
   return (
     <div className="overflow-x-clip">

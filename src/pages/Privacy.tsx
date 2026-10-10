@@ -9,8 +9,7 @@ interface PrivacyProps {
 function Privacy({ language }: PrivacyProps) {
   const sections = [
     privacy.sections.general,
-    privacy.sections.vercel,
-    privacy.sections.googleFonts,
+    privacy.sections.hosting,
     privacy.sections.email,
     privacy.sections.externalLinks,
     privacy.sections.cookies,

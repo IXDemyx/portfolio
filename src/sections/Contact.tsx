@@ -15,11 +15,6 @@ function Contact({ language }: ContactProps) {
       <div className="mx-auto max-w-6xl">
         <Reveal>
           <div className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white px-6 py-12 shadow-sm sm:px-10 lg:px-14 dark:border-(--accent-border) dark:bg-(--bg-secondary)">
-            <div
-              aria-hidden="true"
-              className="absolute -right-20 -top-20 h-64 w-64 rounded-full"
-            />
-
             <div className="relative max-w-3xl">
               <p className="font-mono text-sm font-semibold uppercase tracking-[0.2em] text-(--accent)">
                 {contact.subtitle[language]}

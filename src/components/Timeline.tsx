@@ -30,7 +30,7 @@ function Timeline({ language }: TimelineProps) {
         <div className="space-y-14">
           {timeline.items.map((item, index) => (
             <Reveal
-              key={`${item.date}-${item.title.en}`}
+              key={item.title.en}
               delay={index * 0.08}
               className={`relative flex flex-col md:w-1/2 ${
                 index % 2 === 0 ? "md:pr-12" : "md:ml-auto md:pl-12"
@@ -47,7 +47,7 @@ function Timeline({ language }: TimelineProps) {
 
               <div className="ml-10 md:ml-0">
                 <span className="font-mono text-sm font-semibold text-(--accent)">
-                  {item.date}
+                  {typeof item.date === "string" ? item.date : item.date[language]}
                 </span>
 
                 <h3 className="mt-2 text-xl font-bold text-slate-950 dark:text-(--text-primary)">
@@ -81,4 +81,4 @@ function Timeline({ language }: TimelineProps) {
   );
 }
 
-export default Timeline;
+export default Timeline;

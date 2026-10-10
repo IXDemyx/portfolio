@@ -1,15 +1,25 @@
 <!doctype html>
-<html lang="en">
+<html lang="de">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Design und Sprache schon vor dem ersten Zeichnen setzen – sonst blitzt kurz das helle Design auf. -->
+    <script>
+      (function () {
+        try {
+          var theme = localStorage.getItem("theme");
+          if (theme !== "light" && theme !== "dark") {
+            theme = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+          }
+          document.documentElement.classList.toggle("dark", theme === "dark");
+          var lang = localStorage.getItem("language");
+          if (lang === "de" || lang === "en") document.documentElement.lang = lang;
+        } catch (e) {}
+      })();
+    </script>
     <title>Daniel Keller | Portfolio</title>
     <meta
       name="description"
@@ -22,7 +32,7 @@
     <meta name="author" content="Daniel Keller" />
 
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Daniel Keller | Software Developer" />
+    <meta property="og:title" content="Daniel Keller – Softwareentwickler" />
     <meta
       property="og:description"
       content="Portfolio von Daniel Keller – moderne Webentwicklung mit React, TypeScript und Python."

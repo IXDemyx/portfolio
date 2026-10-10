@@ -24,6 +24,11 @@ const projectsSection = {
     en: "Live demo",
   },
 
+  moreOnGithub: {
+    de: "Weitere Projekte auf GitHub →",
+    en: "More projects on GitHub →",
+  },
+
   projectLabel: {
     de: "Projekt",
     en: "Project",

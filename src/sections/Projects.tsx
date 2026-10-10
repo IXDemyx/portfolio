@@ -3,6 +3,8 @@ import projectsSection from "../data/projectsSection";
 import ProjectCard from "../components/ProjectCard";
 import SectionHeading from "../components/SectionHeading";
 import Reveal from "../components/Reveal";
+import { FaGithub } from "react-icons/fa";
+import profile from "../data/profile";
 import type { Language } from "../App";
 
 interface ProjectsProps {
@@ -15,7 +17,7 @@ function Projects({ language }: ProjectsProps) {
       id="projects"
       className="border-y border-slate-200/70 bg-transparent px-6 py-24 dark:border-(--accent-soft)"
     >
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto max-w-6xl">
         <Reveal>
           <SectionHeading
             subtitle={projectsSection.subtitle[language]}
@@ -37,6 +39,20 @@ function Projects({ language }: ProjectsProps) {
             </Reveal>
           ))}
         </div>
+
+        <Reveal>
+          <p className="mt-10 text-center">
+            <a
+              href={profile.github}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 font-medium text-slate-600 transition hover:text-(--accent) dark:text-(--text-secondary) dark:hover:text-(--accent)"
+            >
+              <FaGithub aria-hidden="true" />
+              {projectsSection.moreOnGithub[language]}
+            </a>
+          </p>
+        </Reveal>
       </div>
     </section>
   );
