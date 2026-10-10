@@ -19,6 +19,28 @@ export interface Project {
 
 const projects: Project[] = [
   {
+    id: "games",
+
+    title: {
+      de: "Multiplayer-Partyspiele",
+      en: "Multiplayer Party Games",
+    },
+
+    description: {
+      de: "Echtzeit-Partyspiele im Browser – Song erraten, Stadt Land Fluss, Kniffel und mehr. Räume per Link, Chat und Spiellogik auf dem Server.",
+      en: "Real-time party games in the browser – Guess the Song, Name Place Animal Thing, Yahtzee and more. Rooms via link, chat and server-side game logic.",
+    },
+
+    technologies: ["React", "TypeScript", "Socket.IO", "Node.js", "Tailwind CSS", "Docker"],
+
+    github: "https://github.com/IXDemyx/portfolio/tree/main/games",
+
+    demo: "https://games.daniel-keller.dev",
+
+    image: "/projects/games.png",
+  },
+
+  {
     id: "portfolio",
 
     title: {
