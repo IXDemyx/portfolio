@@ -4,7 +4,7 @@ My personal portfolio – skills, selected projects and experience as a software
 built with **React**, **TypeScript** and **Tailwind CSS**. Live at <https://daniel-keller.dev>.
 
 The repository also contains [`games/`](games/README.md): multiplayer party games in the
-browser (Guess the Song, Stadt Land Fluss, Draw & Guess, Yahtzee, …), live at
+browser (Guess the Song, Stadt Land Fluss, Draw & Guess, Country Quiz, Yahtzee, …), live at
 <https://games.daniel-keller.dev>.
 
 ## Tech Stack
