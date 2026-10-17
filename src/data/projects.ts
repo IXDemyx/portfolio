@@ -35,7 +35,7 @@ const projects: Project[] = [
 
     github: "https://github.com/IXDemyx/portfolio/tree/main/games",
 
-    demo: "https://games.daniel-keller.dev",
+    demo: "https://cozynyte.com",
 
     image: "/projects/games.png",
   },

@@ -5,7 +5,7 @@ built with **React**, **TypeScript** and **Tailwind CSS**. Live at <https://dani
 
 The repository also contains [`games/`](games/README.md): multiplayer party games in the
 browser (Guess the Song, Stadt Land Fluss, Draw & Guess, Country Quiz, Yahtzee, …), live at
-<https://games.daniel-keller.dev>.
+<https://cozynyte.com>.
 
 ## Tech Stack
 
