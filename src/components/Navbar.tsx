@@ -9,6 +9,10 @@ interface NavbarProps {
   setLanguage: (language: Language) => void;
 }
 
+
+// Abschnitte der Startseite – in beiden Sprachen gleich, daher außerhalb der Komponente.
+const SECTION_IDS = ["home", "about", "experience", "skills", "projects", "contact"];
+
 function Navbar({ language, setLanguage }: NavbarProps) {
   const [activeSection, setActiveSection] = useState("home");
   const [menuOpen, setMenuOpen] = useState(false);
@@ -83,8 +87,8 @@ function Navbar({ language, setLanguage }: NavbarProps) {
     if (!isHomePage) return;
 
     const handleScroll = () => {
-      const sections = links
-        .map((link) => document.getElementById(link.id))
+      const sections = SECTION_IDS
+        .map((id) => document.getElementById(id))
         .filter(
           (section): section is HTMLElement =>
             Boolean(section)

@@ -19,16 +19,16 @@ export interface Project {
 
 const projects: Project[] = [
   {
-    id: "games",
+    id: "cozynyte",
 
     title: {
-      de: "Multiplayer-Partyspiele",
-      en: "Multiplayer Party Games",
+      de: "Cozynyte",
+      en: "Cozynyte",
     },
 
     description: {
-      de: "Echtzeit-Partyspiele im Browser – Song erraten, Stadt Land Fluss, Kniffel und mehr. Räume per Link, Chat und Spiellogik auf dem Server.",
-      en: "Real-time party games in the browser – Guess the Song, Name Place Animal Thing, Yahtzee and more. Rooms via link, chat and server-side game logic.",
+      de: "Gemütliche Multiplayer-Partyspiele im Browser – Song erraten, Stadt Land Fluss, Montagsmaler, Länder-Quiz, Kniffel und mehr. Räume per Link, Chat und Spiellogik in Echtzeit auf dem eigenen Server.",
+      en: "Cozy multiplayer party games in the browser – Guess the Song, Name Place Animal Thing, Draw & Guess, Country Quiz, Yahtzee and more. Rooms via link, chat and real-time game logic on my own server.",
     },
 
     technologies: ["React", "TypeScript", "Socket.IO", "Node.js", "Tailwind CSS", "Docker"],
