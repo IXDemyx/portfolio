@@ -7,11 +7,3 @@ services:
     restart: unless-stopped
     ports:
       - "5173:80"
-
-  games:
-    build:
-      context: ./games
-    container_name: portfolio-games
-    restart: unless-stopped
-    ports:
-      - "1337:3001"

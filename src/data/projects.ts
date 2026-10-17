@@ -33,7 +33,7 @@ const projects: Project[] = [
 
     technologies: ["React", "TypeScript", "Socket.IO", "Node.js", "Tailwind CSS", "Docker"],
 
-    github: "https://github.com/IXDemyx/portfolio/tree/main/games",
+    github: "https://github.com/IXDemyx/cozynyte",
 
     demo: "https://cozynyte.com",
 

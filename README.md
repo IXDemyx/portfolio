@@ -3,9 +3,9 @@
 My personal portfolio – skills, selected projects and experience as a software developer –
 built with **React**, **TypeScript** and **Tailwind CSS**. Live at <https://daniel-keller.dev>.
 
-The repository also contains [`games/`](games/README.md): multiplayer party games in the
-browser (Guess the Song, Stadt Land Fluss, Draw & Guess, Country Quiz, Yahtzee, …), live at
-<https://cozynyte.com>.
+My multiplayer party games – Guess the Song, Stadt Land Fluss, Draw & Guess, Country Quiz,
+Yahtzee and more – live in their own repository: [Cozynyte](https://github.com/IXDemyx/cozynyte),
+playable at <https://cozynyte.com>.
 
 ## Tech Stack
 
@@ -23,9 +23,7 @@ npm install
 npm run dev
 ```
 
-`npm run dev` starts the portfolio on <http://localhost:5173> **and** the games on
-<http://localhost:5174> (run `npm install` in `games/` once beforehand).
-Portfolio only: `npm run dev:portfolio`.
+`npm run dev` starts the portfolio on <http://localhost:5173>.
 
 Other scripts:
 
@@ -41,12 +39,8 @@ Other scripts:
 docker compose up -d --build
 ```
 
-| Service    | Port   | Contents                                          |
-| ---------- | ------ | ------------------------------------------------- |
-| `frontend` | `5173` | Portfolio, served by nginx                        |
-| `games`    | `1337` | Games: frontend, API and WebSockets (Node server) |
-
-In production both run on a home server behind a Cloudflare Tunnel.
+The portfolio is then served by nginx on <http://localhost:5173>. In production it runs on a
+home server behind a Cloudflare Tunnel.
 
 ## License
 

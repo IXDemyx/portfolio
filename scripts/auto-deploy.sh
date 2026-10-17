@@ -2,7 +2,7 @@
 # Automatisches Deployment für den Server.
 #
 # Schaut auf GitHub nach neuen Commits auf `main`. Gibt es welche, holt es sie und baut die
-# Container (Portfolio + Games) neu. Ohne Änderungen passiert nichts – das Skript kann also
+# Portfolio-Container neu. Ohne Änderungen passiert nichts – das Skript kann also
 # gefahrlos alle paar Minuten per cron laufen:
 #
 #   */5 * * * * bash /pfad/zum/portfolio/scripts/auto-deploy.sh >> $HOME/portfolio-deploy.log 2>&1
