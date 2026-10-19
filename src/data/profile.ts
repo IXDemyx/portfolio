@@ -105,7 +105,7 @@ const profile = {
 
   github: "https://github.com/IXDemyx",
   linkedin: "https://www.linkedin.com/in/daniel-k-7090003b9/",
-  email: "kellerdaniel@tutamail.com",
+  email: "contact@daniel-keller.dev",
 
   location: {
     de: "Deutschland",
@@ -120,4 +120,4 @@ const profile = {
   }
 };
 
-export default profile;
+export default profile;
